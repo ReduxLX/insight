@@ -4,7 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingStart="35dp"
+    android:paddingRight="35dp"
     tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/buttonChat"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:background="@color/colorPrimary"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Open chat"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/placeholder_label_counter" />
 
     <TextView
         android:id="@+id/placeholder_label_counter"

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/tutorDiscoverFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -22,7 +22,11 @@
         tools:layout="@layout/fragment_student_bids">
         <action
             android:id="@+id/action_studentBidsFragment_to_studentCounterBidsFragment"
-            app:destination="@id/studentCounterBidsFragment" />
+            app:destination="@id/studentCounterBidsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/studentCounterBidsFragment"
@@ -31,7 +35,11 @@
         tools:layout="@layout/fragment_student_counter_bids">
         <action
             android:id="@+id/action_studentCounterBidsFragment_to_chatFragment"
-            app:destination="@id/chatFragment" />
+            app:destination="@id/chatFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/studentDiscoverFragment"
@@ -39,8 +47,12 @@
         android:label="StudentDiscoverFragment"
         tools:layout="@layout/fragment_student_discover">
         <action
-            android:id="@+id/action_studentDiscoverFragment_to_studentBidsFragment2"
-            app:destination="@id/studentBidsFragment" />
+            android:id="@+id/action_studentDiscoverFragment_to_studentBidsFragment"
+            app:destination="@id/studentBidsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/tutorBidsFragment"
@@ -49,7 +61,11 @@
         tools:layout="@layout/fragment_tutor_bids">
         <action
             android:id="@+id/action_tutorBidsFragment_to_chatFragment"
-            app:destination="@id/chatFragment" />
+            app:destination="@id/chatFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/tutorDiscoverFragment"
@@ -58,7 +74,11 @@
         tools:layout="@layout/fragment_tutor_discover">
         <action
             android:id="@+id/action_tutorDiscoverFragment_to_tutorViewBidFragment"
-            app:destination="@id/tutorViewBidFragment" />
+            app:destination="@id/tutorViewBidFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/tutorViewBidFragment"
@@ -67,14 +87,22 @@
         tools:layout="@layout/fragment_tutor_view_bid">
         <action
             android:id="@+id/action_tutorViewBidFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_tutorViewBidFragment_to_tutorBidsFragment"
-            app:destination="@id/tutorBidsFragment" />
+            app:destination="@id/tutorBidsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.insight.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile" />
 </navigation>
