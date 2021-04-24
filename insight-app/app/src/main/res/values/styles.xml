@@ -9,6 +9,29 @@
         <item name="android:textColor">#000000</item>
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
+        <item name="android:statusBarColor">@color/colorWhite</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="actionBarStyle">@style/AppTheme.ActionBar</item>
+        <item name="drawerArrowStyle">@style/MyDrawerArrowToggle</item>
+    </style>
+
+<!--    Styles for AppBar-->
+    <style name="AppTheme.ActionBar" parent="Widget.AppCompat.Light.ActionBar">
+        <item name="android:titleTextStyle">@style/AppTheme.ActionBar.TitleText</item>
+        <item name="titleTextStyle">@style/AppTheme.ActionBar.TitleText</item>
+        <item name="background">@color/colorWhite</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+<!--    Styles for AppBar Title text-->
+    <style name="AppTheme.ActionBar.TitleText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+<!--        <item name="android:textSize">15dp</item>-->
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+<!--    Styles for back arrow-->
+    <style name="MyDrawerArrowToggle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/textColorPrimary</item>
     </style>
 
 </resources>
