@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.insight.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home"/>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.example.insight.ChatFragment"
+        android:label="ChatFragment"
+        tools:layout="@layout/fragment_chat"/>
+    <fragment
+        android:id="@+id/studentBidsFragment"
+        android:name="com.example.insight.StudentBidsFragment"
+        android:label="StudentBidsFragment"
+        tools:layout="@layout/fragment_student_bids">
+        <action
+            android:id="@+id/action_studentBidsFragment_to_studentCounterBidsFragment"
+            app:destination="@id/studentCounterBidsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentCounterBidsFragment"
+        android:name="com.example.insight.StudentCounterBidsFragment"
+        android:label="StudentCounterBidsFragment"
+        tools:layout="@layout/fragment_student_counter_bids">
+        <action
+            android:id="@+id/action_studentCounterBidsFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentDiscoverFragment"
+        android:name="com.example.insight.StudentDiscoverFragment"
+        android:label="StudentDiscoverFragment"
+        tools:layout="@layout/fragment_student_discover">
+        <action
+            android:id="@+id/action_studentDiscoverFragment_to_studentBidsFragment2"
+            app:destination="@id/studentBidsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tutorBidsFragment"
+        android:name="com.example.insight.TutorBidsFragment"
+        android:label="TutorBidsFragment"
+        tools:layout="@layout/fragment_tutor_bids">
+        <action
+            android:id="@+id/action_tutorBidsFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tutorDiscoverFragment"
+        android:name="com.example.insight.TutorDiscoverFragment"
+        android:label="TutorDiscoverFragment"
+        tools:layout="@layout/fragment_tutor_discover">
+        <action
+            android:id="@+id/action_tutorDiscoverFragment_to_tutorViewBidFragment"
+            app:destination="@id/tutorViewBidFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tutorViewBidFragment"
+        android:name="com.example.insight.TutorViewBidFragment"
+        android:label="TutorViewBidFragment"
+        tools:layout="@layout/fragment_tutor_view_bid">
+        <action
+            android:id="@+id/action_tutorViewBidFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_tutorViewBidFragment_to_tutorBidsFragment"
+            app:destination="@id/tutorBidsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.insight.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile"/>
+</navigation>
