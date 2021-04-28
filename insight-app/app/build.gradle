@@ -47,4 +47,7 @@ dependencies {
 
     // Jetpack Compose Integration
     implementation "androidx.navigation:navigation-compose:1.0.0-alpha10"
+
+    // Volley HTTP library
+    implementation 'com.android.volley:volley:1.2.0'
 }

@@ -7,7 +7,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.HashSet;
@@ -21,6 +20,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setupNavigation();
+    }
+
+    private void setupNavigation(){
         // Find Nav Controller
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
     }
+
 
     // Make the back button work
     @Override
