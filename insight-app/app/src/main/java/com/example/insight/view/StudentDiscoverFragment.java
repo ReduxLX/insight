@@ -1,4 +1,4 @@
-package com.example.insight;
+package com.example.insight.view;
 
 import android.os.Bundle;
 
@@ -11,13 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.insight.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TutorDiscoverFragment extends Fragment implements View.OnClickListener {
+public class StudentDiscoverFragment extends Fragment implements View.OnClickListener {
 
-    public TutorDiscoverFragment() {
+    public StudentDiscoverFragment() {
         // Required empty public constructor
     }
 
@@ -25,26 +27,26 @@ public class TutorDiscoverFragment extends Fragment implements View.OnClickListe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_tutor_discover, container, false);
+        View root = inflater.inflate(R.layout.fragment_student_discover, container, false);
 
-        Button buttonViewStudentBid = view.findViewById(R.id.buttonViewStudentBid);
-        buttonViewStudentBid.setOnClickListener(this);
-        return view;
+        Button buttonPostBid = root.findViewById(R.id.buttonPostBid);
+        buttonPostBid.setOnClickListener(this);
+        return root;
     }
 
     // Intercept and handles fragment click events
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.buttonViewStudentBid:
+            case R.id.buttonPostBid:
                 navigate();
                 break;
         }
     }
 
-    // Navigate to TutorViewBid fragment after tutor clicks on a student's bid to see more details
+    // Navigate to StudentDiscover fragment after student posts a bid
     private void navigate(){
-        NavDirections navAction = TutorDiscoverFragmentDirections.actionTutorDiscoverFragmentToTutorViewBidFragment();
+        NavDirections navAction = StudentDiscoverFragmentDirections.actionStudentDiscoverFragmentToStudentBidsFragment();
         NavHostFragment.findNavController(this).navigate(navAction);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.insight;
+package com.example.insight.view;
 
 import android.os.Bundle;
 
@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.example.insight.R;
 
 
 /**
@@ -25,13 +27,13 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_tutor_view_bid, container, false);
+        View root = inflater.inflate(R.layout.fragment_tutor_view_bid, container, false);
 
-        Button buttonBuyoutBid = view.findViewById(R.id.buttonBuyoutBid);
-        Button buttonSendCounterBid = view.findViewById(R.id.buttonSendCounterBid);
+        Button buttonBuyoutBid = root.findViewById(R.id.buttonBuyoutBid);
+        Button buttonSendCounterBid = root.findViewById(R.id.buttonSendCounterBid);
         buttonBuyoutBid.setOnClickListener(this);
         buttonSendCounterBid.setOnClickListener(this);
-        return view;
+        return root;
     }
 
     // Intercept and handles fragment click events

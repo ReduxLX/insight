@@ -1,4 +1,4 @@
-package com.example.insight;
+package com.example.insight.service;
 
 import android.content.Context;
 
@@ -6,9 +6,10 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
+
 /**
- * Singleton class which encapsulates Volley's RequestQueue allowing a single instance
- * to be used throughout the app's lifetime
+ * Singleton class which encapsulates Volley's RequestQueue and other Volley functionality
+ * Used to ensure that only one RequestQueue is used throughout the app's lifespan
  */
 public class VolleyController {
     private static VolleyController instance;

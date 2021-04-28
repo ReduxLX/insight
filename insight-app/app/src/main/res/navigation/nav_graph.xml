@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.insight.HomeFragment"
+        android:name="com.example.insight.view.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home"/>
     <fragment
         android:id="@+id/chatFragment"
-        android:name="com.example.insight.ChatFragment"
+        android:name="com.example.insight.view.ChatFragment"
         android:label="ChatFragment"
         tools:layout="@layout/fragment_chat"/>
     <fragment
         android:id="@+id/studentBidsFragment"
-        android:name="com.example.insight.StudentBidsFragment"
+        android:name="com.example.insight.view.StudentBidsFragment"
         android:label="StudentBidsFragment"
         tools:layout="@layout/fragment_student_bids">
         <action
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/studentCounterBidsFragment"
-        android:name="com.example.insight.StudentCounterBidsFragment"
+        android:name="com.example.insight.view.StudentCounterBidsFragment"
         android:label="StudentCounterBidsFragment"
         tools:layout="@layout/fragment_student_counter_bids">
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/studentDiscoverFragment"
-        android:name="com.example.insight.StudentDiscoverFragment"
+        android:name="com.example.insight.view.StudentDiscoverFragment"
         android:label="StudentDiscoverFragment"
         tools:layout="@layout/fragment_student_discover">
         <action
@@ -56,7 +56,7 @@
     </fragment>
     <fragment
         android:id="@+id/tutorBidsFragment"
-        android:name="com.example.insight.TutorBidsFragment"
+        android:name="com.example.insight.view.TutorBidsFragment"
         android:label="TutorBidsFragment"
         tools:layout="@layout/fragment_tutor_bids">
         <action
@@ -69,7 +69,7 @@
     </fragment>
     <fragment
         android:id="@+id/tutorDiscoverFragment"
-        android:name="com.example.insight.TutorDiscoverFragment"
+        android:name="com.example.insight.view.TutorDiscoverFragment"
         android:label="TutorDiscoverFragment"
         tools:layout="@layout/fragment_tutor_discover">
         <action
@@ -82,7 +82,7 @@
     </fragment>
     <fragment
         android:id="@+id/tutorViewBidFragment"
-        android:name="com.example.insight.TutorViewBidFragment"
+        android:name="com.example.insight.view.TutorViewBidFragment"
         android:label="TutorViewBidFragment"
         tools:layout="@layout/fragment_tutor_view_bid">
         <action
@@ -106,7 +106,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.insight.ProfileFragment"
+        android:name="com.example.insight.view.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile" />
 </navigation>
