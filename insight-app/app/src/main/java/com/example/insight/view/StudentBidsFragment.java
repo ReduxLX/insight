@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.example.insight.R;
+import com.example.insight.model.BidModel;
 import com.example.insight.service.VolleyResponseListener;
 import com.example.insight.service.VolleyUtils;
 
@@ -29,6 +30,8 @@ import org.json.JSONObject;
 public class StudentBidsFragment extends Fragment implements View.OnClickListener {
     // TODO: Replace this with real user's id
     private String userId = "ecc52cc1-a3e4-4037-a80f-62d3799645f4";
+    // TODO: Replace with selected bid's id
+    private String selectedBid = "33c196cf-2208-4c22-9774-dac5cfc66347";
 
     public StudentBidsFragment() {
         // Required empty public constructor
@@ -42,6 +45,10 @@ public class StudentBidsFragment extends Fragment implements View.OnClickListene
 
         Button buttonViewBid = root.findViewById(R.id.buttonViewBid);
         buttonViewBid.setOnClickListener(this);
+
+        // Render current student's bids as cards
+        getStudentBids();
+
         return root;
     }
 
@@ -57,11 +64,11 @@ public class StudentBidsFragment extends Fragment implements View.OnClickListene
 
     // Navigate to StudentCounterBidsFragment (view the selected bid's counter bids by tutors)
     private void navigate(){
-        NavDirections navAction = StudentBidsFragmentDirections.actionStudentBidsFragmentToStudentCounterBidsFragment();
+        NavDirections navAction = StudentBidsFragmentDirections.actionStudentBidsFragmentToStudentCounterBidsFragment(selectedBid);
         NavHostFragment.findNavController(this).navigate(navAction);
     }
 
-    private void getBids(){
+    private void getStudentBids(){
         VolleyResponseListener listener = new VolleyResponseListener() {
             @Override
             public void onResponse(Object response) {
@@ -69,21 +76,11 @@ public class StudentBidsFragment extends Fragment implements View.OnClickListene
                 try{
                     for (int i=0 ; i < bids.length(); i++) {
                         JSONObject bid = bids.getJSONObject(i);
-                        JSONObject initiator = bid.getJSONObject("initiator");
-                        String initiatorId = initiator.getString("id");
-
-                        // Filter bids with student id only
-                        if(initiatorId.equals(userId)){
-                            JSONObject additionalInfo = bid.getJSONObject("additionalInfo");
-                            int competency = additionalInfo.getInt("competency");
-                            int rate = additionalInfo.getInt("rate");
-                            int hoursPerLesson = additionalInfo.getInt("hoursPerLesson");
-                            int lessonsPerWeek = additionalInfo.getInt("lessonsPerWeek");
-                            boolean isRateHourly = additionalInfo.getBoolean("isRateHourly");
-                            boolean isRateWeekly = additionalInfo.getBoolean("isRateWeekly");
-                            JSONArray tutorBids = additionalInfo.getJSONArray("tutorBids");
-                            // TODO: Display all the above info in each card and length of tutorBids
-
+                        Log.i("print", bid.toString());
+                        BidModel bidModel = new BidModel(bid);
+                        // Filter bids matching student's Id
+                        if(userId.equals(bidModel.getStudentId())){
+                            // TODO: Use bidModel getters to display info of each card
                         }
                     }
                 } catch (JSONException e){

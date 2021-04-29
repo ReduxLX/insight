@@ -35,7 +35,8 @@ import java.util.Locale;
  */
 public class TutorViewBidFragment extends Fragment implements View.OnClickListener {
     private TextView tvBidId;
-
+    // TODO: Replace this with current user's Id
+    private String tutorId = "984e7871-ed81-4f75-9524-3d1870788b1f";
     private String viewedBidId;
     private BidModel viewedBid;
 
@@ -45,7 +46,6 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_tutor_view_bid, container, false);
 
@@ -127,12 +127,12 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
         JSONObject additionalInfo = viewedBid.getAdditionalInfo();
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
-        String datePosted = ISO8601.format(currentTime);
+        String currentDate = ISO8601.format(currentTime);
 
         try{
             // Step 1: Construct new tutorBid object
             JSONObject tutorBid = new JSONObject();
-            tutorBid.put("dateCreated", datePosted);
+            tutorBid.put("dateCreated", currentDate);
 
             // TODO: Replace all placeholders with tutor's details (if possible reuse tutor's JSON Object)
             JSONObject tutor = new JSONObject();
@@ -196,15 +196,17 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
         JSONObject jsonBody = viewedBid.getAdditionalInfo();
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
-        String datePosted = ISO8601.format(currentTime);
+        String currentDate = ISO8601.format(currentTime);
 
         try{
-            jsonBody.put("dateClosedDown", datePosted);
+            jsonBody.put("dateClosedDown", currentDate);
 
             VolleyResponseListener listener = new VolleyResponseListener() {
                 @Override
                 public void onResponse(Object response) {
-                    Toast.makeText(getActivity(), "New Contract Formed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Bid bought out", Toast.LENGTH_SHORT).show();
+                    // Form contract and navigate to home page to show the newly formed contract
+                    createContract();
                     navigateHome();
                 }
                 @Override
@@ -216,6 +218,54 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
             VolleyUtils.makeJsonObjectRequest(
                 getActivity(),
                 "bid/"+viewedBidId+"/close-down",
+                Request.Method.POST,
+                jsonBody,
+                listener
+            );
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Forms a new contract between tutor and student after tutor buys out the bid
+     */
+    private void createContract(){
+        JSONObject jsonBody = new JSONObject();
+
+        Calendar cal = Calendar.getInstance();
+        Date currentTime = cal.getTime();
+        cal.add(Calendar.YEAR, 1);
+        Date nextYearTime = cal.getTime();
+        SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
+        String currentDate = ISO8601.format(currentTime);
+        String expiryDate = ISO8601.format(nextYearTime);
+
+        try{
+            // TODO: Replace secondPartyId with tutor's actual id
+            jsonBody.put("firstPartyId", viewedBid.getStudentId());
+            jsonBody.put("secondPartyId", tutorId);
+            jsonBody.put("subjectId", viewedBid.getSubjectId());
+            jsonBody.put("dateCreated", currentDate);
+            jsonBody.put("expiryDate", expiryDate);
+            jsonBody.put("paymentInfo", new JSONObject());
+            jsonBody.put("lessonInfo", new JSONObject());
+            jsonBody.put("additionalInfo", new JSONObject());
+
+            VolleyResponseListener listener = new VolleyResponseListener() {
+                @Override
+                public void onResponse(Object response) {
+                    Toast.makeText(getActivity(), "New Contract Formed", Toast.LENGTH_SHORT).show();
+                }
+                @Override
+                public void onError(String message) {
+                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                }
+            };
+            Log.i("print", jsonBody.toString());
+            VolleyUtils.makeJsonObjectRequest(
+                getActivity(),
+                "contract",
                 Request.Method.POST,
                 jsonBody,
                 listener

@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.example.insight.R;
+import com.example.insight.model.BidModel;
+import com.example.insight.model.SubjectModel;
 import com.example.insight.service.VolleyResponseListener;
 import com.example.insight.service.VolleyUtils;
 
@@ -26,6 +28,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import javax.security.auth.Subject;
 
 
 /**
@@ -66,7 +70,7 @@ public class StudentDiscoverFragment extends Fragment implements View.OnClickLis
         NavHostFragment.findNavController(this).navigate(navAction);
     }
 
-    // TODO: Implement UI and get the json body data from UI instead of placeholders
+    // TODO: Replace placeholders with form input
     private void postBid(){
         JSONObject jsonBody = new JSONObject();
 
@@ -102,7 +106,6 @@ public class StudentDiscoverFragment extends Fragment implements View.OnClickLis
                 }
             };
 
-            Log.i("console_log", jsonBody.toString());
             VolleyUtils.makeJsonObjectRequest(
                 getActivity(),
                 "bid",
@@ -113,5 +116,36 @@ public class StudentDiscoverFragment extends Fragment implements View.OnClickLis
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void getSubjects(){
+        VolleyResponseListener listener = new VolleyResponseListener() {
+            @Override
+            public void onResponse(Object response) {
+                JSONArray subjects = (JSONArray) response;
+                try{
+                    // Loop through all subjects
+                    for (int i=0; i < subjects.length(); i++) {
+                        JSONObject subject = subjects.getJSONObject(i);
+                        SubjectModel subjectModel = new SubjectModel(subject);
+                        // TODO: Show all subjects in a dropdown menu
+                    }
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onError(String message) {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        VolleyUtils.makeJSONArrayRequest(
+            getActivity(),
+            "subject",
+            Request.Method.GET,
+            new JSONObject(),
+            listener
+        );
     }
 }

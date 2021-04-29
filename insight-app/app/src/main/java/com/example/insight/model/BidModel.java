@@ -11,9 +11,14 @@ public class BidModel {
     private String id = "";
     private String type = "";
     private String country = "";
+
+    private String studentId = "";
     private String givenName = "";
     private String familyName = "";
+
+    private String subjectId = "";
     private String subjectName = "";
+
     private int competency = 0;
     private int rate = 0;
     private int hoursPerLesson = 0;
@@ -29,10 +34,12 @@ public class BidModel {
             type = bid.getString("type");
 
             JSONObject initiator = bid.getJSONObject("initiator");
+            studentId = initiator.getString("id");
             givenName = initiator.getString("givenName");
             familyName = initiator.getString("familyName");
 
             JSONObject subject = bid.getJSONObject("subject");
+            subjectId = subject.getString("id");
             subjectName = subject.getString("name");
 
             additionalInfo = bid.getJSONObject("additionalInfo");
@@ -72,6 +79,14 @@ public class BidModel {
         this.country = country;
     }
 
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
     public String getGivenName() {
         return givenName;
     }
@@ -86,6 +101,14 @@ public class BidModel {
 
     public void setFamilyName(String familyName) {
         this.familyName = familyName;
+    }
+
+    public String getSubjectId() {
+        return subjectId;
+    }
+
+    public void setSubjectId(String subjectId) {
+        this.subjectId = subjectId;
     }
 
     public String getSubjectName() {

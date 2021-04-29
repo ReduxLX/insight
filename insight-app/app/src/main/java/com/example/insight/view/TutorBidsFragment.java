@@ -6,18 +6,31 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.example.insight.R;
+import com.example.insight.model.BidModel;
+import com.example.insight.service.VolleyResponseListener;
+import com.example.insight.service.VolleyUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class TutorBidsFragment extends Fragment implements View.OnClickListener {
+
+    // TODO: Replace this with current user's Id
+    private String userId = "984e7871-ed81-4f75-9524-3d1870788b1f";
 
     public TutorBidsFragment() {
         // Required empty public constructor
@@ -31,6 +44,9 @@ public class TutorBidsFragment extends Fragment implements View.OnClickListener 
 
         Button buttonViewCounterBidStatus = root.findViewById(R.id.buttonViewCounterBidStatus);
         buttonViewCounterBidStatus.setOnClickListener(this);
+
+        getTutorBids();
+
         return root;
     }
 
@@ -50,5 +66,47 @@ public class TutorBidsFragment extends Fragment implements View.OnClickListener 
         NavDirections navAction = TutorBidsFragmentDirections.actionTutorBidsFragmentToChatFragment(
                 "bc06e9ad-5d20-4dce-a176-a6ac73b26b35");
         NavHostFragment.findNavController(this).navigate(navAction);
+    }
+
+    private void getTutorBids(){
+        VolleyResponseListener listener = new VolleyResponseListener() {
+            @Override
+            public void onResponse(Object response) {
+                JSONArray bids = (JSONArray) response;
+                try{
+                    // Loop through all student bids
+                    for (int i=0; i < bids.length(); i++) {
+                        JSONObject bid = bids.getJSONObject(i);
+                        BidModel bidModel = new BidModel(bid);
+                        JSONArray tutorBids = bidModel.getTutorBids();
+                        // For each student bids, loop through each tutorBid
+                        for (int j=0; j < tutorBids.length(); j++){
+                            JSONObject tutorBid = tutorBids.getJSONObject(i);
+                            JSONObject tutor = tutorBid.getJSONObject("tutor");
+                            String tutorId = tutor.getString("id");
+                            // Check if tutor has posted a bid (involved in this student's bid)
+                            if(userId.equals(tutorId)){
+                                // TODO: Use bidModel getters to create cards
+                                break;
+                            }
+                        }
+                    }
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onError(String message) {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        VolleyUtils.makeJSONArrayRequest(
+            getActivity(),
+            "bid",
+            Request.Method.GET,
+            new JSONObject(),
+            listener
+        );
     }
 }
