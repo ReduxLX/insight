@@ -14,7 +14,9 @@
         android:id="@+id/chatFragment"
         android:name="com.example.insight.view.ChatFragment"
         android:label="ChatFragment"
-        tools:layout="@layout/fragment_chat"/>
+        tools:layout="@layout/fragment_chat">
+        <argument android:name="currentBidId" />
+    </fragment>
     <fragment
         android:id="@+id/studentBidsFragment"
         android:name="com.example.insight.view.StudentBidsFragment"
@@ -103,6 +105,7 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/tutorBidsFragment"
             app:popUpToInclusive="true" />
+        <argument android:name="bidId" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"

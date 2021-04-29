@@ -46,7 +46,9 @@ public class StudentCounterBidsFragment extends Fragment implements View.OnClick
 
     // Navigate to ChatFragment (chat with selected tutor to discuss their offer bid)
     private void navigate(){
-        NavDirections navAction = StudentCounterBidsFragmentDirections.actionStudentCounterBidsFragmentToChatFragment();
+        // TODO: Replace placeholder with selected bid's id
+        NavDirections navAction = StudentCounterBidsFragmentDirections.actionStudentCounterBidsFragmentToChatFragment(
+                "bc06e9ad-5d20-4dce-a176-a6ac73b26b35");
         NavHostFragment.findNavController(this).navigate(navAction);
     }
 }

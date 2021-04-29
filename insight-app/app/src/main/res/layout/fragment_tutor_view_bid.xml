@@ -20,20 +20,32 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.366" />
+        app:layout_constraintVertical_bias="0.315" />
+
+    <TextView
+        android:id="@+id/tvBidId_TutorViewBid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/placeholder_label_create_tutor_view_bid"
+        tools:text="Bid Id" />
 
     <Button
         android:id="@+id/buttonBuyoutBid"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="40dp"
         android:background="@color/colorPrimary"
         android:fontFamily="@font/montserrat_bold"
         android:text="Buy Out Bid"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/placeholder_label_create_tutor_view_bid" />
+        app:layout_constraintTop_toBottomOf="@+id/tvBidId_TutorViewBid" />
 
     <Button
         android:id="@+id/buttonSendCounterBid"

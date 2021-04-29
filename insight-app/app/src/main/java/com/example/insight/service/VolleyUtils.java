@@ -1,10 +1,10 @@
 package com.example.insight.service;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,7 +48,15 @@ public class VolleyUtils {
             new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    listener.onError(error.toString());
+                    String body = "No errors";
+
+                    // Get error status code
+                    String statusCode = String.valueOf(error.networkResponse.statusCode);
+                    // Get response body and encode in UTF-8
+                    if(error.networkResponse.data!=null) {
+                        body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                    }
+                    listener.onError(body);
                 }
             }
         ) {
@@ -60,13 +69,7 @@ public class VolleyUtils {
 
             @Override
             public byte[] getBody() {
-                try {
-                    return requestBody == null ? null : requestBody.getBytes("utf-8");
-                } catch (UnsupportedEncodingException uee) {
-                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s",
-                            requestBody, "utf-8");
-                    return null;
-                }
+                return requestBody.getBytes(StandardCharsets.UTF_8);
             }
 
             @Override
@@ -106,7 +109,12 @@ public class VolleyUtils {
             new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    listener.onError(error.toString());
+                    String body = "Unknown error";
+                    // Get response body and encode in UTF-8
+                    if(error.networkResponse != null && error.networkResponse.data!=null) {
+                        body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                    }
+                    listener.onError(body);
                 }
             }
         ) {
@@ -119,13 +127,7 @@ public class VolleyUtils {
 
             @Override
             public byte[] getBody() {
-                try {
-                    return requestBody == null ? null : requestBody.getBytes("utf-8");
-                } catch (UnsupportedEncodingException uee) {
-                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s",
-                            requestBody, "utf-8");
-                    return null;
-                }
+                return requestBody.getBytes(StandardCharsets.UTF_8);
             }
 
             @Override
@@ -139,6 +141,8 @@ public class VolleyUtils {
                     return Response.error(new ParseError(e));
                 }
             }
+
+
         };
 
         // Add request to VolleyController Queue

@@ -46,7 +46,9 @@ public class TutorBidsFragment extends Fragment implements View.OnClickListener 
 
     // Navigate to Chat if tutor wants to chat with student to negotiate
     private void navigateChat(){
-        NavDirections navAction = TutorBidsFragmentDirections.actionTutorBidsFragmentToChatFragment();
+        // TODO: Replace placeholder with selected bid's id
+        NavDirections navAction = TutorBidsFragmentDirections.actionTutorBidsFragmentToChatFragment(
+                "bc06e9ad-5d20-4dce-a176-a6ac73b26b35");
         NavHostFragment.findNavController(this).navigate(navAction);
     }
 }

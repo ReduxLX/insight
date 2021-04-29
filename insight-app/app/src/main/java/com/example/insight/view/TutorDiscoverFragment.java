@@ -18,7 +18,6 @@ import com.example.insight.R;
  * A simple {@link Fragment} subclass.
  */
 public class TutorDiscoverFragment extends Fragment implements View.OnClickListener {
-
     public TutorDiscoverFragment() {
         // Required empty public constructor
     }
@@ -46,7 +45,9 @@ public class TutorDiscoverFragment extends Fragment implements View.OnClickListe
 
     // Navigate to TutorViewBid fragment after tutor clicks on a student's bid to see more details
     private void navigate(){
-        NavDirections navAction = TutorDiscoverFragmentDirections.actionTutorDiscoverFragmentToTutorViewBidFragment();
+        // TODO: Replace this with the selected card bid's id
+        String viewBidId = "33c196cf-2208-4c22-9774-dac5cfc66347";
+        NavDirections navAction = TutorDiscoverFragmentDirections.actionTutorDiscoverFragmentToTutorViewBidFragment(viewBidId);
         NavHostFragment.findNavController(this).navigate(navAction);
     }
 }
