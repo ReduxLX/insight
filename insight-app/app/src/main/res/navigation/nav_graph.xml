@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/studentCounterBidsFragment"
-        android:name="com.example.insight.view.StudentCounterBidsFragment"
+        android:name="com.example.insight.view.StudentCounterBids.StudentCounterBidsFragment"
         android:label="StudentCounterBidsFragment"
         tools:layout="@layout/fragment_student_counter_bids">
         <action

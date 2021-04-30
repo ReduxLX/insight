@@ -1,10 +1,12 @@
-package com.example.insight.view;
+package com.example.insight.view.StudentCounterBids;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,7 +27,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -36,6 +37,12 @@ import java.util.Locale;
  */
 public class StudentCounterBidsFragment extends Fragment implements View.OnClickListener {
     private String currentBidId;
+    private RecyclerView recyclerView;
+
+    private String[] names = {"Alfons", "Matthew", "Bob"};
+    private int[] rates = {10, 15, 30},
+            hoursPerLesson = {3, 2, 5};
+
 
     public StudentCounterBidsFragment() {
         // Required empty public constructor
@@ -46,12 +53,17 @@ public class StudentCounterBidsFragment extends Fragment implements View.OnClick
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_student_counter_bids, container, false);
 
+        recyclerView = root.findViewById(R.id.rv_counter_bids);
+        CounterBidsAdapter adapter = new CounterBidsAdapter(getActivity(), names, rates, hoursPerLesson);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         // Get current bid id from navigation params
         StudentCounterBidsFragmentArgs navArgs = StudentCounterBidsFragmentArgs.fromBundle(getArguments());
         currentBidId = navArgs.getBidId();
 
-        Button buttonChat = root.findViewById(R.id.buttonChat);
-        buttonChat.setOnClickListener(this);
+//        Button buttonChat = root.findViewById(R.id.buttonChat);
+//        buttonChat.setOnClickListener(this);
 
         getCounterBids();
         return root;
@@ -60,11 +72,11 @@ public class StudentCounterBidsFragment extends Fragment implements View.OnClick
     // Intercept and handles fragment click events
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.buttonChat:
-                navigate();
-                break;
-        }
+//        switch (v.getId()) {
+//            case R.id.buttonChat:
+//                navigate();
+//                break;
+//        }
     }
 
     // Navigate to ChatFragment (chat with selected tutor to discuss their offer bid)
@@ -94,6 +106,7 @@ public class StudentCounterBidsFragment extends Fragment implements View.OnClick
                         Log.i("print", "Tutor Bid: "+tutorBid.getTutor().getGivenName());
                         // TODO: Render data from tutoBidModel into a card
                     }
+
                 } catch (JSONException e){
                     e.printStackTrace();
                 }

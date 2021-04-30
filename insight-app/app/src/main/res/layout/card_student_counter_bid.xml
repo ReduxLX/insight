@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_constraint"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:divider="@android:color/transparent"
+    android:paddingLeft="25dp"
+    android:paddingTop="10dp"
+    android:paddingRight="35dp"
+    android:paddingBottom="10dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/main_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        card_view:cardElevation="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/card_constraint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/transparent">
+
+            <TextView
+                android:id="@+id/tv_name_tcb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="#DE000000"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/icon_cost_tcb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintEnd_toStartOf="@+id/tv_rate_tvb"
+                app:layout_constraintStart_toStartOf="@+id/tv_name_tcb"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name_tcb"
+                app:srcCompat="@drawable/cost" />
+
+            <TextView
+                android:id="@+id/tv_rate_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Rate"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_cost_tcb"
+                app:layout_constraintStart_toEndOf="@+id/icon_cost_tcb" />
+
+            <ImageView
+                android:id="@+id/icon_free_class_tcb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@+id/icon_cost_tcb"
+                app:layout_constraintTop_toBottomOf="@+id/icon_cost_tcb"
+                app:srcCompat="@drawable/free_class" />
+
+            <TextView
+                android:id="@+id/tv_free_tcb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Free"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_free_class_tcb"
+                app:layout_constraintStart_toStartOf="@+id/tv_rate_tvb" />
+
+            <ImageView
+                android:id="@+id/icon_duration_tcb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="@+id/icon_free_class_tcb"
+                app:layout_constraintTop_toBottomOf="@+id/icon_free_class_tcb"
+                app:srcCompat="@drawable/duration" />
+
+            <TextView
+                android:id="@+id/tv_duration_tcb"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="Duration"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_duration_tcb"
+                app:layout_constraintStart_toStartOf="@+id/tv_rate_tvb" />
+
+            <ImageView
+                android:id="@+id/icon_schedule_tcb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="@+id/icon_duration_tcb"
+                app:layout_constraintTop_toBottomOf="@+id/icon_duration_tcb"
+                app:srcCompat="@drawable/schedule" />
+
+            <TextView
+                android:id="@+id/tv_schedule_tcb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Schedule"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_schedule_tcb"
+                app:layout_constraintStart_toStartOf="@+id/tv_duration_tcb" />
+
+            <ImageView
+                android:id="@+id/icon_message_tcb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/icon_schedule_tcb"
+                app:layout_constraintTop_toBottomOf="@+id/icon_schedule_tcb"
+                app:srcCompat="@drawable/message" />
+
+            <TextView
+                android:id="@+id/tv_message_tcb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send Message"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_message_tcb"
+                app:layout_constraintStart_toStartOf="@+id/tv_schedule_tcb" />
+
+            <ImageView
+                android:id="@+id/icon_sign_tcb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_message_tcb"
+                app:layout_constraintStart_toEndOf="@+id/tv_message_tcb"
+                app:srcCompat="@drawable/sign" />
+
+            <TextView
+                android:id="@+id/tv_sign_tcb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Sign Contract"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_sign_tcb"
+                app:layout_constraintStart_toEndOf="@+id/icon_sign_tcb" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
