@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.example.insight.R;
+import com.example.insight.model.Bid.BidModel;
 import com.example.insight.service.VolleyResponseListener;
 import com.example.insight.service.VolleyUtils;
 
@@ -38,6 +40,9 @@ public class TutorDiscoverFragment extends Fragment implements View.OnClickListe
 
         Button buttonViewStudentBid = root.findViewById(R.id.buttonViewStudentBid);
         buttonViewStudentBid.setOnClickListener(this);
+
+        getAllBids();
+
         return root;
     }
 
@@ -63,24 +68,13 @@ public class TutorDiscoverFragment extends Fragment implements View.OnClickListe
         VolleyResponseListener listener = new VolleyResponseListener() {
             @Override
             public void onResponse(Object response) {
+                Log.i("print", "TutorDiscoverFragment: "+"Get All Bids Success");
                 JSONArray bids = (JSONArray) response;
                 try{
                     for (int i=0 ; i < bids.length(); i++) {
-                        JSONObject bid = bids.getJSONObject(i);
-                        JSONObject initiator = bid.getJSONObject("initiator");
-                        String initiatorId = initiator.getString("id");
-                        String givenName = initiator.getString("givenName");
-                        String familyName = initiator.getString("familyName");
-
-                        JSONObject additionalInfo = bid.getJSONObject("additionalInfo");
-                        int competency = additionalInfo.getInt("competency");
-                        int rate = additionalInfo.getInt("rate");
-                        int hoursPerLesson = additionalInfo.getInt("hoursPerLesson");
-                        int lessonsPerWeek = additionalInfo.getInt("lessonsPerWeek");
-                        boolean isRateHourly = additionalInfo.getBoolean("isRateHourly");
-                        boolean isRateWeekly = additionalInfo.getBoolean("isRateWeekly");
-                        JSONArray tutorBids = additionalInfo.getJSONArray("tutorBids");
-                        // TODO: Display all the above info in each card
+                        JSONObject bidObj = bids.getJSONObject(i);
+                        BidModel bid = new BidModel(bidObj);
+                        // TODO: Use bid getters to display info in card
                     }
                 } catch (JSONException e){
                     e.printStackTrace();
@@ -88,6 +82,7 @@ public class TutorDiscoverFragment extends Fragment implements View.OnClickListe
             }
             @Override
             public void onError(String message) {
+                Log.i("print", "TutorDiscoverFragment: "+"Get All Bids Failed "+message);
                 Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
             }
         };

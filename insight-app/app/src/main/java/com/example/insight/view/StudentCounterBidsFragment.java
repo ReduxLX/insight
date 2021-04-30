@@ -15,8 +15,8 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.example.insight.R;
-import com.example.insight.model.BidModel;
-import com.example.insight.model.TutorBidModel;
+import com.example.insight.model.Bid.BidModel;
+import com.example.insight.model.Bid.TutorBidModel;
 import com.example.insight.service.VolleyResponseListener;
 import com.example.insight.service.VolleyUtils;
 
@@ -25,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -81,20 +82,25 @@ public class StudentCounterBidsFragment extends Fragment implements View.OnClick
         VolleyResponseListener listener = new VolleyResponseListener() {
             @Override
             public void onResponse(Object response) {
-                JSONObject bid = (JSONObject) response;
-                BidModel bidModel = new BidModel(bid);
-                JSONArray tutorBids = bidModel.getTutorBids();
-                try{
-                    for(int i=0; i < tutorBids.length(); i++){
-                        TutorBidModel tutorBidModel = new TutorBidModel(tutorBids.getJSONObject(i));
-                        // TODO: Render data from tutorBidModel into each card
+                Log.i("print", "StudentCounterBidsFragment: "+"Get Counter Bids Success");
+                JSONObject bidObj = (JSONObject) response;
+                BidModel bid = new BidModel(bidObj);
+                JSONArray tutorBids = bid.getAdditionalInfo().getTutorBids();
+                try {
+                    // For each student bids, loop through each tutorBid
+                    for (int j=0; j < tutorBids.length(); j++){
+                        JSONObject tutorBidObj = tutorBids.getJSONObject(j);
+                        TutorBidModel tutorBid = new TutorBidModel(tutorBidObj);
+                        Log.i("print", "Tutor Bid: "+tutorBid.getTutor().getGivenName());
+                        // TODO: Render data from tutoBidModel into a card
                     }
-                } catch(JSONException e){
+                } catch (JSONException e){
                     e.printStackTrace();
                 }
             }
             @Override
             public void onError(String message) {
+                Log.i("print", "StudentCounterBidsFragment: "+"Get Counter Bids Failed "+message);
                 Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
             }
         };
@@ -136,10 +142,12 @@ public class StudentCounterBidsFragment extends Fragment implements View.OnClick
             VolleyResponseListener listener = new VolleyResponseListener() {
                 @Override
                 public void onResponse(Object response) {
+                    Log.i("print", "StudentCounterBidsFragment: " +"Create Contract Success");
                     Toast.makeText(getActivity(), "New Contract Formed", Toast.LENGTH_SHORT).show();
                 }
                 @Override
                 public void onError(String message) {
+                    Log.i("print", "StudentCounterBidsFragment: " +"Create Contract Failed "+message);
                     Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
                 }
             };

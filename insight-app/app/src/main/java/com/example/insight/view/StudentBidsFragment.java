@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.example.insight.R;
-import com.example.insight.model.BidModel;
+import com.example.insight.model.Bid.BidModel;
 import com.example.insight.service.VolleyResponseListener;
 import com.example.insight.service.VolleyUtils;
 
@@ -72,15 +72,15 @@ public class StudentBidsFragment extends Fragment implements View.OnClickListene
         VolleyResponseListener listener = new VolleyResponseListener() {
             @Override
             public void onResponse(Object response) {
+                Log.i("print", "StudentBidsFragment: "+"Get Student Bids Success");
                 JSONArray bids = (JSONArray) response;
                 try{
                     for (int i=0 ; i < bids.length(); i++) {
-                        JSONObject bid = bids.getJSONObject(i);
-                        Log.i("print", bid.toString());
-                        BidModel bidModel = new BidModel(bid);
-                        // Filter bids matching student's Id
-                        if(userId.equals(bidModel.getStudentId())){
-                            // TODO: Use bidModel getters to display info of each card
+                        JSONObject bidObj = bids.getJSONObject(i);
+                        BidModel bid = new BidModel(bidObj);
+                        // Filter bids matching initiator (student's) id
+                        if(userId.equals(bid.getInitiator().getId())){
+                            // TODO: Use bid getters to display info of each card
                         }
                     }
                 } catch (JSONException e){
@@ -89,6 +89,7 @@ public class StudentBidsFragment extends Fragment implements View.OnClickListene
             }
             @Override
             public void onError(String message) {
+                Log.i("print", "StudentBidsFragment: "+"Get Student Bids Failed "+message);
                 Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
             }
         };

@@ -48,12 +48,9 @@ public class VolleyUtils {
             new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    String body = "No errors";
-
-                    // Get error status code
-                    String statusCode = String.valueOf(error.networkResponse.statusCode);
+                    String body = "Unknown error";
                     // Get response body and encode in UTF-8
-                    if(error.networkResponse.data!=null) {
+                    if(error.networkResponse != null && error.networkResponse.data!=null) {
                         body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
                     }
                     listener.onError(body);

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.example.insight.R;
+import com.example.insight.model.MessageModel;
 import com.example.insight.service.VolleyResponseListener;
 import com.example.insight.service.VolleyUtils;
 
@@ -51,8 +52,9 @@ public class ChatFragment extends Fragment {
         // Render current bid's messages
         getMessages();
 
+        // TODO: Hook this up to the send button
         // (Debug) Post new message
-        // postMessage("Would you mind decreasing your fee to $14 per hour?");
+        // postMessage("Or maybe increasing the hours per week?");
 
         return root;
     }
@@ -61,20 +63,18 @@ public class ChatFragment extends Fragment {
         VolleyResponseListener listener = new VolleyResponseListener() {
             @Override
             public void onResponse(Object response) {
+                Log.i("print", "ChatFragment: "+"Get Message Success");
                 JSONArray messages = (JSONArray) response;
                 try{
                     for (int i=0 ; i < messages.length(); i++) {
-                        JSONObject message = messages.getJSONObject(i);
-                        String bidId = message.getString("bidId");
-                        String datePosted = message.getString("datePosted");
-                        String content = message.getString("content");
-                        JSONObject poster = message.getJSONObject("poster");
+                        JSONObject messageObj = messages.getJSONObject(i);
+                        MessageModel message = new MessageModel(messageObj);
 
                         // Filter messages that belong to this bid
                         // Use userId to identify "me" posts
-                        if(currentBidId.equals(bidId)){
+                        if(message.getBidId() != null && currentBidId.equals(message.getBidId())){
                             // TODO: Render messages into the UI
-                            Log.i("console_log", content);
+                            Log.i("console_log", message.getContent());
                         }
                     }
                 } catch (JSONException e){
@@ -83,6 +83,7 @@ public class ChatFragment extends Fragment {
             }
             @Override
             public void onError(String message) {
+                Log.i("print", "ChatFragment: "+"Get Message Failed "+message);
                 Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
             }
         };
@@ -112,10 +113,12 @@ public class ChatFragment extends Fragment {
             VolleyResponseListener listener = new VolleyResponseListener() {
                 @Override
                 public void onResponse(Object response) {
+                    Log.i("print", "ChatFragment: "+"Post Message Success");
                     Toast.makeText(getActivity(), "Message posted", Toast.LENGTH_SHORT).show();
                 }
                 @Override
                 public void onError(String message) {
+                    Log.i("print", "ChatFragment: "+"Post Message Failed "+ message);
                     Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
                 }
             };

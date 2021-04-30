@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.example.insight.R;
-import com.example.insight.model.BidModel;
 import com.example.insight.model.SubjectModel;
 import com.example.insight.service.VolleyResponseListener;
 import com.example.insight.service.VolleyUtils;
@@ -28,8 +27,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
-import javax.security.auth.Subject;
 
 
 /**
@@ -85,23 +82,29 @@ public class StudentDiscoverFragment extends Fragment implements View.OnClickLis
             jsonBody.put("subjectId", "7a95ef32-6808-4035-a6c5-a77a73c9d741");
 
             JSONObject additionalInfo = new JSONObject();
-            additionalInfo.put("competency", 5);
-            additionalInfo.put("rate", 20);
-            additionalInfo.put("isRateHourly", true);
-            additionalInfo.put("isRateWeekly", false);
-            additionalInfo.put("lessonsPerWeek", 2);
-            additionalInfo.put("hoursPerLesson", 3);
+
+            JSONObject studentOffer = new JSONObject();
+            studentOffer.put("competency", 5);
+            studentOffer.put("rate", 20);
+            studentOffer.put("isRateHourly", true);
+            studentOffer.put("isRateWeekly", false);
+            studentOffer.put("lessonsPerWeek", 2);
+            studentOffer.put("hoursPerLesson", 3);
+            additionalInfo.put("studentOffer", studentOffer);
+
             additionalInfo.put("tutorBids", new JSONArray());
             jsonBody.put("additionalInfo", additionalInfo);
 
             VolleyResponseListener listener = new VolleyResponseListener() {
                 @Override
                 public void onResponse(Object response) {
+                    Log.i("print", "StudentDiscoverFragment: "+"Post Bid Success");
                     Toast.makeText(getActivity(), "Bid Posted", Toast.LENGTH_SHORT).show();
                     navigate();
                 }
                 @Override
                 public void onError(String message) {
+                    Log.i("print", "StudentDiscoverFragment: " +"Post Bid Failed "+message);
                     Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
                 }
             };
@@ -122,12 +125,13 @@ public class StudentDiscoverFragment extends Fragment implements View.OnClickLis
         VolleyResponseListener listener = new VolleyResponseListener() {
             @Override
             public void onResponse(Object response) {
+                Log.i("print", "StudentDiscoverFragment: "+"Get Subjects Success");
                 JSONArray subjects = (JSONArray) response;
                 try{
                     // Loop through all subjects
                     for (int i=0; i < subjects.length(); i++) {
-                        JSONObject subject = subjects.getJSONObject(i);
-                        SubjectModel subjectModel = new SubjectModel(subject);
+                        JSONObject subjectObj = subjects.getJSONObject(i);
+                        SubjectModel subject = new SubjectModel(subjectObj);
                         // TODO: Show all subjects in a dropdown menu
                     }
                 } catch (JSONException e){
@@ -136,6 +140,7 @@ public class StudentDiscoverFragment extends Fragment implements View.OnClickLis
             }
             @Override
             public void onError(String message) {
+                Log.i("print", "StudentDiscoverFragment: "+"Get Subjects Failed "+message);
                 Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
             }
         };

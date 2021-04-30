@@ -15,13 +15,16 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.example.insight.R;
-import com.example.insight.model.BidModel;
+import com.example.insight.model.Bid.BidModel;
+import com.example.insight.model.Bid.TutorBidModel;
 import com.example.insight.service.VolleyResponseListener;
 import com.example.insight.service.VolleyUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 
 /**
@@ -72,21 +75,22 @@ public class TutorBidsFragment extends Fragment implements View.OnClickListener 
         VolleyResponseListener listener = new VolleyResponseListener() {
             @Override
             public void onResponse(Object response) {
+                Log.i("print", "TutorBidsFragment: " +"Get Tutor Bids Success");
                 JSONArray bids = (JSONArray) response;
                 try{
                     // Loop through all student bids
                     for (int i=0; i < bids.length(); i++) {
-                        JSONObject bid = bids.getJSONObject(i);
-                        BidModel bidModel = new BidModel(bid);
-                        JSONArray tutorBids = bidModel.getTutorBids();
+                        JSONObject bidObj = bids.getJSONObject(i);
+                        BidModel bid = new BidModel(bidObj);
+                        JSONArray tutorBids = bid.getAdditionalInfo().getTutorBids();
                         // For each student bids, loop through each tutorBid
                         for (int j=0; j < tutorBids.length(); j++){
-                            JSONObject tutorBid = tutorBids.getJSONObject(i);
-                            JSONObject tutor = tutorBid.getJSONObject("tutor");
-                            String tutorId = tutor.getString("id");
+                            JSONObject tutorBidObj = tutorBids.getJSONObject(j);
+                            TutorBidModel tutorBid = new TutorBidModel(tutorBidObj);
                             // Check if tutor has posted a bid (involved in this student's bid)
-                            if(userId.equals(tutorId)){
+                            if(userId.equals(tutorBid.getTutor().getId())){
                                 // TODO: Use bidModel getters to create cards
+                                Log.i("print", "TutorBidsFragment: "+"Matching Bid found "+bid.getId());
                                 break;
                             }
                         }
@@ -97,6 +101,7 @@ public class TutorBidsFragment extends Fragment implements View.OnClickListener 
             }
             @Override
             public void onError(String message) {
+                Log.i("print", "TutorBidsFragment: " +"Get Tutor Bids Failed "+message);
                 Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
             }
         };

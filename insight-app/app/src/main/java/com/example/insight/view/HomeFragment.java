@@ -50,6 +50,7 @@ public class HomeFragment extends Fragment {
         VolleyResponseListener listener = new VolleyResponseListener() {
             @Override
             public void onResponse(Object response) {
+                Log.i("print", "HomeFragment: "+"Get Contracts Success");
                 JSONArray contracts = (JSONArray) response;
                 try{
                     for (int i=0 ; i < contracts.length(); i++) {
@@ -73,6 +74,7 @@ public class HomeFragment extends Fragment {
             }
             @Override
             public void onError(String message) {
+                Log.i("print", "HomeFragment: "+"Get Contracts Failed "+message);
                 Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
             }
         };

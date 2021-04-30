@@ -4,9 +4,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SubjectModel {
-    private String id = "";
-    private String name = "";
-    private String description = "";
+    private String id;
+    private String name;
+    private String description;
 
     public SubjectModel(JSONObject subject) {
         try{
