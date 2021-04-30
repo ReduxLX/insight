@@ -63,7 +63,7 @@ public class ChatFragment extends Fragment {
         VolleyResponseListener listener = new VolleyResponseListener() {
             @Override
             public void onResponse(Object response) {
-                Log.i("print", "ChatFragment: "+"Get Message Success");
+                Log.i("print", "ChatFragment: "+"Get Message Success for "+currentBidId);
                 JSONArray messages = (JSONArray) response;
                 try{
                     for (int i=0 ; i < messages.length(); i++) {

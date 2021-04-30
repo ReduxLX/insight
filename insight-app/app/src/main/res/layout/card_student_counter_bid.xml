@@ -23,52 +23,52 @@
         card_view:cardElevation="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/card_constraint"
+            android:id="@+id/constraint_counter_bid"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="206dp"
             android:divider="@android:color/transparent">
 
             <TextView
-                android:id="@+id/tv_name_tcb"
+                android:id="@+id/tv_name_scb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
                 android:text="Name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#DE000000"
-                android:textSize="16sp"
-                android:textStyle="bold"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/icon_cost_tcb"
+                android:id="@+id/icon_cost_scb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="20dp"
-                app:layout_constraintEnd_toStartOf="@+id/tv_rate_tvb"
-                app:layout_constraintStart_toStartOf="@+id/tv_name_tcb"
-                app:layout_constraintTop_toBottomOf="@+id/tv_name_tcb"
+                app:layout_constraintEnd_toStartOf="@+id/tv_rate_scb"
+                app:layout_constraintStart_toStartOf="@+id/tv_name_scb"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name_scb"
                 app:srcCompat="@drawable/cost" />
 
             <TextView
-                android:id="@+id/tv_rate_tvb"
+                android:id="@+id/tv_rate_scb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:text="Rate"
                 android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="@+id/icon_cost_tcb"
-                app:layout_constraintStart_toEndOf="@+id/icon_cost_tcb" />
+                app:layout_constraintBottom_toBottomOf="@+id/icon_cost_scb"
+                app:layout_constraintStart_toEndOf="@+id/icon_cost_scb" />
 
             <ImageView
-                android:id="@+id/icon_free_class_tcb"
+                android:id="@+id/icon_free_class_scb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:visibility="visible"
-                app:layout_constraintStart_toStartOf="@+id/icon_cost_tcb"
-                app:layout_constraintTop_toBottomOf="@+id/icon_cost_tcb"
+                app:layout_constraintStart_toStartOf="@+id/icon_cost_scb"
+                app:layout_constraintTop_toBottomOf="@+id/icon_cost_scb"
                 app:srcCompat="@drawable/free_class" />
 
             <TextView
@@ -77,80 +77,88 @@
                 android:layout_height="wrap_content"
                 android:text="Free"
                 android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="@+id/icon_free_class_tcb"
-                app:layout_constraintStart_toStartOf="@+id/tv_rate_tvb" />
+                app:layout_constraintBottom_toBottomOf="@+id/icon_free_class_scb"
+                app:layout_constraintStart_toStartOf="@+id/tv_rate_scb" />
 
             <ImageView
-                android:id="@+id/icon_duration_tcb"
+                android:id="@+id/icon_duration_scb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                app:layout_constraintStart_toStartOf="@+id/icon_free_class_tcb"
-                app:layout_constraintTop_toBottomOf="@+id/icon_free_class_tcb"
+                app:layout_constraintStart_toStartOf="@+id/icon_free_class_scb"
+                app:layout_constraintTop_toBottomOf="@+id/icon_free_class_scb"
                 app:srcCompat="@drawable/duration" />
 
             <TextView
-                android:id="@+id/tv_duration_tcb"
+                android:id="@+id/tv_duration_scb"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:text="Duration"
                 android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="@+id/icon_duration_tcb"
-                app:layout_constraintStart_toStartOf="@+id/tv_rate_tvb" />
+                app:layout_constraintBottom_toBottomOf="@+id/icon_duration_scb"
+                app:layout_constraintStart_toStartOf="@+id/tv_rate_scb" />
 
             <ImageView
-                android:id="@+id/icon_schedule_tcb"
+                android:id="@+id/icon_schedule_scb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                app:layout_constraintStart_toStartOf="@+id/icon_duration_tcb"
-                app:layout_constraintTop_toBottomOf="@+id/icon_duration_tcb"
+                app:layout_constraintStart_toStartOf="@+id/icon_duration_scb"
+                app:layout_constraintTop_toBottomOf="@+id/icon_duration_scb"
                 app:srcCompat="@drawable/schedule" />
 
             <TextView
-                android:id="@+id/tv_schedule_tcb"
+                android:id="@+id/tv_schedule_scb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Schedule"
-                app:layout_constraintBottom_toBottomOf="@+id/icon_schedule_tcb"
-                app:layout_constraintStart_toStartOf="@+id/tv_duration_tcb" />
+                app:layout_constraintBottom_toBottomOf="@+id/icon_schedule_scb"
+                app:layout_constraintStart_toStartOf="@+id/tv_duration_scb" />
 
-            <ImageView
-                android:id="@+id/icon_message_tcb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/icon_schedule_tcb"
-                app:layout_constraintTop_toBottomOf="@+id/icon_schedule_tcb"
-                app:srcCompat="@drawable/message" />
-
-            <TextView
-                android:id="@+id/tv_message_tcb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Send Message"
-                app:layout_constraintBottom_toBottomOf="@+id/icon_message_tcb"
-                app:layout_constraintStart_toStartOf="@+id/tv_schedule_tcb" />
-
-            <ImageView
-                android:id="@+id/icon_sign_tcb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                app:layout_constraintBottom_toBottomOf="@+id/icon_message_tcb"
-                app:layout_constraintStart_toEndOf="@+id/tv_message_tcb"
-                app:srcCompat="@drawable/sign" />
-
-            <TextView
-                android:id="@+id/tv_sign_tcb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+            <Button
+                android:id="@+id/button_sign_contract"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="139dp"
+                android:layout_height="28dp"
+                android:drawableLeft="@drawable/sign"
+                android:drawablePadding="2dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
                 android:text="Sign Contract"
-                app:layout_constraintBottom_toBottomOf="@+id/icon_sign_tcb"
-                app:layout_constraintStart_toEndOf="@+id/icon_sign_tcb" />
+                android:textAllCaps="false"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_min="wrap"
+                app:layout_constraintStart_toEndOf="@+id/button_message"
+                app:layout_constraintTop_toTopOf="@+id/button_message"
+                app:layout_constraintWidth_min="wrap" />
+
+            <Button
+                android:id="@+id/button_message"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="130dp"
+                android:layout_height="29dp"
+                android:drawableLeft="@drawable/message"
+                android:drawablePadding="2dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="Send Message"
+                android:textAllCaps="false"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_min="wrap"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/icon_schedule_scb"
+                app:layout_constraintVertical_bias="1.0"
+                app:layout_constraintWidth_min="wrap"
+                app:rippleColor="@color/colorPrimary"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,5 +1,6 @@
 package com.example.insight.model.Bid;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,17 +13,21 @@ public class BidOfferModel {
     private boolean isRateHourly;
     private boolean isRateWeekly;
     private boolean isTutorBid;
+    private JSONObject bidOffer;
 
     public BidOfferModel(JSONObject bidOffer, boolean isTutorBid) {
         try{
-            competency = bidOffer.getInt("competency");
+            this.bidOffer = bidOffer;
+            this.isTutorBid = isTutorBid;
             rate = bidOffer.getInt("rate");
             hoursPerLesson = bidOffer.getInt("hoursPerLesson");
             lessonsPerWeek = bidOffer.getInt("lessonsPerWeek");
             isRateHourly = bidOffer.getBoolean("isRateHourly");
             isRateWeekly = bidOffer.getBoolean("isRateWeekly");
-            if(isTutorBid()){
+            if(isTutorBid){
                 freeClasses = bidOffer.getInt("freeClasses");
+            }else{
+                competency = bidOffer.getInt("competency");
             }
         } catch (JSONException e){
             e.printStackTrace();
@@ -51,63 +56,35 @@ public class BidOfferModel {
         return competency;
     }
 
-    public void setCompetency(int competency) {
-        this.competency = competency;
-    }
-
     public int getRate() {
         return rate;
-    }
-
-    public void setRate(int rate) {
-        this.rate = rate;
     }
 
     public int getHoursPerLesson() {
         return hoursPerLesson;
     }
 
-    public void setHoursPerLesson(int hoursPerLesson) {
-        this.hoursPerLesson = hoursPerLesson;
-    }
-
     public int getLessonsPerWeek() {
         return lessonsPerWeek;
-    }
-
-    public void setLessonsPerWeek(int lessonsPerWeek) {
-        this.lessonsPerWeek = lessonsPerWeek;
     }
 
     public int getFreeClasses() {
         return freeClasses;
     }
 
-    public void setFreeClasses(int freeClasses) {
-        this.freeClasses = freeClasses;
-    }
-
     public boolean isRateHourly() {
         return isRateHourly;
-    }
-
-    public void setRateHourly(boolean rateHourly) {
-        isRateHourly = rateHourly;
     }
 
     public boolean isRateWeekly() {
         return isRateWeekly;
     }
 
-    public void setRateWeekly(boolean rateWeekly) {
-        isRateWeekly = rateWeekly;
-    }
-
     public boolean isTutorBid() {
         return isTutorBid;
     }
 
-    public void setTutorBid(boolean tutorBid) {
-        isTutorBid = tutorBid;
+    public JSONObject getBidOffer() {
+        return bidOffer;
     }
 }

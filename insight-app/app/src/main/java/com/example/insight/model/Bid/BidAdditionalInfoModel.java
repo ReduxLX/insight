@@ -9,11 +9,13 @@ import java.util.ArrayList;
 public class BidAdditionalInfoModel {
     private BidOfferModel studentOffer;
     private JSONArray tutorBids;
+    private String expiryDate;
 
     public BidAdditionalInfoModel(JSONObject additionalInfo) {
         try{
             studentOffer = new BidOfferModel(additionalInfo.getJSONObject("studentOffer"), false);
             tutorBids = additionalInfo.getJSONArray("tutorBids");
+            expiryDate = additionalInfo.getString("expiryDate");
 
         } catch (JSONException e){
             e.printStackTrace();
@@ -35,15 +37,11 @@ public class BidAdditionalInfoModel {
         return studentOffer;
     }
 
-    public void setStudentOffer(BidOfferModel studentOffer) {
-        this.studentOffer = studentOffer;
-    }
-
     public JSONArray getTutorBids() {
         return tutorBids;
     }
 
-    public void setTutorBids(JSONArray tutorBids) {
-        this.tutorBids = tutorBids;
+    public String getExpiryDate() {
+        return expiryDate;
     }
 }

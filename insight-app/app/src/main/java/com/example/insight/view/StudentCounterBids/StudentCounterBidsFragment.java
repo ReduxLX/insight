@@ -1,18 +1,22 @@
 package com.example.insight.view.StudentCounterBids;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -26,23 +30,23 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
+import java.util.concurrent.TimeUnit;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StudentCounterBidsFragment extends Fragment implements View.OnClickListener {
+public class StudentCounterBidsFragment extends Fragment {
     private String currentBidId;
     private RecyclerView recyclerView;
+    private NavController navController;
 
-    private String[] names = {"Alfons", "Matthew", "Bob"};
-    private int[] rates = {10, 15, 30},
-            hoursPerLesson = {3, 2, 5};
-
+    TextView tvCountdownTimer;
 
     public StudentCounterBidsFragment() {
         // Required empty public constructor
@@ -54,37 +58,16 @@ public class StudentCounterBidsFragment extends Fragment implements View.OnClick
         View root = inflater.inflate(R.layout.fragment_student_counter_bids, container, false);
 
         recyclerView = root.findViewById(R.id.rv_counter_bids);
-        CounterBidsAdapter adapter = new CounterBidsAdapter(getActivity(), names, rates, hoursPerLesson);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        navController = NavHostFragment.findNavController(this);
 
         // Get current bid id from navigation params
         StudentCounterBidsFragmentArgs navArgs = StudentCounterBidsFragmentArgs.fromBundle(getArguments());
         currentBidId = navArgs.getBidId();
 
-//        Button buttonChat = root.findViewById(R.id.buttonChat);
-//        buttonChat.setOnClickListener(this);
+        tvCountdownTimer = root.findViewById(R.id.tv_countdown_timer_scb);
 
         getCounterBids();
         return root;
-    }
-
-    // Intercept and handles fragment click events
-    @Override
-    public void onClick(View v) {
-//        switch (v.getId()) {
-//            case R.id.buttonChat:
-//                navigate();
-//                break;
-//        }
-    }
-
-    // Navigate to ChatFragment (chat with selected tutor to discuss their offer bid)
-    private void navigate(){
-        // TODO: Replace placeholder with selected bid's id
-        NavDirections navAction = StudentCounterBidsFragmentDirections.actionStudentCounterBidsFragmentToChatFragment(
-                "bc06e9ad-5d20-4dce-a176-a6ac73b26b35");
-        NavHostFragment.findNavController(this).navigate(navAction);
     }
 
     /**
@@ -94,22 +77,14 @@ public class StudentCounterBidsFragment extends Fragment implements View.OnClick
         VolleyResponseListener listener = new VolleyResponseListener() {
             @Override
             public void onResponse(Object response) {
-                Log.i("print", "StudentCounterBidsFragment: "+"Get Counter Bids Success");
+                Log.i("print", "StudentCounterBidsFragment: "+"Get Counter Bids Success for bid "+currentBidId);
                 JSONObject bidObj = (JSONObject) response;
                 BidModel bid = new BidModel(bidObj);
-                JSONArray tutorBids = bid.getAdditionalInfo().getTutorBids();
-                try {
-                    // For each student bids, loop through each tutorBid
-                    for (int j=0; j < tutorBids.length(); j++){
-                        JSONObject tutorBidObj = tutorBids.getJSONObject(j);
-                        TutorBidModel tutorBid = new TutorBidModel(tutorBidObj);
-                        Log.i("print", "Tutor Bid: "+tutorBid.getTutor().getGivenName());
-                        // TODO: Render data from tutoBidModel into a card
-                    }
+                showTimer(bid.getAdditionalInfo().getExpiryDate());
+                CounterBidsAdapter adapter = new CounterBidsAdapter(getActivity(), navController, bid);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-                } catch (JSONException e){
-                    e.printStackTrace();
-                }
             }
             @Override
             public void onError(String message) {
@@ -127,53 +102,56 @@ public class StudentCounterBidsFragment extends Fragment implements View.OnClick
         );
     }
 
-    private void createContract(){
-        JSONObject jsonBody = new JSONObject();
-
-        Calendar cal = Calendar.getInstance();
-        Date currentTime = cal.getTime();
-        cal.add(Calendar.YEAR, 1);
-        Date nextYearTime = cal.getTime();
+    private void showTimer(String expiryDateStr) {
+        Log.i("print", "Expiry time now : " + expiryDateStr);
+        Calendar expiryDate = Calendar.getInstance();
         SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
-        String currentDate = ISO8601.format(currentTime);
-        String expiryDate = ISO8601.format(nextYearTime);
 
         try{
-            String userId = "ecc52cc1-a3e4-4037-a80f-62d3799645f4";
-            String tutorId = "984e7871-ed81-4f75-9524-3d1870788b1f";
-            String subjectId = "";
-            // TODO: Replace firstPartyId, secondPartyId and SubjectId
-            jsonBody.put("firstPartyId", userId);
-            jsonBody.put("secondPartyId", tutorId);
-            jsonBody.put("subjectId", subjectId);
-            jsonBody.put("dateCreated", currentDate);
-            jsonBody.put("expiryDate", expiryDate);
-            jsonBody.put("paymentInfo", new JSONObject());
-            jsonBody.put("lessonInfo", new JSONObject());
-            jsonBody.put("additionalInfo", new JSONObject());
-
-            VolleyResponseListener listener = new VolleyResponseListener() {
-                @Override
-                public void onResponse(Object response) {
-                    Log.i("print", "StudentCounterBidsFragment: " +"Create Contract Success");
-                    Toast.makeText(getActivity(), "New Contract Formed", Toast.LENGTH_SHORT).show();
-                }
-                @Override
-                public void onError(String message) {
-                    Log.i("print", "StudentCounterBidsFragment: " +"Create Contract Failed "+message);
-                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-                }
-            };
-            Log.i("print", jsonBody.toString());
-            VolleyUtils.makeJsonObjectRequest(
-                    getActivity(),
-                    "contract",
-                    Request.Method.POST,
-                    jsonBody,
-                    listener
-            );
-        } catch (JSONException e) {
+            Date expiryDateObj = ISO8601.parse(expiryDateStr);
+            assert expiryDateObj != null;
+            expiryDate.setTime(expiryDateObj);
+        }catch (ParseException e){
             e.printStackTrace();
         }
+
+        Calendar currentTime = Calendar.getInstance();
+        Log.i("print", "Current time now : " + currentTime.getTime());
+        Log.i("print", "Expiry time now : " + expiryDate.getTime());
+        long difference = expiryDate.getTimeInMillis() - currentTime.getTimeInMillis();
+
+        new CountDownTimer(difference, 1000) {
+            @Override
+            public void onTick(long diff) {
+                long days = diff / (24 * 60 * 60 * 1000);
+                int weeks = (int) (days / 7);
+                long day = days - (weeks * 7);
+                diff = diff - (days * (24 * 60 * 60 * 1000));
+
+                long hours = diff / (60 * 60 * 1000);
+                diff = diff - (hours * (60 * 60 * 1000));
+
+                long minutes = diff / (60 * 1000);
+                diff = diff - (minutes * (60 * 1000));
+                long seconds = diff / 1000;
+                String timeLeftStr;
+
+                if(days == 0 && hours < 1){
+                    timeLeftStr = String.format(Locale.getDefault(),
+                            "Closes in %02d minutes and %02d seconds", minutes, seconds);
+                }else{
+                    timeLeftStr = String.format(Locale.getDefault(),
+                            "Closes in %02d days and %02d hours", days, hours);
+                }
+                Log.i("consoleLog", "Time Difference: " + timeLeftStr);
+                tvCountdownTimer.setText(timeLeftStr);
+            }
+
+            @Override
+            public void onFinish() {
+                /*clearing all fields and displaying countdown finished message          */
+                tvCountdownTimer.setText("Count down completed");
+            }
+        }.start();
     }
 }

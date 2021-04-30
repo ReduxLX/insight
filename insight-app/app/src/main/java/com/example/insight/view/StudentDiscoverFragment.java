@@ -93,6 +93,7 @@ public class StudentDiscoverFragment extends Fragment implements View.OnClickLis
             additionalInfo.put("studentOffer", studentOffer);
 
             additionalInfo.put("tutorBids", new JSONArray());
+            additionalInfo.put("expiryDate", getExpiryTime(false));
             jsonBody.put("additionalInfo", additionalInfo);
 
             VolleyResponseListener listener = new VolleyResponseListener() {
@@ -119,6 +120,18 @@ public class StudentDiscoverFragment extends Fragment implements View.OnClickLis
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private String getExpiryTime(boolean isOpenBidding){
+        Calendar expiryTime = Calendar.getInstance();
+        if(isOpenBidding){
+            expiryTime.add(Calendar.MINUTE, 30);
+        }else{
+            expiryTime.add(Calendar.DATE, 7);
+        }
+        Date expiryDate = expiryTime.getTime();
+        SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
+        return ISO8601.format(expiryDate);
     }
 
     private void getSubjects(){

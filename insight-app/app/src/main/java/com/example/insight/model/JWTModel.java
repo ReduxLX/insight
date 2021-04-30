@@ -9,7 +9,8 @@ import java.util.Locale;
 import java.util.Map;
 
 public class JWTModel {
-    private String inputJWT;
+
+    private String id;
     private String givenName;
     private String familyName;
     private String username;
@@ -23,6 +24,7 @@ public class JWTModel {
     public JWTModel(String jwt){
         JWT parsedJWT = new JWT(jwt);
         Map<String, Claim> allClaims = parsedJWT.getClaims();
+        id = allClaims.get("sub").asString();
         givenName = allClaims.get("givenName").asString();
         familyName = allClaims.get("familyName").asString();
         username = allClaims.get("username").asString();
@@ -42,75 +44,43 @@ public class JWTModel {
         return new Date().after(expiryDate);
     }
 
-    public String getInputJWT() {
-        return inputJWT;
+    public String getId() {
+        return id;
     }
 
-    public void setInputJWT(String inputJWT) {
-        this.inputJWT = inputJWT;
+    public String getFullName() {
+        return givenName;
     }
 
     public String getGivenName() {
         return givenName;
     }
 
-    public void setGivenName(String givenName) {
-        this.givenName = givenName;
-    }
-
     public String getFamilyName() {
         return familyName;
-    }
-
-    public void setFamilyName(String familyName) {
-        this.familyName = familyName;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public boolean isStudent() {
         return isStudent;
-    }
-
-    public void setStudent(boolean student) {
-        isStudent = student;
     }
 
     public boolean isTutor() {
         return isTutor;
     }
 
-    public void setTutor(boolean tutor) {
-        isTutor = tutor;
-    }
-
     public long getExpiryDateInSeconds() {
         return expiryDateInSeconds;
-    }
-
-    public void setExpiryDateInSeconds(long expiryDateInSeconds) {
-        this.expiryDateInSeconds = expiryDateInSeconds;
     }
 
     public Date getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(Date expiryDate) {
-        this.expiryDate = expiryDate;
-    }
-
     public String getExpiryDate_ISO8601() {
         return expiryDate_ISO8601;
-    }
-
-    public void setExpiryDate_ISO8601(String expiryDate_ISO8601) {
-        this.expiryDate_ISO8601 = expiryDate_ISO8601;
     }
 }

@@ -25,23 +25,12 @@ public class TutorBidModel {
         return dateCreated;
     }
 
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
     public UserModel getTutor() {
         return tutor;
-    }
-
-    public void setTutor(UserModel tutor) {
-        this.tutor = tutor;
     }
 
     public BidOfferModel getTutorOffer() {
         return tutorOffer;
     }
 
-    public void setTutorOffer(BidOfferModel tutorOffer) {
-        this.tutorOffer = tutorOffer;
-    }
 }

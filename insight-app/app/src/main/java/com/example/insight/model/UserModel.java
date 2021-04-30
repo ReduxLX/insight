@@ -29,47 +29,27 @@ public class UserModel {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getFullName(){
+        return getGivenName() + " " + getFamilyName();
     }
 
     public String getGivenName() {
         return givenName;
     }
 
-    public void setGivenName(String givenName) {
-        this.givenName = givenName;
-    }
-
     public String getFamilyName() {
         return familyName;
-    }
-
-    public void setFamilyName(String familyName) {
-        this.familyName = familyName;
     }
 
     public String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public boolean isStudent() {
         return isStudent;
     }
 
-    public void setStudent(boolean student) {
-        isStudent = student;
-    }
-
     public boolean isTutor() {
         return isTutor;
-    }
-
-    public void setTutor(boolean tutor) {
-        isTutor = tutor;
     }
 }
