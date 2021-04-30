@@ -50,4 +50,7 @@ dependencies {
 
     // Volley HTTP library
     implementation 'com.android.volley:volley:1.2.0'
+
+    // JWT Decoder library
+    implementation 'com.auth0.android:jwtdecode:2.0.0'
 }
