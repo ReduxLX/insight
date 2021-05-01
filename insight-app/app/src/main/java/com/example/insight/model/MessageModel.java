@@ -10,6 +10,7 @@ public class MessageModel {
     private String dateLastEdited;
     private String content;
     private JSONObject additionalInfo;
+    private String recipientId;
     private UserModel poster;
 
     public MessageModel(JSONObject message) {
@@ -21,6 +22,7 @@ public class MessageModel {
             content = message.getString("content");
             additionalInfo = message.getJSONObject("additionalInfo");
             poster = new UserModel(message.getJSONObject("poster"));
+            recipientId = additionalInfo.getString("recipientId");
         } catch (JSONException e){
             e.printStackTrace();
         }
@@ -52,6 +54,10 @@ public class MessageModel {
 
     public UserModel getPoster() {
         return poster;
+    }
+
+    public String getRecipientId() {
+        return recipientId;
     }
 
     @Override

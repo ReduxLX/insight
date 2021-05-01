@@ -97,7 +97,7 @@ public class CounterBidsAdapter extends RecyclerView.Adapter<CounterBidsAdapter.
            @Override
            public void onClick(View v) {
                NavDirections navAction = StudentCounterBidsFragmentDirections.actionStudentCounterBidsFragmentToChatFragment(
-                       tutorBid.getTutor().getId());
+                       bid.getId(), tutorBid.getTutor().getFullName(), tutorBid.getTutor().getId());
                navController.navigate(navAction);
            }
        });

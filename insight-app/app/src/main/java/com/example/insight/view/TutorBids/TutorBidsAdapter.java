@@ -63,6 +63,8 @@ public class TutorBidsAdapter extends RecyclerView.Adapter<TutorBidsAdapter.Tuto
             @Override
             public void onClick(View v) {
                 NavDirections navAction = BidsFragmentDirections.actionBidsFragmentToChatFragment(
+                        studentBid.getId(),
+                        studentBid.getInitiator().getFullName(),
                         studentBid.getInitiator().getId());
                 navController.navigate(navAction);
             }
