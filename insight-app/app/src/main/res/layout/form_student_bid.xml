@@ -25,7 +25,7 @@
         android:layout_marginTop="4dp"
         android:fontFamily="@font/montserrat_bold"
         android:text="Post a bid and let our top tutors discover you"
-        android:textColor="@color/colorGray"
+        android:textColor="@color/gray"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -49,7 +49,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:dropDownWidth="wrap_content"
-        android:popupBackground="@color/colorGray"
+        android:popupBackground="@color/gray"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView5"
@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             android:buttonTint="#2A41CB"
             android:checked="true"
-            android:onClick=""
+            android:onClick="something"
             android:paddingEnd="24dp"
             android:text="Hourly" />
 
@@ -126,7 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:buttonTint="#2A41CB"
-            android:onClick=""
+            android:onClick="something"
             android:text="Weekly" />
     </RadioGroup>
 
@@ -199,7 +199,7 @@
             android:layout_height="wrap_content"
             android:buttonTint="#2A41CB"
             android:checked="true"
-            android:onClick=""
+            android:onClick="something"
             android:paddingEnd="24dp"
             android:text="Open" />
 
@@ -208,7 +208,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:buttonTint="#2A41CB"
-            android:onClick=""
+            android:onClick="something"
             android:text="Close" />
     </RadioGroup>
 
@@ -220,7 +220,7 @@
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/montserrat_bold"
         android:text="Open Bids last for 30 minutes. If no tutor matches the bid or the student fails to select a counter bid, the latest tutor offer will be chosen and the bid will close."
-        android:textColor="@color/colorGray"
+        android:textColor="@color/gray"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -235,7 +235,7 @@
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/montserrat_bold"
         android:text="Unlike Open Bids, Close bids can last up to a week. Both parties can send private messages to negotiate the bid."
-        android:textColor="@color/colorGray"
+        android:textColor="@color/gray"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
