@@ -30,10 +30,8 @@ public class MainActivity extends AppCompatActivity {
         // Create a list of all top-level fragments (no back button)
         Set<Integer> topLevelDestinations = new HashSet<>();
         topLevelDestinations.add(R.id.homeFragment);
-        topLevelDestinations.add(R.id.studentDiscoverFragment);
-        topLevelDestinations.add(R.id.tutorDiscoverFragment);
-        topLevelDestinations.add(R.id.studentBidsFragment);
-        topLevelDestinations.add(R.id.tutorBidsFragment);
+        topLevelDestinations.add(R.id.discoverFragment);
+        topLevelDestinations.add(R.id.bidsFragment);
         topLevelDestinations.add(R.id.profileFragment);
         // Use the list to create app bar configurations
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(topLevelDestinations).build();
