@@ -61,7 +61,7 @@ public class StudentBidsAdapter extends RecyclerView.Adapter<StudentBidsAdapter.
         final BidModel bid = bidArray.get(position);
         BidOfferModel studentOffer = bid.getAdditionalInfo().getStudentOffer();
 
-        holder.subject.setText(bid.getSubject().getName());
+        holder.subject.setText(bid.getSubjectAndCompetencyStr());
         holder.totalTutorBids.setText(bid.getAdditionalInfo().getTutorBidsStr());
         holder.rate.setText(studentOffer.getRateStr());
         holder.hoursPerLesson.setText(studentOffer.getHoursPerLessonStr());

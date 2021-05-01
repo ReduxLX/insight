@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/tutorBidsFragment"
-        android:name="com.example.insight.view.TutorBidsFragment"
+        android:name="com.example.insight.view.TutorBids.TutorBidsFragment"
         android:label="TutorBidsFragment"
         tools:layout="@layout/fragment_tutor_bids">
         <action
