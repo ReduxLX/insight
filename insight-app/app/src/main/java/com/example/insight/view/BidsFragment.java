@@ -8,13 +8,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.insight.R;
 import com.example.insight.model.JWTModel;
+import com.example.insight.view.StudentBids.StudentBidsFragment;
 
 /**
  * A simple {@link Fragment} subclass.

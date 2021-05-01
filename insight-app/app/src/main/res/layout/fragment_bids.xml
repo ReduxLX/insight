@@ -9,7 +9,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_bids"
-        android:name="com.example.insight.view.StudentBidsFragment"
+        android:name="com.example.insight.view.StudentBids.StudentBidsFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         tools:layout="@layout/fragment_student_bids" />

@@ -4,27 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_constraint"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="15dp">
+    android:layout_height="wrap_content"
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_main_card_sb"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:divider="@android:color/transparent"
-        android:padding="15dp"
         android:dividerHeight="0.0px"
-        app:cardUseCompatPadding="true"
         app:cardCornerRadius="15dp"
         app:cardElevation="8dp"
         app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/card_constraint"
+            android:id="@+id/constraint_sb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@android:color/transparent">
@@ -34,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Subject"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -104,7 +103,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_duration_sb" />
 
             <ImageView
-                android:id="@+id/icon_total_bids_sb"
+                android:id="@+id/icon_total_tutor_bids_sb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
@@ -113,17 +112,15 @@
                 app:srcCompat="@drawable/rectangle_blue" />
 
             <TextView
-                android:id="@+id/tv_total_bids_sb"
+                android:id="@+id/tv_total_tutor_bids_sb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Total"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/icon_total_bids_sb"
-                app:layout_constraintEnd_toEndOf="@+id/icon_total_bids_sb"
-                app:layout_constraintStart_toStartOf="@+id/icon_total_bids_sb"
-                app:layout_constraintTop_toTopOf="@+id/icon_total_bids_sb" />
-
-
+                app:layout_constraintBottom_toBottomOf="@+id/icon_total_tutor_bids_sb"
+                app:layout_constraintEnd_toEndOf="@+id/icon_total_tutor_bids_sb"
+                app:layout_constraintStart_toStartOf="@+id/icon_total_tutor_bids_sb"
+                app:layout_constraintTop_toTopOf="@+id/icon_total_tutor_bids_sb" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

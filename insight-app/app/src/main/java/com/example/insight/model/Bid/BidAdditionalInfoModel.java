@@ -3,8 +3,7 @@ package com.example.insight.model.Bid;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
+import java.util.Locale;
 
 public class BidAdditionalInfoModel {
     private BidOfferModel studentOffer;
@@ -39,6 +38,11 @@ public class BidAdditionalInfoModel {
 
     public JSONArray getTutorBids() {
         return tutorBids;
+    }
+
+    public String getTutorBidsStr(){
+        return String.format(Locale.getDefault(),
+                "%d bids", getTutorBids().length());
     }
 
     public String getExpiryDate() {

@@ -50,7 +50,7 @@
                 android:layout_marginTop="2dp"
                 android:fontFamily="@font/montserrat_medium"
                 android:text="Student Full name"
-                android:textColor="@color/colorGray"
+                android:textColor="@color/gray"
                 android:textSize="11sp"
                 app:layout_constraintStart_toStartOf="@+id/tv_subject_tb"
                 app:layout_constraintTop_toBottomOf="@+id/tv_subject_tb" />
@@ -133,28 +133,28 @@
                 app:layout_constraintBottom_toBottomOf="@+id/icon_free_tb"
                 app:layout_constraintStart_toStartOf="@+id/tv_rate_tb" />
 
-            <ImageView
-                android:id="@+id/icon_message_tb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="12dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tv_message_tb"
-                app:layout_constraintTop_toBottomOf="@+id/tv_schedule_tb"
-                app:srcCompat="@drawable/message" />
-
-            <TextView
-                android:id="@+id/tv_message_tb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+            <Button
+                android:id="@+id/button_message_tb"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="162dp"
+                android:layout_height="0dp"
+                android:drawableLeft="@drawable/message"
+                android:drawablePadding="4dp"
                 android:fontFamily="@font/montserrat_bold"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
                 android:text="Send Message"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@+id/icon_message_tb"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:textAllCaps="false"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_min="wrap"
+                app:layout_constraintTop_toBottomOf="@+id/tv_schedule_tb"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintWidth_min="wrap"
+                app:rippleColor="@color/colorPrimary" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

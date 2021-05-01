@@ -4,6 +4,8 @@ package com.example.insight.model.Bid;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Locale;
+
 public class BidOfferModel {
     private int competency;
     private int rate;
@@ -50,7 +52,26 @@ public class BidOfferModel {
             e.printStackTrace();
         }
         return json;
-    };
+    }
+
+    public String getRateStr(){
+        boolean isRateWeekly = isRateWeekly();
+        String hourlyRate = String.format(Locale.getDefault(),
+                "$%d/h", getRate());
+        String weeklyRate = String.format(Locale.getDefault(),
+                "$%d/week", getRate());
+        return isRateWeekly ? weeklyRate : hourlyRate;
+    }
+
+    public String getHoursPerLessonStr(){
+        return String.format(Locale.getDefault(),
+                "%d hours per lesson", getHoursPerLesson());
+    }
+
+    public String getLessonsPerWeekStr(){
+        return String.format(Locale.getDefault(),
+                "%d lessons per week", getLessonsPerWeek());
+    }
 
     public int getCompetency() {
         return competency;
