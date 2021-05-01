@@ -5,7 +5,8 @@
     android:id="@+id/main_constraint"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="15dp">
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_main_card_home"
@@ -13,7 +14,6 @@
         android:layout_height="wrap_content"
         android:divider="@android:color/transparent"
         android:dividerHeight="0.0px"
-        android:padding="15dp"
         app:cardCornerRadius="15dp"
         app:cardElevation="8dp"
         app:cardPreventCornerOverlap="false"
@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="12dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="16dp"
                 android:text="Expires on + Date"
                 android:textAlignment="textEnd"
                 android:textColor="#AA0000"

@@ -75,8 +75,8 @@ public class LoginActivity extends AppCompatActivity {
         try{
             //TODO: Replace placeholder with form inputs
             // Tutor: iamthewei, kevink Student: mbrown123
-            jsonBody.put("userName", "mbrown123");
-            jsonBody.put("password", "mbrown123");
+            jsonBody.put("userName", "kevink");
+            jsonBody.put("password", "kevink");
 
             VolleyResponseListener listener = new VolleyResponseListener() {
                 @Override

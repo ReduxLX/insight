@@ -1,7 +1,18 @@
-package com.example.insight.model;
+package com.example.insight.model.Contract;
+
+import android.util.Log;
+
+import com.example.insight.model.SubjectModel;
+import com.example.insight.model.UserModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class ContractModel {
 
@@ -12,7 +23,7 @@ public class ContractModel {
 
     private JSONObject paymentInfo;
     private JSONObject lessonInfo;
-    private JSONObject additionalInfo;
+    private ContractAdditionalInfoModel additionalInfo;
 
     private UserModel firstParty;
     private UserModel secondParty;
@@ -28,7 +39,7 @@ public class ContractModel {
 
             paymentInfo = contract.getJSONObject("paymentInfo");
             lessonInfo = contract.getJSONObject("lessonInfo");
-            additionalInfo = contract.getJSONObject("additionalInfo");
+            additionalInfo = new ContractAdditionalInfoModel(contract.getJSONObject("additionalInfo"));
 
             firstParty = new UserModel(contract.getJSONObject("firstParty"));
             secondParty = new UserModel(contract.getJSONObject("secondParty"));
@@ -37,6 +48,30 @@ public class ContractModel {
         } catch (JSONException e){
             e.printStackTrace();
         }
+    }
+
+    public String getSubjectAndCompetencyStr(){
+        return String.format(Locale.getDefault(),
+                "%s (%s)", subject.getName(),
+                additionalInfo.getContractTerms().getCompetencyStr());
+    }
+
+    public String getExpiryDateStr(){
+        String expiryDateStr = "Invalid Date";
+
+        SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
+        SimpleDateFormat DD_MM_YYYY = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        try{
+            // IMPORTANT: Need to replace Z to +0700 for ISO8601 parse to work
+            Date expiryDateObj = ISO8601.parse(getExpiryDate().replace("Z", "+0700"));
+            assert expiryDateObj != null;
+            expiryDateStr = String.format(Locale.getDefault(),
+                    "Expires in %s", DD_MM_YYYY.format(expiryDateObj));
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        return expiryDateStr;
     }
 
     public String getId() {
@@ -63,7 +98,7 @@ public class ContractModel {
         return lessonInfo;
     }
 
-    public JSONObject getAdditionalInfo() {
+    public ContractAdditionalInfoModel getAdditionalInfo() {
         return additionalInfo;
     }
 

@@ -64,7 +64,7 @@ public class JWTModel {
     }
 
     public String getFullName() {
-        return givenName;
+        return getGivenName() + " " + getFamilyName();
     }
 
     public String getGivenName() {
