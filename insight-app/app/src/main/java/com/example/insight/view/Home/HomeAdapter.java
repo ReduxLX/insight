@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -88,6 +89,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         holder.hoursPerLesson.setText(contractTerms.getHoursPerLessonStr());
         holder.lessonsPerWeek.setText(contractTerms.getLessonsPerWeekStr());
         holder.expiryDate.setText(contract.getExpiryDateStr());
+        holder.competencyCircle.setImageResource(contractTerms.getCompetencyResource());
     }
 
     @Override
@@ -97,6 +99,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
     static class HomeViewHolder extends RecyclerView.ViewHolder {
         TextView subject, name, rate, hoursPerLesson, lessonsPerWeek, freeLessons, expiryDate;
+        ImageView competencyCircle;
 
         HomeViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -107,6 +110,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             lessonsPerWeek = itemView.findViewById(R.id.tv_schedule_home);
             freeLessons = itemView.findViewById(R.id.tv_free_home);
             expiryDate = itemView.findViewById(R.id.tv_expiry_home);
+            competencyCircle = itemView.findViewById(R.id.icon_level_home);
 
         }
     }

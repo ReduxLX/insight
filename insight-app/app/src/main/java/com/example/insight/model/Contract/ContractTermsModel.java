@@ -1,6 +1,8 @@
 package com.example.insight.model.Contract;
 
 
+import com.example.insight.R;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -64,6 +66,33 @@ public class ContractTermsModel {
             return "Advanced";
         }else{
             return "No Difficulty";
+        }
+    }
+
+    public int getCompetencyResource(){
+        switch(getCompetency()){
+            case 1:
+                return R.drawable.level_one;
+            case 2:
+                return R.drawable.level_two;
+            case 3:
+                return R.drawable.level_three;
+            case 4:
+                return R.drawable.level_four;
+            case 5:
+                return R.drawable.level_five;
+            case 6:
+                return R.drawable.level_six;
+            case 7:
+                return R.drawable.level_seven;
+            case 8:
+                return R.drawable.level_eight;
+            case 9:
+                return R.drawable.level_nine;
+            case 10:
+                return R.drawable.level_ten;
+            default:
+                return R.drawable.level_one;
         }
     }
 

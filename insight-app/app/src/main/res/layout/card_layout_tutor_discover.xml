@@ -2,10 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_constraint"
+    android:id="@+id/constraint_tutor_discovery"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="15dp">
+    android:layout_height="wrap_content"
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_main_card_td"
@@ -13,7 +14,6 @@
         android:layout_height="wrap_content"
         android:divider="@android:color/transparent"
         android:dividerHeight="0.0px"
-        android:padding="15dp"
         app:cardCornerRadius="15dp"
         app:cardElevation="8dp"
         app:cardPreventCornerOverlap="false"
@@ -121,7 +121,7 @@
                 app:layout_constraintStart_toEndOf="@+id/icon_schedule_td" />
 
             <ImageView
-                android:id="@+id/icon_level1_td"
+                android:id="@+id/icon_level_td"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -129,96 +129,6 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_subject_td"
                 app:layout_constraintTop_toBottomOf="@+id/tv_subject_td"
                 app:srcCompat="@drawable/level_one" />
-
-            <ImageView
-                android:id="@+id/icon_level2_td"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@+id/tv_subject_td"
-                app:layout_constraintTop_toBottomOf="@+id/tv_subject_td"
-                app:srcCompat="@drawable/level_two" />
-
-            <ImageView
-                android:id="@+id/icon_level3_td"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@+id/tv_subject_td"
-                app:layout_constraintTop_toBottomOf="@+id/tv_subject_td"
-                app:srcCompat="@drawable/level_three" />
-
-            <ImageView
-                android:id="@+id/icon_level4_td"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@+id/tv_subject_td"
-                app:layout_constraintTop_toBottomOf="@+id/tv_subject_td"
-                app:srcCompat="@drawable/level_four" />
-
-            <ImageView
-                android:id="@+id/icon_level5_td"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@+id/tv_subject_td"
-                app:layout_constraintTop_toBottomOf="@+id/tv_subject_td"
-                app:srcCompat="@drawable/level_five" />
-
-            <ImageView
-                android:id="@+id/icon_level6_td"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@+id/tv_subject_td"
-                app:layout_constraintTop_toBottomOf="@+id/tv_subject_td"
-                app:srcCompat="@drawable/level_six" />
-
-            <ImageView
-                android:id="@+id/icon_level7_td"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@+id/tv_subject_td"
-                app:layout_constraintTop_toBottomOf="@+id/tv_subject_td"
-                app:srcCompat="@drawable/level_seven" />
-
-            <ImageView
-                android:id="@+id/icon_level8_td"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@+id/tv_subject_td"
-                app:layout_constraintTop_toBottomOf="@+id/tv_subject_td"
-                app:srcCompat="@drawable/level_eight" />
-
-            <ImageView
-                android:id="@+id/icon_level9_td"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@+id/tv_subject_td"
-                app:layout_constraintTop_toBottomOf="@+id/tv_subject_td"
-                app:srcCompat="@drawable/level_nine" />
-
-            <ImageView
-                android:id="@+id/icon_level10_td"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@+id/tv_subject_td"
-                app:layout_constraintTop_toBottomOf="@+id/tv_subject_td"
-                app:srcCompat="@drawable/level_ten" />
 
             <TextView
                 android:id="@+id/tv_level_td"

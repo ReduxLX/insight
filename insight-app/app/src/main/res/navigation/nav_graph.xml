@@ -73,7 +73,7 @@
     </fragment>
     <fragment
         android:id="@+id/tutorDiscoverFragment"
-        android:name="com.example.insight.view.TutorDiscoverFragment"
+        android:name="com.example.insight.view.TutorDiscover.TutorDiscoverFragment"
         android:label="TutorDiscoverFragment"
         tools:layout="@layout/fragment_tutor_discover">
         <action

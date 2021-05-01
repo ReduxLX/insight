@@ -154,114 +154,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_schedule_home" />
 
             <ImageView
-                android:id="@+id/icon_level1_home"
+                android:id="@+id/icon_level_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="12dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_subject_home"
                 app:srcCompat="@drawable/level_one" />
-
-            <ImageView
-                android:id="@+id/icon_level2_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="12dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_subject_home"
-                app:srcCompat="@drawable/level_two" />
-
-            <ImageView
-                android:id="@+id/icon_level3_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="12dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_subject_home"
-                app:srcCompat="@drawable/level_three" />
-
-            <ImageView
-                android:id="@+id/icon_level4_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="12dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_subject_home"
-                app:srcCompat="@drawable/level_four" />
-
-            <ImageView
-                android:id="@+id/icon_level5_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="12dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_subject_home"
-                app:srcCompat="@drawable/level_five" />
-
-            <ImageView
-                android:id="@+id/icon_level6_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="12dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_subject_home"
-                app:srcCompat="@drawable/level_six" />
-
-            <ImageView
-                android:id="@+id/icon_level7_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="12dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_subject_home"
-                app:srcCompat="@drawable/level_seven" />
-
-            <ImageView
-                android:id="@+id/icon_level8_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="12dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_subject_home"
-                app:srcCompat="@drawable/level_eight" />
-
-            <ImageView
-                android:id="@+id/icon_level9_Home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="12dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_subject_home"
-                app:srcCompat="@drawable/level_nine" />
-
-            <ImageView
-                android:id="@+id/icon_level10_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="12dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_subject_home"
-                app:srcCompat="@drawable/level_ten" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

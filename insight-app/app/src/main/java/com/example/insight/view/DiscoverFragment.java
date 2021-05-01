@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.insight.R;
 import com.example.insight.model.JWTModel;
+import com.example.insight.view.TutorDiscover.TutorDiscoverFragment;
 
 /**
  * A simple {@link Fragment} subclass.
