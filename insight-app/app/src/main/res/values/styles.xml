@@ -64,9 +64,4 @@
         <item name="android:background">@color/white</item>
     </style>
 
-    <style name="Widget.Holo.Button" parent="Widget.AppCompat.Button">
-        <item name="android:minHeight">0dip</item>
-        <item name="android:minWidth">0dip</item>
-    </style>
-
 </resources>

@@ -64,7 +64,7 @@ public class StudentBidsFragment extends Fragment implements View.OnClickListene
 
     // Navigate to StudentCounterBidsFragment (view the selected bid's counter bids by tutors)
     private void navigate(){
-        NavDirections navAction = StudentBidsFragmentDirections.actionStudentBidsFragmentToStudentCounterBidsFragment(selectedBid);
+        NavDirections navAction = BidsFragmentDirections.actionBidsFragmentToStudentCounterBidsFragment(selectedBid);
         NavHostFragment.findNavController(this).navigate(navAction);
     }
 

@@ -55,7 +55,8 @@ public class LoginActivity extends AppCompatActivity {
             JWTModel jwtModel = new JWTModel(jwt);
             Log.i("print", "Login Activity: "+"JWT Expired? "+ jwtModel.isJWTExpired());
             if(!jwtModel.isJWTExpired()){
-                Log.i("print", "Login Activity: "+"User logged in, redirect to Main activity");
+
+                Log.i("print", "Login Activity: "+jwtModel.getUserRole()+" logged in, redirect to Main activity");
                 redirectToMainActivity();
             }
         }
@@ -73,8 +74,8 @@ public class LoginActivity extends AppCompatActivity {
         JSONObject jsonBody = new JSONObject();
         try{
             //TODO: Replace placeholder with form inputs
-            jsonBody.put("userName", "mbrown123");
-            jsonBody.put("password", "mbrown123");
+            jsonBody.put("userName", "iamthewei");
+            jsonBody.put("password", "iamthewei");
 
             VolleyResponseListener listener = new VolleyResponseListener() {
                 @Override

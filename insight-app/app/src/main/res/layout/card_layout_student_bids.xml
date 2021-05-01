@@ -117,7 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Total"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/icon_total_bids_sb"
                 app:layout_constraintEnd_toEndOf="@+id/icon_total_bids_sb"
                 app:layout_constraintStart_toStartOf="@+id/icon_total_bids_sb"

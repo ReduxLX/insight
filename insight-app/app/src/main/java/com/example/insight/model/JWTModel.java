@@ -1,5 +1,7 @@
 package com.example.insight.model;
 
+import android.util.Log;
+
 import com.auth0.android.jwt.Claim;
 import com.auth0.android.jwt.JWT;
 
@@ -29,7 +31,7 @@ public class JWTModel {
         familyName = allClaims.get("familyName").asString();
         username = allClaims.get("username").asString();
         isStudent = allClaims.get("isStudent").asBoolean();
-        isTutor = allClaims.get("isTutor").asBoolean();
+        isTutor = allClaims.get("isTutor").asBoolean();;
         expiryDateInSeconds = allClaims.get("exp").asLong();
 
         expiryDate = new Date();
@@ -42,6 +44,19 @@ public class JWTModel {
     // Compare current date with expiry date to see if JWT is expired
     public boolean isJWTExpired(){
         return new Date().after(expiryDate);
+    }
+
+    // Get user role in string
+    public String getUserRole(){
+        if(isStudent() && isTutor() || !isStudent() && !isTutor()){
+            Log.i("print", "Invalid User Role");
+            return "Invalid Role";
+        }
+        if(isStudent()){
+            return "Student";
+        }else{
+            return "Tutor";
+        }
     }
 
     public String getId() {

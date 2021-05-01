@@ -63,7 +63,7 @@ public class StudentDiscoverFragment extends Fragment implements View.OnClickLis
 
     // Navigate to StudentDiscover fragment after student posts a bid
     private void navigate(){
-        NavDirections navAction = StudentDiscoverFragmentDirections.actionStudentDiscoverFragmentToStudentBidsFragment();
+        NavDirections navAction = DiscoverFragmentDirections.actionDiscoverFragmentToStudentBidsFragment();
         NavHostFragment.findNavController(this).navigate(navAction);
     }
 
