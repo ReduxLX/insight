@@ -48,4 +48,13 @@ public class BidAdditionalInfoModel {
     public String getExpiryDate() {
         return expiryDate;
     }
+
+    @Override
+    public String toString() {
+        return "BidAdditionalInfoModel{" +
+                "studentOffer=" + studentOffer +
+                ", tutorBids=" + tutorBids +
+                ", expiryDate='" + expiryDate + '\'' +
+                '}';
+    }
 }

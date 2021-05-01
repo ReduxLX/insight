@@ -98,4 +98,19 @@ public class JWTModel {
     public String getExpiryDate_ISO8601() {
         return expiryDate_ISO8601;
     }
+
+    @Override
+    public String toString() {
+        return "JWTModel{" +
+                "id='" + id + '\'' +
+                ", givenName='" + givenName + '\'' +
+                ", familyName='" + familyName + '\'' +
+                ", username='" + username + '\'' +
+                ", isStudent=" + isStudent +
+                ", isTutor=" + isTutor +
+                ", expiryDateInSeconds=" + expiryDateInSeconds +
+                ", expiryDate=" + expiryDate +
+                ", expiryDate_ISO8601='" + expiryDate_ISO8601 + '\'' +
+                '}';
+    }
 }

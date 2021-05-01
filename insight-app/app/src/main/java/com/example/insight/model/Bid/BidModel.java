@@ -6,6 +6,8 @@ import com.example.insight.model.UserModel;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Locale;
+
 
 /**
  * Class used to destructure Bid JSON Object
@@ -34,59 +36,50 @@ public class BidModel {
         }
     }
 
-    public String getId() {
-        return id;
+    public String getSubjectAndCompetencyStr(){
+        return String.format(Locale.getDefault(),
+                "%s (%s)", subject.getName(),
+                additionalInfo.getStudentOffer().getCompetencyStr());
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getId() {
+        return id;
     }
 
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getDateCreated() {
         return dateCreated;
-    }
-
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
     }
 
     public String getDateClosedDown() {
         return dateClosedDown;
     }
 
-    public void setDateClosedDown(String dateClosedDown) {
-        this.dateClosedDown = dateClosedDown;
-    }
-
     public UserModel getInitiator() {
         return initiator;
-    }
-
-    public void setInitiator(UserModel initiator) {
-        this.initiator = initiator;
     }
 
     public SubjectModel getSubject() {
         return subject;
     }
 
-    public void setSubject(SubjectModel subject) {
-        this.subject = subject;
-    }
-
     public BidAdditionalInfoModel getAdditionalInfo() {
         return additionalInfo;
     }
 
-    public void setAdditionalInfo(BidAdditionalInfoModel additionalInfo) {
-        this.additionalInfo = additionalInfo;
+    @Override
+    public String toString() {
+        return "BidModel{" +
+                "id='" + id + '\'' +
+                ", type='" + type + '\'' +
+                ", dateCreated='" + dateCreated + '\'' +
+                ", dateClosedDown='" + dateClosedDown + '\'' +
+                ", initiator=" + initiator +
+                ", subject=" + subject +
+                ", additionalInfo=" + additionalInfo +
+                '}';
     }
 }

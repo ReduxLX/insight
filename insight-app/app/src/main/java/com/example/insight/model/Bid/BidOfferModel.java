@@ -63,6 +63,11 @@ public class BidOfferModel {
         return isRateWeekly ? weeklyRate : hourlyRate;
     }
 
+    public String getFreeClassesStr(){
+        return String.format(Locale.getDefault(),
+                "%d free classes", getFreeClasses());
+    }
+
     public String getHoursPerLessonStr(){
         return String.format(Locale.getDefault(),
                 "%d hours per lesson", getHoursPerLesson());
@@ -71,6 +76,20 @@ public class BidOfferModel {
     public String getLessonsPerWeekStr(){
         return String.format(Locale.getDefault(),
                 "%d lessons per week", getLessonsPerWeek());
+    }
+
+    public String getCompetencyStr(){
+        if(getCompetency() >= 1 && getCompetency() <= 3){
+            return "Beginner";
+        }else if (getCompetency() >= 4 && getCompetency() <= 6){
+            return  "Novice";
+        }else if (getCompetency() >= 7 && getCompetency() <= 8){
+            return "Intermediate";
+        }else if (getCompetency() >= 9 && getCompetency() <= 10){
+            return "Advanced";
+        }else{
+            return "No Difficulty";
+        }
     }
 
     public int getCompetency() {
@@ -107,5 +126,20 @@ public class BidOfferModel {
 
     public JSONObject getBidOffer() {
         return bidOffer;
+    }
+
+    @Override
+    public String toString() {
+        return "BidOfferModel{" +
+                "competency=" + competency +
+                ", rate=" + rate +
+                ", hoursPerLesson=" + hoursPerLesson +
+                ", lessonsPerWeek=" + lessonsPerWeek +
+                ", freeClasses=" + freeClasses +
+                ", isRateHourly=" + isRateHourly +
+                ", isRateWeekly=" + isRateWeekly +
+                ", isTutorBid=" + isTutorBid +
+                ", bidOffer=" + bidOffer +
+                '}';
     }
 }

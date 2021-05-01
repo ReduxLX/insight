@@ -33,4 +33,12 @@ public class TutorBidModel {
         return tutorOffer;
     }
 
+    @Override
+    public String toString() {
+        return "TutorBidModel{" +
+                "dateCreated='" + dateCreated + '\'' +
+                ", tutor=" + tutor +
+                ", tutorOffer=" + tutorOffer +
+                '}';
+    }
 }

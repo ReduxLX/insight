@@ -43,79 +43,55 @@ public class ContractModel {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getDateCreated() {
         return dateCreated;
-    }
-
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
     }
 
     public String getDateSigned() {
         return dateSigned;
     }
 
-    public void setDateSigned(String dateSigned) {
-        this.dateSigned = dateSigned;
-    }
-
     public String getExpiryDate() {
         return expiryDate;
-    }
-
-    public void setExpiryDate(String expiryDate) {
-        this.expiryDate = expiryDate;
     }
 
     public JSONObject getPaymentInfo() {
         return paymentInfo;
     }
 
-    public void setPaymentInfo(JSONObject paymentInfo) {
-        this.paymentInfo = paymentInfo;
-    }
-
     public JSONObject getLessonInfo() {
         return lessonInfo;
-    }
-
-    public void setLessonInfo(JSONObject lessonInfo) {
-        this.lessonInfo = lessonInfo;
     }
 
     public JSONObject getAdditionalInfo() {
         return additionalInfo;
     }
 
-    public void setAdditionalInfo(JSONObject additionalInfo) {
-        this.additionalInfo = additionalInfo;
-    }
-
     public UserModel getFirstParty() {
         return firstParty;
-    }
-
-    public void setFirstParty(UserModel firstParty) {
-        this.firstParty = firstParty;
     }
 
     public UserModel getSecondParty() {
         return secondParty;
     }
 
-    public void setSecondParty(UserModel secondParty) {
-        this.secondParty = secondParty;
-    }
-
     public SubjectModel getSubject() {
         return subject;
     }
 
-    public void setSubjectModel(SubjectModel subjectModel) {
-        this.subject = subjectModel;
+    @Override
+    public String toString() {
+        return "ContractModel{" +
+                "id='" + id + '\'' +
+                ", dateCreated='" + dateCreated + '\'' +
+                ", dateSigned='" + dateSigned + '\'' +
+                ", expiryDate='" + expiryDate + '\'' +
+                ", paymentInfo=" + paymentInfo +
+                ", lessonInfo=" + lessonInfo +
+                ", additionalInfo=" + additionalInfo +
+                ", firstParty=" + firstParty +
+                ", secondParty=" + secondParty +
+                ", subject=" + subject +
+                '}';
     }
 }

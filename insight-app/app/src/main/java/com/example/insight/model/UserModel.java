@@ -52,4 +52,16 @@ public class UserModel {
     public boolean isTutor() {
         return isTutor;
     }
+
+    @Override
+    public String toString() {
+        return "UserModel{" +
+                "id='" + id + '\'' +
+                ", givenName='" + givenName + '\'' +
+                ", familyName='" + familyName + '\'' +
+                ", userName='" + userName + '\'' +
+                ", isStudent=" + isStudent +
+                ", isTutor=" + isTutor +
+                '}';
+    }
 }
