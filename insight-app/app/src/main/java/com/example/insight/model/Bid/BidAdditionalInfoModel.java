@@ -25,7 +25,8 @@ public class BidAdditionalInfoModel {
         JSONObject json = new JSONObject();
         try{
             json.put("studentOffer", studentOffer.parseIntoJSON());
-            json.put("tutorBids", tutorBids);
+            json.put("tutorBids", getTutorBids());
+            json.put("expiryDate", getExpiryDate());
         } catch(JSONException e){
             e.printStackTrace();
         }
@@ -47,5 +48,14 @@ public class BidAdditionalInfoModel {
 
     public String getExpiryDate() {
         return expiryDate;
+    }
+
+    @Override
+    public String toString() {
+        return "BidAdditionalInfoModel{" +
+                "studentOffer=" + studentOffer +
+                ", tutorBids=" + tutorBids +
+                ", expiryDate='" + expiryDate + '\'' +
+                '}';
     }
 }

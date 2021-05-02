@@ -7,15 +7,21 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.insight.view.HomeFragment"
+        android:name="com.example.insight.view.Home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home"/>
     <fragment
         android:id="@+id/chatFragment"
-        android:name="com.example.insight.view.ChatFragment"
+        android:name="com.example.insight.view.Chat.ChatFragment"
         android:label="ChatFragment"
         tools:layout="@layout/fragment_chat">
-        <argument android:name="currentBidId" />
+        <argument android:name="currentBidId"
+            app:argType="string" />
+        <argument android:name="recipientName"
+            app:argType="string" />
+        <argument
+            android:name="recipientId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/studentBidsFragment"
@@ -52,7 +58,7 @@
         tools:layout="@layout/fragment_student_discover">
         <action
             android:id="@+id/action_studentDiscoverFragment_to_studentBidsFragment"
-            app:destination="@id/studentBidsFragment"
+            app:destination="@id/bidsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -60,7 +66,7 @@
     </fragment>
     <fragment
         android:id="@+id/tutorBidsFragment"
-        android:name="com.example.insight.view.TutorBidsFragment"
+        android:name="com.example.insight.view.TutorBids.TutorBidsFragment"
         android:label="TutorBidsFragment"
         tools:layout="@layout/fragment_tutor_bids">
         <action
@@ -73,7 +79,7 @@
     </fragment>
     <fragment
         android:id="@+id/tutorDiscoverFragment"
-        android:name="com.example.insight.view.TutorDiscoverFragment"
+        android:name="com.example.insight.view.TutorDiscover.TutorDiscoverFragment"
         android:label="TutorDiscoverFragment"
         tools:layout="@layout/fragment_tutor_discover">
         <action
@@ -86,7 +92,7 @@
     </fragment>
     <fragment
         android:id="@+id/tutorViewBidFragment"
-        android:name="com.example.insight.view.TutorViewBidFragment"
+        android:name="com.example.insight.view.TutorViewBid.TutorViewBidFragment"
         android:label="TutorViewBidFragment"
         tools:layout="@layout/fragment_tutor_view_bid">
         <action
@@ -98,16 +104,14 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+        <argument android:name="bidId" />
         <action
-            android:id="@+id/action_tutorViewBidFragment_to_tutorBidsFragment"
-            app:destination="@id/tutorBidsFragment"
+            android:id="@+id/action_tutorViewBidFragment_to_bidsFragment"
+            app:destination="@id/bidsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            app:popUpTo="@id/tutorBidsFragment"
-            app:popUpToInclusive="true" />
-        <argument android:name="bidId" />
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -127,12 +131,12 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_discoverFragment_to_studentBidsFragment"
-            app:destination="@id/studentBidsFragment"
+            android:id="@+id/action_discoverFragment_to_bidsFragment"
+            app:destination="@id/bidsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/bidsFragment"

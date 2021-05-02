@@ -10,6 +10,7 @@ public class MessageModel {
     private String dateLastEdited;
     private String content;
     private JSONObject additionalInfo;
+    private String recipientId;
     private UserModel poster;
 
     public MessageModel(JSONObject message) {
@@ -21,6 +22,7 @@ public class MessageModel {
             content = message.getString("content");
             additionalInfo = message.getJSONObject("additionalInfo");
             poster = new UserModel(message.getJSONObject("poster"));
+            recipientId = additionalInfo.getString("recipientId");
         } catch (JSONException e){
             e.printStackTrace();
         }
@@ -30,55 +32,44 @@ public class MessageModel {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getBidId() {
         return bidId;
-    }
-
-    public void setBidId(String bidId) {
-        this.bidId = bidId;
     }
 
     public String getDatePosted() {
         return datePosted;
     }
 
-    public void setDatePosted(String datePosted) {
-        this.datePosted = datePosted;
-    }
-
     public String getDateLastEdited() {
         return dateLastEdited;
-    }
-
-    public void setDateLastEdited(String dateLastEdited) {
-        this.dateLastEdited = dateLastEdited;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public JSONObject getAdditionalInfo() {
         return additionalInfo;
-    }
-
-    public void setAdditionalInfo(JSONObject additionalInfo) {
-        this.additionalInfo = additionalInfo;
     }
 
     public UserModel getPoster() {
         return poster;
     }
 
-    public void setPoster(UserModel poster) {
-        this.poster = poster;
+    public String getRecipientId() {
+        return recipientId;
+    }
+
+    @Override
+    public String toString() {
+        return "MessageModel{" +
+                "id='" + id + '\'' +
+                ", bidId='" + bidId + '\'' +
+                ", datePosted='" + datePosted + '\'' +
+                ", dateLastEdited='" + dateLastEdited + '\'' +
+                ", content='" + content + '\'' +
+                ", additionalInfo=" + additionalInfo +
+                ", poster=" + poster +
+                '}';
     }
 }

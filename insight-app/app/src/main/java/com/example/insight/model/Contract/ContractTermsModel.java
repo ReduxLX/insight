@@ -1,4 +1,4 @@
-package com.example.insight.model.Bid;
+package com.example.insight.model.Contract;
 
 
 import com.example.insight.R;
@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 import java.util.Locale;
 
-public class BidOfferModel {
+public class ContractTermsModel {
     private int competency;
     private int rate;
     private int hoursPerLesson;
@@ -16,44 +16,19 @@ public class BidOfferModel {
     private int freeClasses;
     private boolean isRateHourly;
     private boolean isRateWeekly;
-    private boolean isTutorBid;
-    private JSONObject bidOffer;
 
-    public BidOfferModel(JSONObject bidOffer, boolean isTutorBid) {
+    public ContractTermsModel(JSONObject contractTerms) {
         try{
-            this.bidOffer = bidOffer;
-            this.isTutorBid = isTutorBid;
-            rate = bidOffer.getInt("rate");
-            hoursPerLesson = bidOffer.getInt("hoursPerLesson");
-            lessonsPerWeek = bidOffer.getInt("lessonsPerWeek");
-            isRateHourly = bidOffer.getBoolean("isRateHourly");
-            isRateWeekly = bidOffer.getBoolean("isRateWeekly");
-            if(isTutorBid){
-                freeClasses = bidOffer.getInt("freeClasses");
-            }else{
-                competency = bidOffer.getInt("competency");
-            }
+            rate = contractTerms.getInt("rate");
+            hoursPerLesson = contractTerms.getInt("hoursPerLesson");
+            lessonsPerWeek = contractTerms.getInt("lessonsPerWeek");
+            isRateHourly = contractTerms.getBoolean("isRateHourly");
+            isRateWeekly = contractTerms.getBoolean("isRateWeekly");
+            freeClasses = contractTerms.getInt("freeClasses");
+            competency = contractTerms.getInt("competency");
         } catch (JSONException e){
             e.printStackTrace();
         }
-    }
-
-    public JSONObject parseIntoJSON(){
-        JSONObject json = new JSONObject();
-        try{
-            json.put("competency", competency);
-            json.put("rate", rate);
-            json.put("hoursPerLesson", hoursPerLesson);
-            json.put("lessonsPerWeek", lessonsPerWeek);
-            json.put("isRateHourly", isRateHourly);
-            json.put("isRateWeekly", isRateWeekly);
-            if(isTutorBid()){
-                json.put("freeClasses", freeClasses);
-            }
-        } catch(JSONException e){
-            e.printStackTrace();
-        }
-        return json;
     }
 
     public String getRateStr(){
@@ -149,17 +124,9 @@ public class BidOfferModel {
         return isRateWeekly;
     }
 
-    public boolean isTutorBid() {
-        return isTutorBid;
-    }
-
-    public JSONObject getBidOffer() {
-        return bidOffer;
-    }
-
     @Override
     public String toString() {
-        return "BidOfferModel{" +
+        return "ContractTermsModel{" +
                 "competency=" + competency +
                 ", rate=" + rate +
                 ", hoursPerLesson=" + hoursPerLesson +
@@ -167,8 +134,6 @@ public class BidOfferModel {
                 ", freeClasses=" + freeClasses +
                 ", isRateHourly=" + isRateHourly +
                 ", isRateWeekly=" + isRateWeekly +
-                ", isTutorBid=" + isTutorBid +
-                ", bidOffer=" + bidOffer +
                 '}';
     }
 }

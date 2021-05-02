@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.example.insight.R;
 import com.example.insight.model.JWTModel;
 import com.example.insight.view.StudentBids.StudentBidsFragment;
+import com.example.insight.view.TutorBids.TutorBidsFragment;
 
 /**
  * A simple {@link Fragment} subclass.

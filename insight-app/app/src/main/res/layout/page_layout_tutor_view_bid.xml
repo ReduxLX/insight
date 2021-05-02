@@ -2,7 +2,6 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
@@ -18,9 +17,89 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp">
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_bid_header_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Header"
+                android:textAlignment="center"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_timer_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Closes in x minutes and x seconds"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_bid_header_tvb" />
+
+            <ImageView
+                android:id="@+id/icon_subject_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_timer_tvb"
+                app:srcCompat="@drawable/subject" />
+
+            <TextView
+                android:id="@+id/tv_subject_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Subject"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_subject_tvb"
+                app:layout_constraintStart_toEndOf="@+id/icon_subject_tvb" />
+
+            <ImageView
+                android:id="@+id/icon_cost_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="@+id/icon_subject_tvb"
+                app:layout_constraintTop_toBottomOf="@+id/icon_subject_tvb"
+                app:srcCompat="@drawable/cost" />
+
+            <TextView
+                android:id="@+id/tv_rate_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rate"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_cost_tvb"
+                app:layout_constraintStart_toStartOf="@+id/tv_subject_tvb" />
+
+            <ImageView
+                android:id="@+id/icon_duration_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="@+id/icon_cost_tvb"
+                app:layout_constraintTop_toBottomOf="@+id/icon_cost_tvb"
+                app:srcCompat="@drawable/duration" />
+
+            <TextView
+                android:id="@+id/tv_duration_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Duration"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_duration_tvb"
+                app:layout_constraintStart_toStartOf="@+id/tv_rate_tvb" />
 
             <ImageView
                 android:id="@+id/icon_schedule_tvb"
@@ -40,79 +119,31 @@
                 app:layout_constraintBottom_toBottomOf="@+id/icon_schedule_tvb"
                 app:layout_constraintStart_toStartOf="@+id/tv_duration_tvb" />
 
-            <TextView
-                android:id="@+id/tv_duration_tvb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Duration"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/icon_duration_tvb"
-                app:layout_constraintStart_toStartOf="@+id/tv_rate_tvb" />
-
             <ImageView
-                android:id="@+id/icon_duration_tvb"
+                android:id="@+id/icon_user_tvb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                app:layout_constraintStart_toStartOf="@+id/icon_cost_tvb"
-                app:layout_constraintTop_toBottomOf="@+id/icon_cost_tvb"
-                app:srcCompat="@drawable/duration" />
+                app:layout_constraintStart_toStartOf="@+id/icon_schedule_tvb"
+                app:layout_constraintTop_toBottomOf="@+id/icon_schedule_tvb"
+                app:srcCompat="@drawable/user" />
 
             <TextView
-                android:id="@+id/tv_rate_tvb"
+                android:id="@+id/tv_name_tvb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rate"
+                android:text="Name"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/icon_cost_tvb"
-                app:layout_constraintStart_toStartOf="@+id/tv_subject_tvb" />
-
-            <ImageView
-                android:id="@+id/icon_cost_tvb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                app:layout_constraintStart_toStartOf="@+id/icon_subject_tvb"
-                app:layout_constraintTop_toBottomOf="@+id/icon_subject_tvb"
-                app:srcCompat="@drawable/cost" />
-
-            <TextView
-                android:id="@+id/tv_timer_tvb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/montserrat_bold"
-                android:text="Closes in x minutes and x seconds"
-                android:textAlignment="center"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/icon_subject_tvb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_timer_tvb"
-                app:srcCompat="@drawable/subject" />
-
-            <TextView
-                android:id="@+id/tv_subject_tvb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:text="Subject"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/icon_subject_tvb"
-                app:layout_constraintStart_toEndOf="@+id/icon_subject_tvb" />
+                app:layout_constraintBottom_toBottomOf="@+id/icon_user_tvb"
+                app:layout_constraintStart_toStartOf="@+id/tv_schedule_tvb" />
 
             <Button
                 android:id="@+id/button_accept_tvb"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
                 android:background="@color/colorPrimary"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Accept Student's Bid"
@@ -120,56 +151,49 @@
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/icon_schedule_tvb" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="20dp"
-            android:paddingTop="30dp"
-            android:paddingEnd="20dp"
-            android:paddingBottom="30dp">
+                app:layout_constraintTop_toBottomOf="@+id/icon_user_tvb" />
 
             <TextView
                 android:id="@+id/tv_counter_bid_tvb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Make a counter-bid"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="@+id/icon_user_tvb"
+                app:layout_constraintTop_toBottomOf="@+id/button_accept_tvb" />
 
             <TextView
                 android:id="@+id/tv_rate_text_tvb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="12dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Rate (Hourly/Weekly)"
                 android:textColor="#3658C7"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_counter_bid_tvb"
                 app:layout_constraintTop_toBottomOf="@+id/tv_counter_bid_tvb" />
 
             <EditText
                 android:id="@+id/pt_rate_tvb"
+                android:inputType="numberDecimal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
                 android:ems="10"
                 android:hint="Rate ($)"
-                android:inputType="numberDecimal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_rate_text_tvb"
                 app:layout_constraintTop_toBottomOf="@+id/tv_rate_text_tvb" />
 
             <RadioGroup
-                android:id="@+id/rg_rate_tvg"
+                android:id="@+id/RadioGroup1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="@+id/pt_rate_tvb"
                 app:layout_constraintTop_toBottomOf="@+id/pt_rate_tvb">
@@ -192,63 +216,68 @@
             </RadioGroup>
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Lessons Per Week "
                 android:textColor="#3658C7"
-                app:layout_constraintStart_toStartOf="@+id/rg_rate_tvg"
-                app:layout_constraintTop_toBottomOf="@+id/rg_rate_tvg" />
-
-            <Spinner
-                android:id="@+id/sp_schedule_tvb"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:spinnerMode="dropdown"
-                app:layout_constraintEnd_toStartOf="@+id/sp_duration_tvb"
-                app:layout_constraintStart_toStartOf="@+id/textView8"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                app:layout_constraintStart_toStartOf="@+id/RadioGroup1"
+                app:layout_constraintTop_toBottomOf="@+id/RadioGroup1" />
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/textView10"
                 android:layout_width="130dp"
                 android:layout_height="16dp"
+                android:layout_marginTop="24dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Hours Per Lesson"
                 android:textColor="#3658C7"
-                app:layout_constraintBottom_toBottomOf="@+id/textView8"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView8" />
+                app:layout_constraintStart_toEndOf="@+id/textView9"
+                app:layout_constraintTop_toBottomOf="@+id/RadioGroup1" />
+
+            <EditText
+                android:id="@+id/pt_lessonsPerWeek_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Lessons"
+                android:inputType="number"
+                app:layout_constraintStart_toStartOf="@+id/textView9"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
             <Spinner
-                android:id="@+id/sp_duration_tvb"
+                android:id="@+id/sp_hoursPerLesson_tvb"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:spinnerMode="dropdown"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView11"
-                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+                app:layout_constraintEnd_toEndOf="@+id/textView10"
+                app:layout_constraintStart_toStartOf="@+id/textView10"
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
             <TextView
                 android:id="@+id/tv_free_text_tvb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="12dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Other Free Classes (Optional)"
                 android:textColor="#3658C7"
-                app:layout_constraintStart_toStartOf="@+id/sp_schedule_tvb"
-                app:layout_constraintTop_toBottomOf="@+id/sp_schedule_tvb" />
+                app:layout_constraintStart_toStartOf="@+id/pt_lessonsPerWeek_tvb"
+                app:layout_constraintTop_toBottomOf="@+id/pt_lessonsPerWeek_tvb" />
 
-            <Spinner
-                android:id="@+id/sp_free_class_tvb"
+            <EditText
+                android:id="@+id/pt_free_tvb"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:spinnerMode="dropdown"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:ems="10"
+                android:hint="Enter Amount"
+                android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_free_text_tvb"
                 app:layout_constraintTop_toBottomOf="@+id/tv_free_text_tvb" />
@@ -257,7 +286,9 @@
                 android:id="@+id/button_send_tvb"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
                 android:background="@color/colorPrimary"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Send Bid"
@@ -266,8 +297,20 @@
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sp_free_class_tvb" />
+                app:layout_constraintTop_toBottomOf="@+id/pt_free_tvb" />
 
+            <TextView
+                android:id="@+id/tv_other_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Other CounterBids"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/button_send_tvb"
+                app:layout_constraintTop_toBottomOf="@+id/button_send_tvb" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -2,6 +2,9 @@ package com.example.insight.view.StudentBids;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.insight.R;
 import com.example.insight.model.Bid.BidModel;
 import com.example.insight.model.Bid.BidOfferModel;
+import com.example.insight.model.JWTModel;
 import com.example.insight.view.BidsFragmentDirections;
 
 import org.json.JSONArray;
@@ -34,11 +38,16 @@ public class StudentBidsAdapter extends RecyclerView.Adapter<StudentBidsAdapter.
     StudentBidsAdapter(Context ctx, NavController navController, JSONArray bids){
         context = ctx;
         this.navController = navController;
-
+        SharedPreferences prefs = ctx.getSharedPreferences("com.example.insight", Context.MODE_PRIVATE);
+        String jwt = prefs.getString("jwt", null);
+        JWTModel jwtModel = new JWTModel(jwt);
         try {
             for (int j=0; j < bids.length(); j++){
                 JSONObject bidObj = bids.getJSONObject(j);
                 BidModel bid = new BidModel(bidObj);
+                Log.i("print", "date: "+bid.getDateClosedDown());
+                if(bid.getInitiator().getId().equals(jwtModel.getId()) &&
+                        bid.getDateClosedDown().equals("null"))
                 bidArray.add(bid);
             }
 
@@ -61,7 +70,7 @@ public class StudentBidsAdapter extends RecyclerView.Adapter<StudentBidsAdapter.
         final BidModel bid = bidArray.get(position);
         BidOfferModel studentOffer = bid.getAdditionalInfo().getStudentOffer();
 
-        holder.subject.setText(bid.getSubject().getName());
+        holder.subject.setText(bid.getSubjectAndCompetencyStr());
         holder.totalTutorBids.setText(bid.getAdditionalInfo().getTutorBidsStr());
         holder.rate.setText(studentOffer.getRateStr());
         holder.hoursPerLesson.setText(studentOffer.getHoursPerLessonStr());
@@ -70,6 +79,7 @@ public class StudentBidsAdapter extends RecyclerView.Adapter<StudentBidsAdapter.
         holder.constraint_sb.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Log.i("print", "WHYYYY "+bid.getId());
                 NavDirections navAction = BidsFragmentDirections.actionBidsFragmentToStudentCounterBidsFragment(
                         bid.getId());
                 navController.navigate(navAction);
