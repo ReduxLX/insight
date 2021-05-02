@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_constraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,29 +30,17 @@
             android:divider="@android:color/transparent">
 
             <TextView
-                android:id="@+id/tv_subject_oc"
+                android:id="@+id/tv_name_oc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/montserrat_bold"
-                android:text="Subject"
+                tools:text="Tutor Name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_name_oc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:fontFamily="@font/montserrat_medium"
-                android:text="Student Full name"
-                android:textColor="@color/gray"
-                android:textSize="11sp"
-                app:layout_constraintStart_toStartOf="@+id/tv_subject_oc"
-                app:layout_constraintTop_toBottomOf="@+id/tv_subject_oc" />
 
             <ImageView
                 android:id="@+id/icon_cost_oc"
@@ -119,7 +108,8 @@
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@+id/icon_cost_oc"
                 app:layout_constraintTop_toBottomOf="@+id/icon_cost_oc"
-                app:srcCompat="@drawable/free_class" />
+                app:srcCompat="@drawable/free_class"
+                tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/tv_free_oc"
@@ -129,7 +119,8 @@
                 android:textSize="14sp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/icon_free_oc"
-                app:layout_constraintStart_toStartOf="@+id/tv_rate_oc" />
+                app:layout_constraintStart_toStartOf="@+id/tv_rate_oc"
+                tools:visibility="visible" />
 
 
 

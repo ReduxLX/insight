@@ -81,7 +81,9 @@ public class TutorBidsFragment extends Fragment {
                             String jwt = prefs.getString("jwt", null);
                             JWTModel jwtModel = new JWTModel(jwt);
                             String userId = jwtModel.getId();
-                            if(userId.equals(tutorBid.getTutor().getId())){
+
+                            // Filter for non-closed bids with tutor
+                            if(userId.equals(tutorBid.getTutor().getId()) && bid.getDateClosedDown().equals("null")){
                                 // TODO: Use bidModel getters to create cards
                                 bidArray.add(bid);
                                 tutorBidArray.add(tutorBid);

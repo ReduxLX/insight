@@ -45,7 +45,9 @@ public class StudentBidsAdapter extends RecyclerView.Adapter<StudentBidsAdapter.
             for (int j=0; j < bids.length(); j++){
                 JSONObject bidObj = bids.getJSONObject(j);
                 BidModel bid = new BidModel(bidObj);
-                if(bid.getInitiator().getId().equals(jwtModel.getId()))
+                Log.i("print", "date: "+bid.getDateClosedDown());
+                if(bid.getInitiator().getId().equals(jwtModel.getId()) &&
+                        bid.getDateClosedDown().equals("null"))
                 bidArray.add(bid);
             }
 

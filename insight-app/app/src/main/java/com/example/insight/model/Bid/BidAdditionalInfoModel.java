@@ -25,7 +25,8 @@ public class BidAdditionalInfoModel {
         JSONObject json = new JSONObject();
         try{
             json.put("studentOffer", studentOffer.parseIntoJSON());
-            json.put("tutorBids", tutorBids);
+            json.put("tutorBids", getTutorBids());
+            json.put("expiryDate", getExpiryDate());
         } catch(JSONException e){
             e.printStackTrace();
         }

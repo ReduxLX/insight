@@ -72,7 +72,7 @@
                 app:srcCompat="@drawable/free_class" />
 
             <TextView
-                android:id="@+id/tv_free_tcb"
+                android:id="@+id/tv_free_scb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Free"

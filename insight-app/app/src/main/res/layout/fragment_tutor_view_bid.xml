@@ -1,64 +1,278 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="35dp"
-    android:paddingRight="35dp"
-    tools:context=".MainActivity">
+    android:fillViewport="true"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/placeholder_label_create_tutor_view_bid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="Tutor View Bid Fragment"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.315" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvBidId_TutorViewBid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:fontFamily="@font/montserrat_medium"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/placeholder_label_create_tutor_view_bid"
-        tools:text="Bid Id" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
 
-    <Button
-        android:id="@+id/buttonBuyoutBid"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:background="@color/colorPrimary"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="Buy Out Bid"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBidId_TutorViewBid" />
+            <ImageView
+                android:id="@+id/icon_schedule_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="@+id/icon_duration_tvb"
+                app:layout_constraintTop_toBottomOf="@+id/icon_duration_tvb"
+                app:srcCompat="@drawable/schedule" />
 
-    <Button
-        android:id="@+id/buttonSendCounterBid"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:background="@color/colorPrimary"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="Send Counter Bid"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonBuyoutBid" />
+            <TextView
+                android:id="@+id/tv_schedule_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Schedule"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_schedule_tvb"
+                app:layout_constraintStart_toStartOf="@+id/tv_duration_tvb" />
+
+            <TextView
+                android:id="@+id/tv_duration_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Duration"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_duration_tvb"
+                app:layout_constraintStart_toStartOf="@+id/tv_rate_tvb" />
+
+            <ImageView
+                android:id="@+id/icon_duration_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="@+id/icon_cost_tvb"
+                app:layout_constraintTop_toBottomOf="@+id/icon_cost_tvb"
+                app:srcCompat="@drawable/duration" />
+
+            <TextView
+                android:id="@+id/tv_rate_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rate"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_cost_tvb"
+                app:layout_constraintStart_toStartOf="@+id/tv_subject_tvb" />
+
+            <ImageView
+                android:id="@+id/icon_cost_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="@+id/icon_subject_tvb"
+                app:layout_constraintTop_toBottomOf="@+id/icon_subject_tvb"
+                app:srcCompat="@drawable/cost" />
+
+            <TextView
+                android:id="@+id/tv_timer_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Closes in x minutes and x seconds"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/icon_subject_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_timer_tvb"
+                app:srcCompat="@drawable/subject" />
+
+            <TextView
+                android:id="@+id/tv_subject_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Subject"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_subject_tvb"
+                app:layout_constraintStart_toEndOf="@+id/icon_subject_tvb" />
+
+            <Button
+                android:id="@+id/button_accept_tvb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@color/colorPrimary"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Accept Student's Bid"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/icon_schedule_tvb" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingTop="30dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="30dp">
+
+            <TextView
+                android:id="@+id/tv_counter_bid_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Make a counter-bid"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_rate_text_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Rate (Hourly/Weekly)"
+                android:textColor="#3658C7"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_counter_bid_tvb" />
+
+            <EditText
+                android:id="@+id/pt_rate_tvb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Rate ($)"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_rate_text_tvb" />
+
+            <RadioGroup
+                android:id="@+id/rg_rate_tvg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@+id/pt_rate_tvb"
+                app:layout_constraintTop_toBottomOf="@+id/pt_rate_tvb">
+
+                <RadioButton
+                    android:id="@+id/rb_hourly_tvb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#2A41CB"
+                    android:checked="true"
+                    android:paddingEnd="24dp"
+                    android:text="Hourly" />
+
+                <RadioButton
+                    android:id="@+id/rb_weekly_tvb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#2A41CB"
+                    android:text="Weekly" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Lessons Per Week "
+                android:textColor="#3658C7"
+                app:layout_constraintStart_toStartOf="@+id/rg_rate_tvg"
+                app:layout_constraintTop_toBottomOf="@+id/rg_rate_tvg" />
+
+            <Spinner
+                android:id="@+id/sp_schedule_tvb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toStartOf="@+id/sp_duration_tvb"
+                app:layout_constraintStart_toStartOf="@+id/textView8"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="130dp"
+                android:layout_height="16dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Hours Per Lesson"
+                android:textColor="#3658C7"
+                app:layout_constraintBottom_toBottomOf="@+id/textView8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView8" />
+
+            <Spinner
+                android:id="@+id/sp_duration_tvb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView11"
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+            <TextView
+                android:id="@+id/tv_free_text_tvb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Other Free Classes (Optional)"
+                android:textColor="#3658C7"
+                app:layout_constraintStart_toStartOf="@+id/sp_schedule_tvb"
+                app:layout_constraintTop_toBottomOf="@+id/sp_schedule_tvb" />
+
+            <Spinner
+                android:id="@+id/sp_free_class_tvb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_free_text_tvb"
+                app:layout_constraintTop_toBottomOf="@+id/tv_free_text_tvb" />
+
+            <Button
+                android:id="@+id/button_send_tvb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@color/colorPrimary"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Send Bid"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sp_free_class_tvb" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</ScrollView>
+
+

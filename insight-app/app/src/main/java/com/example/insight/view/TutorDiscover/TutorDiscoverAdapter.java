@@ -2,6 +2,7 @@ package com.example.insight.view.TutorDiscover;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,9 @@ public class TutorDiscoverAdapter extends RecyclerView.Adapter<TutorDiscoverAdap
             for (int j=0; j < bids.length(); j++){
                 JSONObject bidObj = bids.getJSONObject(j);
                 BidModel bid = new BidModel(bidObj);
-                bidArray.add(bid);
+                if(bid.getDateClosedDown().equals("null")){
+                    bidArray.add(bid);
+                }
             }
 
         } catch (JSONException e){

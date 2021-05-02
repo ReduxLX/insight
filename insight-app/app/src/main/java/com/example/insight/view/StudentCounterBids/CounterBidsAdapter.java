@@ -76,22 +76,12 @@ public class CounterBidsAdapter extends RecyclerView.Adapter<CounterBidsAdapter.
     public void onBindViewHolder(@NonNull CounterBidViewHolder holder, int position) {
         final TutorBidModel tutorBid = tutorBidsArray.get(position);
         BidOfferModel tutorOffer = tutorBid.getTutorOffer();
-        String name = tutorBid.getTutor().getFullName();
-        boolean isRateWeekly = tutorOffer.isRateWeekly();
-        String hourlyRate = String.format(Locale.getDefault(),
-                "$%d/h", tutorOffer.getRate());
-        String weeklyRate = String.format(Locale.getDefault(),
-                "$%d/week", tutorOffer.getRate());
-        String rate = isRateWeekly ? weeklyRate: hourlyRate;
-        String hoursPerLesson = tutorOffer.getHoursPerLesson() + " hours per lesson";
-        String lessonsPerWeek = tutorOffer.getLessonsPerWeek() + " lessons per week";
-        String freeLessons = tutorOffer.getLessonsPerWeek() + " free class";
 
-       holder.name.setText(name);
-       holder.rate.setText(rate);
-       holder.hoursPerLesson.setText(hoursPerLesson);
-       holder.lessonsPerWeek.setText(lessonsPerWeek);
-       holder.freeLessons.setText(freeLessons);
+       holder.name.setText(tutorBid.getTutor().getFullName());
+       holder.rate.setText(tutorOffer.getRateStr());
+       holder.hoursPerLesson.setText(tutorOffer.getHoursPerLessonStr());
+       holder.lessonsPerWeek.setText(tutorOffer.getLessonsPerWeekStr());
+       holder.freeLessons.setText(tutorOffer.getFreeClassesStr());
 
        holder.button_message.setOnClickListener(new View.OnClickListener(){
            @Override
@@ -125,7 +115,7 @@ public class CounterBidsAdapter extends RecyclerView.Adapter<CounterBidsAdapter.
             rate = itemView.findViewById(R.id.tv_rate_scb);
             hoursPerLesson = itemView.findViewById(R.id.tv_duration_scb);
             lessonsPerWeek = itemView.findViewById(R.id.tv_schedule_scb);
-            freeLessons = itemView.findViewById(R.id.tv_free_tcb);
+            freeLessons = itemView.findViewById(R.id.tv_free_scb);
             button_message = itemView.findViewById(R.id.button_message);
             button_sign_contract = itemView.findViewById(R.id.button_sign_contract);
         }
@@ -143,6 +133,7 @@ public class CounterBidsAdapter extends RecyclerView.Adapter<CounterBidsAdapter.
         String expiryDate = ISO8601.format(nextYearTime);
 
         try{
+            BidOfferModel tutorOffer = tutorBid.getTutorOffer();
             String jwt = prefs.getString("jwt", null);
             JWTModel jwtModel = new JWTModel(jwt);
 
@@ -153,7 +144,20 @@ public class CounterBidsAdapter extends RecyclerView.Adapter<CounterBidsAdapter.
             jsonBody.put("expiryDate", expiryDate);
             jsonBody.put("paymentInfo", new JSONObject());
             jsonBody.put("lessonInfo", new JSONObject());
-            jsonBody.put("additionalInfo", new JSONObject());
+
+            JSONObject additionalInfo = new JSONObject();
+            JSONObject contractTerms = new JSONObject();
+            contractTerms.put("rate", tutorOffer.getRate());
+            contractTerms.put("isRateHourly", tutorOffer.isRateHourly());
+            contractTerms.put("isRateWeekly", tutorOffer.isRateWeekly());
+            contractTerms.put("lessonsPerWeek", tutorOffer.getLessonsPerWeek());
+            contractTerms.put("hoursPerLesson", tutorOffer.getHoursPerLesson());
+            contractTerms.put("freeClasses", tutorOffer.getFreeClasses());
+            contractTerms.put("competency", bid.getAdditionalInfo().getStudentOffer().getCompetency());
+
+            additionalInfo.put("contractTerms", contractTerms);
+
+            jsonBody.put("additionalInfo", additionalInfo);
 
             VolleyResponseListener listener = new VolleyResponseListener() {
                 @Override
@@ -170,15 +174,15 @@ public class CounterBidsAdapter extends RecyclerView.Adapter<CounterBidsAdapter.
                 }
             };
 
-            Log.i("print", "Contract "+ jsonBody.toString());
-            // TODO: Uncomment during final deploy
-//            VolleyUtils.makeJsonObjectRequest(
-//                    context,
-//                    "contract",
-//                    Request.Method.POST,
-//                    jsonBody,
-//                    listener
-//            );
+            Log.i("print", "Form Contract: "+jsonBody.toString());
+
+            VolleyUtils.makeJsonObjectRequest(
+                    context,
+                    "contract",
+                    Request.Method.POST,
+                    jsonBody,
+                    listener
+            );
         } catch (JSONException e) {
             e.printStackTrace();
         }
