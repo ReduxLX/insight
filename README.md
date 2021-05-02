@@ -18,3 +18,5 @@ So far the app contains the following screens: (see app_screenshots folder)
 - Bids Screen
 - Chat Screen
 - Profile Screen
+
+<img src="app_screenshots/figma_design.png" alt="App design">
