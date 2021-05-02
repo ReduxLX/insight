@@ -12,6 +12,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Main Activity of the app which hosts all the fragments and other components
+ * such as the AppBar and Bottom navigation bar
+ */
 public class MainActivity extends AppCompatActivity {
     private NavController navController;
 

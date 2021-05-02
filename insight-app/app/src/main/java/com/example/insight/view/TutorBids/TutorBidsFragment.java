@@ -32,7 +32,7 @@ import java.util.ArrayList;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment class for the Tutor bids screen where tutors can view and message student bids
  */
 public class TutorBidsFragment extends Fragment {
     private RecyclerView recyclerView;

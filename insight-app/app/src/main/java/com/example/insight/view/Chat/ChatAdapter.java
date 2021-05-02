@@ -26,6 +26,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter class used to populate the chat recycler view
+ * which is responsible for displaying chat messages between the user and a second party
+ */
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
 
     private Context context;

@@ -31,7 +31,7 @@ import org.json.JSONObject;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment class for the Home screen
  */
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;

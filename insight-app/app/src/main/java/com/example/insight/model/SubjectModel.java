@@ -3,6 +3,9 @@ package com.example.insight.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Model class which represent the Subject object consisting of only primitive variables
+ */
 public class SubjectModel {
     private String id;
     private String name;

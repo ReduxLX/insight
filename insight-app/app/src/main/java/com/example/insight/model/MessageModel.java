@@ -3,6 +3,9 @@ package com.example.insight.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Model class which represent the Message object
+ */
 public class MessageModel {
     private String id;
     private String bidId;

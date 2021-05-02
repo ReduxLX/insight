@@ -24,7 +24,7 @@ import org.json.JSONObject;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment class for the Student Bids screen
  */
 public class StudentBidsFragment extends Fragment {
     private RecyclerView recyclerView;

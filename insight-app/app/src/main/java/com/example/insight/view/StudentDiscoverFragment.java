@@ -43,7 +43,7 @@ import java.util.Locale;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment which hosts the form where students can post bids
  */
 public class StudentDiscoverFragment extends Fragment implements View.OnClickListener {
     private SharedPreferences prefs;

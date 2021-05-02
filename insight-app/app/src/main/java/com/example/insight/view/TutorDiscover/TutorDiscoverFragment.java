@@ -26,7 +26,7 @@ import org.json.JSONObject;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment class for the Tutor Discovery screen where tutors can discover students
  */
 public class TutorDiscoverFragment extends Fragment {
     private RecyclerView recyclerView;

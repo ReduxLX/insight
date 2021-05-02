@@ -35,6 +35,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * Adapter class used to populate the tutor view bid recycler view
+ * which is responsible for displaying other tutors who have sent a counter bid for this bid
+ */
 public class TutorViewBidAdapter extends RecyclerView.Adapter<TutorViewBidAdapter.TutorViewBidViewHolder> {
 
     private Context context;

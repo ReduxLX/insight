@@ -24,6 +24,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter class used to populate the contracts recycler view in the home screen
+ * which is responsible for displaying the user's ongoing contracts
+ */
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
 
     private Context context;
