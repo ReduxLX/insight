@@ -6,9 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingStart="25dp"
@@ -21,7 +19,7 @@
             android:layout_marginTop="46dp"
             android:background="@color/colorPrimary"
             android:fontFamily="@font/montserrat_bold"
-            android:text="Login"
+            android:text="Post Bid"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,6 +31,7 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="Hire Amazing Tutors"
             android:textSize="25sp"
@@ -69,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:dropDownWidth="wrap_content"
-            android:popupBackground="@color/gray"
+            android:popupBackground="@color/colorPrimaryDark"
             android:spinnerMode="dropdown"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -121,7 +120,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
         <RadioGroup
-            android:id="@+id/RadioGroup1"
+            android:id="@+id/rg_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -135,7 +134,6 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="#2A41CB"
                 android:checked="true"
-                android:onClick="something"
                 android:paddingEnd="24dp"
                 android:text="Hourly" />
 
@@ -144,7 +142,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:buttonTint="#2A41CB"
-                android:onClick="something"
                 android:text="Weekly" />
         </RadioGroup>
 
@@ -156,8 +153,8 @@
             android:fontFamily="@font/montserrat_bold"
             android:text="Lessons Per Week "
             android:textColor="#3658C7"
-            app:layout_constraintStart_toStartOf="@+id/RadioGroup1"
-            app:layout_constraintTop_toBottomOf="@+id/RadioGroup1" />
+            app:layout_constraintStart_toStartOf="@+id/rg_rate"
+            app:layout_constraintTop_toBottomOf="@+id/rg_rate" />
 
         <TextView
             android:id="@+id/textView10"
@@ -169,15 +166,16 @@
             android:textColor="#3658C7"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView9"
-            app:layout_constraintTop_toBottomOf="@+id/RadioGroup1" />
+            app:layout_constraintTop_toBottomOf="@+id/rg_rate" />
 
-        <EditText
-            android:id="@+id/pt_lessonsPerWeek_sp"
-            android:layout_width="wrap_content"
+        <Spinner
+            android:id="@+id/sp_lessonsPerWeek_sp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Lessons"
-            android:inputType="textPersonName"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toStartOf="@+id/sp_hoursPerLesson_sd"
             app:layout_constraintStart_toStartOf="@+id/textView9"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
@@ -185,9 +183,11 @@
             android:id="@+id/sp_hoursPerLesson_sd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:spinnerMode="dropdown"
+            app:layout_constraintBottom_toBottomOf="@+id/sp_lessonsPerWeek_sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/textView10"
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
@@ -199,16 +199,16 @@
             android:fontFamily="@font/montserrat_bold"
             android:text="Select Bidding Type"
             android:textColor="#3658C7"
-            app:layout_constraintStart_toStartOf="@+id/pt_lessonsPerWeek_sp"
-            app:layout_constraintTop_toBottomOf="@+id/pt_lessonsPerWeek_sp" />
+            app:layout_constraintStart_toStartOf="@+id/sp_lessonsPerWeek_sp"
+            app:layout_constraintTop_toBottomOf="@+id/sp_lessonsPerWeek_sp" />
 
         <RadioGroup
-            android:id="@+id/RadioGroup2"
+            android:id="@+id/rg_bid_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="@+id/pt_lessonsPerWeek_sp"
+            app:layout_constraintStart_toStartOf="@+id/sp_lessonsPerWeek_sp"
             app:layout_constraintTop_toBottomOf="@+id/textView12">
 
             <RadioButton
@@ -217,7 +217,6 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="#2A41CB"
                 android:checked="true"
-                android:onClick="something"
                 android:paddingEnd="24dp"
                 android:text="Open" />
 
@@ -226,7 +225,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:buttonTint="#2A41CB"
-                android:onClick="something"
                 android:text="Close" />
         </RadioGroup>
 
@@ -242,7 +240,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/RadioGroup2" />
+            app:layout_constraintTop_toBottomOf="@+id/rg_bid_type" />
 
         <TextView
             android:id="@+id/textView14"

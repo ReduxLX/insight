@@ -88,7 +88,7 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
 
     // Navigate to TutorBids fragment if tutor sends their own bid (show status of sent bid)
     private void navigateTutorBids(){
-        NavDirections navAction = TutorViewBidFragmentDirections.actionTutorViewBidFragmentToTutorBidsFragment();
+        NavDirections navAction = TutorViewBidFragmentDirections.actionTutorViewBidFragmentToBidsFragment();
         NavHostFragment.findNavController(this).navigate(navAction);
     }
 

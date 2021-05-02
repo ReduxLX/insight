@@ -178,13 +178,13 @@
 
             <EditText
                 android:id="@+id/pt_rate_tvb"
+                android:inputType="numberDecimal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
                 android:ems="10"
                 android:hint="Rate ($)"
-                android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_rate_text_tvb"
                 app:layout_constraintTop_toBottomOf="@+id/tv_rate_text_tvb" />
@@ -204,7 +204,6 @@
                     android:layout_height="wrap_content"
                     android:buttonTint="#2A41CB"
                     android:checked="true"
-                    android:onClick=""
                     android:paddingEnd="24dp"
                     android:text="Hourly" />
 
@@ -213,7 +212,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:buttonTint="#2A41CB"
-                    android:onClick=""
                     android:text="Weekly" />
             </RadioGroup>
 

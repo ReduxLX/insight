@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    // TODO: Tutor: iamthewei, kevink Student: mbrown123
+    // TODO: Tutor: iamthewei, kevink Student: mbrown123, iamyoung99
     private void login(){
         String username = editTextUsername.getText().toString();
         String password = editTextPassword.getText().toString();
