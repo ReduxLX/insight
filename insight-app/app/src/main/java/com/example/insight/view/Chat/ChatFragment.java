@@ -38,7 +38,7 @@ import java.util.Locale;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment class for the Chat room screen
  */
 public class ChatFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -92,8 +92,6 @@ public class ChatFragment extends Fragment {
         });
         // Render current bid's messages
         getMessages();
-
-        // postMessage("Or maybe increasing the hours per week?");
 
         return root;
     }

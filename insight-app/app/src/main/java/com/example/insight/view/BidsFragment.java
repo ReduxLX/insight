@@ -18,7 +18,8 @@ import com.example.insight.view.StudentBids.StudentBidsFragment;
 import com.example.insight.view.TutorBids.TutorBidsFragment;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Intermediary Fragment which contains logic to route between different bid screens
+ * depending on whether the user is a student or tutor
  */
 public class BidsFragment extends Fragment {
 

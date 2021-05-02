@@ -44,7 +44,8 @@ import java.util.Locale;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment class for the tutor view bid page where tutors
+ * can review the student bid's details and either buy out or send a counter offer
  */
 public class TutorViewBidFragment extends Fragment implements View.OnClickListener {
     private SharedPreferences prefs;
@@ -125,6 +126,9 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
         return root;
     }
 
+    /**
+     * Helper method to initialize the contents of the dropdown menu
+     */
     private void initializeSpinner(ArrayList<String> arrayList, Spinner spinner){
         ArrayAdapter<String> arrayAdapter =  new ArrayAdapter<>(
                 getActivity(), android.R.layout.simple_spinner_item, arrayList);

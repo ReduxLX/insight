@@ -26,6 +26,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter class used to populate the tutor discover recycler view
+ * which is responsible for displaying all the student's active bids
+ */
 public class TutorDiscoverAdapter extends RecyclerView.Adapter<TutorDiscoverAdapter.TutorDiscoverViewHolder> {
 
     private Context context;

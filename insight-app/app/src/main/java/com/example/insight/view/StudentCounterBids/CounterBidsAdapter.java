@@ -35,6 +35,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * Adapter class used to populate the Counter bids recycler view
+ * which is responsible for displaying any counter bids the student has received
+ */
 public class CounterBidsAdapter extends RecyclerView.Adapter<CounterBidsAdapter.CounterBidViewHolder> {
 
     private Context context;
@@ -123,7 +127,7 @@ public class CounterBidsAdapter extends RecyclerView.Adapter<CounterBidsAdapter.
 
     private void createContract(TutorBidModel tutorBid){
         JSONObject jsonBody = new JSONObject();
-
+        // Get current and expiry dates
         Calendar cal = Calendar.getInstance();
         Date currentTime = cal.getTime();
         cal.add(Calendar.YEAR, 1);
@@ -131,7 +135,7 @@ public class CounterBidsAdapter extends RecyclerView.Adapter<CounterBidsAdapter.
         SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
         String currentDate = ISO8601.format(currentTime);
         String expiryDate = ISO8601.format(nextYearTime);
-
+        // Constructing the contract JSON Object
         try{
             BidOfferModel tutorOffer = tutorBid.getTutorOffer();
             String jwt = prefs.getString("jwt", null);

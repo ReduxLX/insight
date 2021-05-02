@@ -10,7 +10,7 @@ import java.util.Locale;
 
 
 /**
- * Class used to destructure Bid JSON Object
+ * Model class which represent the Bid Object
  */
 public class BidModel {
     private String id;

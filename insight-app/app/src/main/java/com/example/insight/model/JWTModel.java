@@ -10,6 +10,10 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * Model class which represent the decoded JWT token
+ * Used in many classes within the app primarily to get the current user's details
+ */
 public class JWTModel {
 
     private String id;

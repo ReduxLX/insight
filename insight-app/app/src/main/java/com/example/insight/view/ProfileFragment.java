@@ -20,7 +20,8 @@ import com.example.insight.model.JWTModel;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment which is used for students to update their personal details and to log out
+ * Currently unfinished
  */
 public class ProfileFragment extends Fragment {
     private SharedPreferences prefs;

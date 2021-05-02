@@ -32,6 +32,10 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * The first Activity the user encounters primarily used to login
+ * If the user has an active session, then this Activity is skipped
+ */
 public class LoginActivity extends AppCompatActivity {
     SharedPreferences prefs;
     EditText editTextUsername, editTextPassword;
@@ -87,7 +91,6 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    // TODO: Tutor: iamthewei, kevink Student: mbrown123, iamyoung99
     private void login(){
         String username = editTextUsername.getText().toString();
         String password = editTextPassword.getText().toString();

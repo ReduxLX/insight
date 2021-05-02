@@ -5,6 +5,10 @@ import com.example.insight.model.UserModel;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Model class which represent the tutor's counter bid
+ * This is usually stored in additionalInfo's tutorBids array
+ */
 public class TutorBidModel {
     private String dateCreated;
     private UserModel tutor;

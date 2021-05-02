@@ -8,6 +8,10 @@ import org.json.JSONObject;
 
 import java.util.Locale;
 
+/**
+ * Model class which represent an offer whether it be from a student or tutor
+ * Used primarily within BidModel
+ */
 public class BidOfferModel {
     private int competency;
     private int rate;

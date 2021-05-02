@@ -21,6 +21,10 @@ import com.example.insight.view.BidsFragmentDirections;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter class used to populate the tutor bids recycler view
+ * which is responsible for displaying the bids where the tutor is involved in (sent a counter bid)
+ */
 public class TutorBidsAdapter extends RecyclerView.Adapter<TutorBidsAdapter.TutorBidsViewHolder> {
 
     private Context context;

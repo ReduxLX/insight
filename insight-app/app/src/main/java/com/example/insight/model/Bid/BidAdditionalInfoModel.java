@@ -5,6 +5,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.Locale;
 
+/**
+ * Model class which represent the additionalInfo object of a Bid
+ */
 public class BidAdditionalInfoModel {
     private BidOfferModel studentOffer;
     private JSONArray tutorBids;

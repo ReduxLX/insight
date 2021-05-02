@@ -3,6 +3,10 @@ package com.example.insight.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Model class which represent the user details
+ * Serves as one of the basic foundation model class for others as this is used in Bid, Contract, etc...
+ */
 public class UserModel {
     private String id;
     private String givenName;

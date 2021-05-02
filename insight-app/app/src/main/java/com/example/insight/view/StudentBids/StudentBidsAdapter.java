@@ -28,6 +28,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter class used to populate the student bids recycler view
+ * which is responsible for displaying student's active bids
+ */
 public class StudentBidsAdapter extends RecyclerView.Adapter<StudentBidsAdapter.StudentBidsViewHolder> {
 
     private Context context;

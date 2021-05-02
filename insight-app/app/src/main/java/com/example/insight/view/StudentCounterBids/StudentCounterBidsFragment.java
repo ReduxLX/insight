@@ -1,6 +1,5 @@
 package com.example.insight.view.StudentCounterBids;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,31 +14,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.example.insight.R;
 import com.example.insight.model.Bid.BidModel;
-import com.example.insight.model.Bid.TutorBidModel;
 import com.example.insight.service.VolleyResponseListener;
 import com.example.insight.service.VolleyUtils;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment class for the Student Counter bids screen
  */
 public class StudentCounterBidsFragment extends Fragment {
     private String currentBidId;
