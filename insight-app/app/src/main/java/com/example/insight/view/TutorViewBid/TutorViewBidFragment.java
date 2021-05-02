@@ -141,7 +141,8 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_accept_tvb:
-                buyoutBid();
+                createContract();
+//                createContract();
                 break;
             case R.id.button_send_tvb:
                 postTutorBid();
@@ -307,10 +308,6 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
                 public void onResponse(Object response) {
                     Log.i("print", "TutorViewBidFragment: "+"Buyout Bid Success");
                     Toast.makeText(getActivity(), "Bid bought out", Toast.LENGTH_SHORT).show();
-                    // Form contract and navigate to home page to show the newly formed contract
-                    createContract();
-                    // Close the student bid
-
                     navigateHome();
                 }
                 @Override
@@ -319,7 +316,7 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
                     Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
                 }
             };
-
+            Log.i("print", "Buy out bid " + jsonBody.toString());
             VolleyUtils.makeJsonObjectRequest(
                 getActivity(),
                 "bid/"+currentBidId+"/close-down",
@@ -372,13 +369,14 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
 
             additionalInfo.put("contractTerms", contractTerms);
 
-            jsonBody.put("additionalInfo", new JSONObject());
+            jsonBody.put("additionalInfo", additionalInfo);
 
             VolleyResponseListener listener = new VolleyResponseListener() {
                 @Override
                 public void onResponse(Object response) {
                     Log.i("print", "TutorViewBidFragment: " +"Create Contract Success");
                     Toast.makeText(getActivity(), "New Contract Formed", Toast.LENGTH_SHORT).show();
+                    buyoutBid();
                 }
                 @Override
                 public void onError(String message) {
@@ -387,13 +385,13 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
                 }
             };
             Log.i("print", "Form Contract: "+jsonBody.toString());
-//            VolleyUtils.makeJsonObjectRequest(
-//                getActivity(),
-//                "contract",
-//                Request.Method.POST,
-//                jsonBody,
-//                listener
-//            );
+            VolleyUtils.makeJsonObjectRequest(
+                getActivity(),
+                "contract",
+                Request.Method.POST,
+                jsonBody,
+                listener
+            );
         } catch (JSONException e) {
             e.printStackTrace();
         }
