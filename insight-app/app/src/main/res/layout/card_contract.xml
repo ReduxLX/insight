@@ -42,6 +42,17 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/icon_level_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="12dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_subject_home"
+                app:srcCompat="@drawable/level_one" />
+
+            <ImageView
                 android:id="@+id/icon_name_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -138,31 +149,44 @@
                 app:layout_constraintBottom_toBottomOf="@+id/icon_schedule_home"
                 app:layout_constraintStart_toEndOf="@+id/icon_schedule_home" />
 
+            <Button
+                android:id="@+id/button_action_home"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:drawableStart="@drawable/sign"
+                android:drawablePadding="4dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="@string/renew_contract"
+                android:textAllCaps="false"
+                android:textAppearance="@style/AppTheme.ActionBar.TitleText"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_min="wrap"
+                app:layout_constraintStart_toStartOf="@+id/icon_schedule_home"
+                app:layout_constraintTop_toTopOf="@+id/tv_schedule_home"
+                app:layout_constraintWidth_min="wrap" />
+
             <TextView
                 android:id="@+id/tv_expiry_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="12dp"
                 android:layout_marginBottom="16dp"
                 android:text="Expires on + Date"
                 android:textAlignment="textEnd"
                 android:textColor="#AA0000"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_schedule_home" />
-
-            <ImageView
-                android:id="@+id/icon_level_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="12dp"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_subject_home"
-                app:srcCompat="@drawable/level_one" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

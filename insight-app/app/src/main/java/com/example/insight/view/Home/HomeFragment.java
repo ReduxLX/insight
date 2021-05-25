@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
@@ -20,25 +18,26 @@ import com.android.volley.Request;
 import com.example.insight.R;
 import com.example.insight.model.Contract.ContractModel;
 import com.example.insight.model.JWTModel;
-import com.example.insight.model.SubjectModel;
-import com.example.insight.model.UserModel;
 import com.example.insight.service.VolleyResponseListener;
 import com.example.insight.service.VolleyUtils;
-import com.example.insight.view.StudentBids.StudentBidsAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 
 /**
  * Fragment class for the Home screen
  */
 public class HomeFragment extends Fragment {
-    private SharedPreferences prefs;
-    private ViewPager viewPager;
-    private TabLayout tabs;
+
+    private HomeContractAdapter activeAdapter;
+    private HomeContractAdapter pendingAdapter;
+    private HomeContractAdapter expiredAdapter;
+    private ArrayList<ContractModel> contractArray = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,9 +49,9 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        viewPager = root.findViewById(R.id.view_pager_home);
+        ViewPager viewPager = root.findViewById(R.id.view_pager_home);
 
-        prefs = getActivity().getSharedPreferences("com.example.insight", Context.MODE_PRIVATE);
+        SharedPreferences prefs = getActivity().getSharedPreferences("com.example.insight", Context.MODE_PRIVATE);
 
         String jwt = prefs.getString("jwt", null);
         JWTModel jwtModel = new JWTModel(jwt);
@@ -61,15 +60,58 @@ public class HomeFragment extends Fragment {
         tvName.setText(userFullName);
 
         HomeSectionsPagerAdapter pagerAdapter = new HomeSectionsPagerAdapter(getActivity().getSupportFragmentManager());
-        pagerAdapter.addFragment(new HomeActiveFragment(), "Active");
-        pagerAdapter.addFragment(new HomePendingFragment(), "Pending");
-        pagerAdapter.addFragment(new HomeExpiredFragment(), "Expired");
+        activeAdapter = new HomeContractAdapter(getActivity(), contractArray, 0);
+        pagerAdapter.addFragment(new HomeContractFragment(activeAdapter, 0), "Active");
+
+        pendingAdapter = new HomeContractAdapter(getActivity(), contractArray, 1);
+        pagerAdapter.addFragment(new HomeContractFragment(pendingAdapter, 1), "Pending");
+
+        expiredAdapter = new HomeContractAdapter(getActivity(), contractArray, 2);
+        pagerAdapter.addFragment(new HomeContractFragment(expiredAdapter, 2), "Expired");
+
         viewPager.setAdapter(pagerAdapter);
 
-        tabs = root.findViewById(R.id.tabs_home);
+        TabLayout tabs = root.findViewById(R.id.tabs_home);
         tabs.setupWithViewPager(viewPager);
 
+        getContracts();
+
         return root;
+    }
+
+    private void getContracts(){
+        VolleyResponseListener listener = new VolleyResponseListener() {
+            @Override
+            public void onResponse(Object response) {
+                Log.i("print", "HomeFragment: "+"Get Contracts Success");
+                JSONArray contracts = (JSONArray) response;
+
+                try {
+                    for (int j=0; j < contracts.length(); j++){
+                        JSONObject contractObj = contracts.getJSONObject(j);
+                        ContractModel contract = new ContractModel(contractObj);
+                        contractArray.add(contract);
+                    }
+                } catch (JSONException e){ e.printStackTrace(); }
+
+                activeAdapter.updateData(contractArray);
+                pendingAdapter.updateData(contractArray);
+                expiredAdapter.updateData(contractArray);
+            }
+            @Override
+            public void onError(String message) {
+                Log.i("print", "HomeFragment: "+"Get Contracts Failed "+message);
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        VolleyUtils.makeJSONArrayRequest(
+                getActivity(),
+                "contract",
+                Request.Method.GET,
+                new JSONObject(),
+                listener
+        );
     }
 
 }

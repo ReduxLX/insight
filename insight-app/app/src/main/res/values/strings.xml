@@ -6,7 +6,8 @@
     <string name="tab_home_1">Active</string>
     <string name="tab_home_2">Pending</string>
     <string name="tab_home_3">Expired</string>
-
+    <string name="sign_contract">Sign Contract</string>
+    <string name="renew_contract">Renew Contract</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

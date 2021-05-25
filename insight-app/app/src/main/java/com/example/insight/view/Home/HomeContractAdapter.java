@@ -3,11 +3,14 @@ package com.example.insight.view.Home;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,54 +21,33 @@ import com.example.insight.model.Contract.ContractTermsModel;
 import com.example.insight.model.JWTModel;
 import com.example.insight.model.UserModel;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 /**
  * Adapter class used to populate the contracts recycler view in the home screen
  * which is responsible for displaying the user's ongoing contracts
  */
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
+public class HomeContractAdapter extends RecyclerView.Adapter<HomeContractAdapter.HomeViewHolder> {
 
     private Context context;
     private SharedPreferences prefs;
+    private int contractType;
 
     private ArrayList<ContractModel> contractArray = new ArrayList<>();
 
-    HomeAdapter(Context ctx, JSONArray contracts){
+    public HomeContractAdapter(Context ctx, ArrayList<ContractModel> contracts, int contractType){
         context = ctx;
         prefs = ctx.getSharedPreferences("com.example.insight", Context.MODE_PRIVATE);
+        this.contractType = contractType;
 
-        try {
-            for (int j=0; j < contracts.length(); j++){
-                JSONObject contractObj = contracts.getJSONObject(j);
-                ContractModel contract = new ContractModel(contractObj);
-
-                String jwt = prefs.getString("jwt", null);
-                JWTModel jwtModel = new JWTModel(jwt);
-                String userId = jwtModel.getId();
-
-                String firstPartyId = contract.getFirstParty().getId();
-                String secondPartyId = contract.getSecondParty().getId();
-                // Add contracts that involve the current user
-                if(userId.equals(firstPartyId) || userId.equals(secondPartyId)){
-                    contractArray.add(contract);
-                }
-            }
-
-        } catch (JSONException e){
-            e.printStackTrace();
-        }
+        updateData(contracts);
     }
 
     @NonNull
     @Override
     public HomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.card_layout_home, parent,false);
+        View view = inflater.inflate(R.layout.card_contract, parent,false);
 
         return new HomeViewHolder(view);
     }
@@ -94,6 +76,32 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         holder.lessonsPerWeek.setText(contractTerms.getLessonsPerWeekStr());
         holder.expiryDate.setText(contract.getExpiryDateStr());
         holder.competencyCircle.setImageResource(contractTerms.getCompetencyResource());
+
+        // Pending Contract button -> Signs contract
+        if(contractType == 1){
+            holder.buttonAction.setVisibility(View.VISIBLE);
+            holder.buttonAction.setText(R.string.sign_contract);
+            holder.buttonAction.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+//                    createContract(tutorBid);
+                    Toast.makeText(context, "Pending Action", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }else if(contractType == 2){
+            holder.buttonAction.setVisibility(View.VISIBLE);
+            holder.buttonAction.setText(R.string.renew_contract);
+            holder.buttonAction.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+//                    createContract(tutorBid);
+                    Toast.makeText(context, "Expired Action", Toast.LENGTH_SHORT).show();
+                    Log.i("console", "HomeActiveAdapter: Expired Action");
+                }
+            });
+        }
+
     }
 
     @Override
@@ -104,6 +112,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     static class HomeViewHolder extends RecyclerView.ViewHolder {
         TextView subject, name, rate, hoursPerLesson, lessonsPerWeek, freeLessons, expiryDate;
         ImageView competencyCircle;
+        Button buttonAction;
 
         HomeViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -115,7 +124,24 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             freeLessons = itemView.findViewById(R.id.tv_free_home);
             expiryDate = itemView.findViewById(R.id.tv_expiry_home);
             competencyCircle = itemView.findViewById(R.id.icon_level_home);
-
+            buttonAction = itemView.findViewById(R.id.button_action_home);
         }
     }
+
+    public void updateData(ArrayList<ContractModel> contracts){
+        for (ContractModel contract: contracts){
+            String jwt = prefs.getString("jwt", null);
+            JWTModel jwtModel = new JWTModel(jwt);
+            String userId = jwtModel.getId();
+
+            String firstPartyId = contract.getFirstParty().getId();
+            String secondPartyId = contract.getSecondParty().getId();
+            // Add contracts that involve the current user
+            if(userId.equals(firstPartyId) || userId.equals(secondPartyId)){
+                contractArray.add(contract);
+            }
+        }
+        notifyDataSetChanged();
+    }
+
 }

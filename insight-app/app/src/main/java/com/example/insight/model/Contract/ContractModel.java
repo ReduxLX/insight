@@ -66,7 +66,7 @@ public class ContractModel {
             Date expiryDateObj = ISO8601.parse(getExpiryDate().replace("Z", "+0700"));
             assert expiryDateObj != null;
             expiryDateStr = String.format(Locale.getDefault(),
-                    "Expires in %s", DD_MM_YYYY.format(expiryDateObj));
+                    "Expires on %s", DD_MM_YYYY.format(expiryDateObj));
         }catch (ParseException e){
             e.printStackTrace();
         }
