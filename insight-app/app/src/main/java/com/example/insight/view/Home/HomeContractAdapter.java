@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.insight.R;
@@ -20,6 +22,7 @@ import com.example.insight.model.Contract.ContractModel;
 import com.example.insight.model.Contract.ContractTermsModel;
 import com.example.insight.model.JWTModel;
 import com.example.insight.model.UserModel;
+import com.example.insight.view.DiscoverFragmentDirections;
 
 import java.util.ArrayList;
 
@@ -32,12 +35,14 @@ public class HomeContractAdapter extends RecyclerView.Adapter<HomeContractAdapte
     private Context context;
     private SharedPreferences prefs;
     private int contractType;
+    private NavController navController;
 
     private ArrayList<ContractModel> contractArray = new ArrayList<>();
 
-    public HomeContractAdapter(Context ctx, ArrayList<ContractModel> contracts, int contractType){
+    public HomeContractAdapter(Context ctx, NavController navController, ArrayList<ContractModel> contracts, int contractType){
         context = ctx;
         prefs = ctx.getSharedPreferences("com.example.insight", Context.MODE_PRIVATE);
+        this.navController = navController;
         this.contractType = contractType;
 
         updateData(contracts);
@@ -95,9 +100,12 @@ public class HomeContractAdapter extends RecyclerView.Adapter<HomeContractAdapte
             holder.buttonAction.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-//                    createContract(tutorBid);
+                    Log.i("console", "HomeActiveAdapter: Contract Id "+contract.getId());
+                    NavDirections navAction = HomeFragmentDirections.actionHomeFragmentToContractRenewFragment(
+                            contract.getId()
+                    );
+                    navController.navigate(navAction);
                     Toast.makeText(context, "Expired Action", Toast.LENGTH_SHORT).show();
-                    Log.i("console", "HomeActiveAdapter: Expired Action");
                 }
             });
         }

@@ -39,7 +39,7 @@ import java.util.Locale;
  * Adapter class used to populate the Counter bids recycler view
  * which is responsible for displaying any counter bids the student has received
  */
-public class CounterBidsAdapter extends RecyclerView.Adapter<CounterBidsAdapter.CounterBidViewHolder> {
+public class StudentCounterBidsAdapter extends RecyclerView.Adapter<StudentCounterBidsAdapter.CounterBidViewHolder> {
 
     private Context context;
     private NavController navController;
@@ -48,7 +48,7 @@ public class CounterBidsAdapter extends RecyclerView.Adapter<CounterBidsAdapter.
     private BidModel bid;
     private ArrayList<TutorBidModel> tutorBidsArray = new ArrayList<>();
 
-    CounterBidsAdapter(Context ctx, NavController navController, BidModel bidModel){
+    StudentCounterBidsAdapter(Context ctx, NavController navController, BidModel bidModel){
         context = ctx;
         prefs = ctx.getSharedPreferences("com.example.insight", Context.MODE_PRIVATE);
         this.navController = navController;

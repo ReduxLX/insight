@@ -9,7 +9,15 @@
         android:id="@+id/homeFragment"
         android:name="com.example.insight.view.Home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_contractRenewFragment"
+            app:destination="@id/contractRenewFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.example.insight.view.Chat.ChatFragment"
@@ -158,4 +166,17 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
+    <fragment
+        android:id="@+id/contractRenewFragment"
+        android:name="com.example.insight.view.Home.ContractRenewFragment"
+        android:label="ContractRenewFragment" >
+        <argument
+            android:name="contractId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeContractFragment"
+        android:name="com.example.insight.view.Home.HomeContractFragment"
+        android:label="HomeContractFragment"
+        tools:layout="@layout/fragment_home_expired"/>
 </navigation>

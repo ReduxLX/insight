@@ -2,38 +2,25 @@ package com.example.insight.view.TutorViewBid;
 
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDirections;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
 import com.example.insight.R;
 import com.example.insight.model.Bid.BidModel;
 import com.example.insight.model.Bid.BidOfferModel;
 import com.example.insight.model.Bid.TutorBidModel;
-import com.example.insight.model.JWTModel;
-import com.example.insight.service.VolleyResponseListener;
-import com.example.insight.service.VolleyUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Adapter class used to populate the tutor view bid recycler view
@@ -67,7 +54,7 @@ public class TutorViewBidAdapter extends RecyclerView.Adapter<TutorViewBidAdapte
     @Override
     public TutorViewBidViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.card_layout_other_counterbids, parent,false);
+        View view = inflater.inflate(R.layout.card_other_counterbids, parent,false);
 
         return new TutorViewBidViewHolder(view);
     }

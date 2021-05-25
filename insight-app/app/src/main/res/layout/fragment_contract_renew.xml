@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:fillViewport="true"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
@@ -20,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="20dp"
-            android:paddingTop="30dp"
+            android:paddingTop="20dp"
             android:paddingEnd="20dp"
             android:paddingBottom="30dp">
 
@@ -49,34 +50,64 @@
                 android:id="@+id/et_subject_cr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="4dp"
                 android:background="@drawable/gray_bg"
                 android:ems="10"
-                android:hint="Unknown Subject"
-                android:inputType="numberDecimal"
+                android:enabled="false"
+                android:hint="Loading Subject..."
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/label_subject_cr" />
 
             <TextView
+                android:id="@+id/label_competency_cr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Competency"
+                android:textColor="#3658C7"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/et_subject_cr"
+                app:layout_constraintTop_toBottomOf="@+id/et_subject_cr" />
+
+            <EditText
+                android:id="@+id/et_competency_cr"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/gray_bg"
+                android:ems="10"
+                android:enabled="false"
+                android:hint="Loading Competency..."
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                app:layout_constraintStart_toStartOf="@+id/label_competency_cr"
+                app:layout_constraintTop_toBottomOf="@+id/label_competency_cr" />
+
+            <TextView
                 android:id="@+id/label_tutor_cr"
                 android:layout_width="130dp"
                 android:layout_height="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Tutor"
                 android:textColor="#3658C7"
                 app:layout_constraintStart_toStartOf="@+id/et_subject_cr"
-                app:layout_constraintTop_toBottomOf="@+id/et_subject_cr" />
+                app:layout_constraintTop_toBottomOf="@+id/et_competency_cr" />
 
             <RelativeLayout
                 android:id="@+id/rl_tutor_cr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
+                android:layout_marginTop="4dp"
                 android:background="@color/lightGray"
+                android:padding="8dp"
                 app:layout_constraintStart_toStartOf="@+id/label_tutor_cr"
                 app:layout_constraintTop_toBottomOf="@+id/label_tutor_cr">
+
                 <Spinner
                     android:id="@+id/sp_tutor_cr"
                     android:layout_width="match_parent"
@@ -84,30 +115,35 @@
                     android:spinnerMode="dropdown"
                     app:layout_constraintEnd_toEndOf="parent" />
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/label_rate_cr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Rate (Hourly/Weekly)"
                 android:textColor="#3658C7"
                 app:layout_constraintStart_toStartOf="@+id/rl_tutor_cr"
                 app:layout_constraintTop_toBottomOf="@+id/rl_tutor_cr" />
+
             <EditText
                 android:id="@+id/et_rate_cr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:background="@drawable/gray_bg"
                 android:ems="10"
                 android:hint="Rate ($)"
                 android:inputType="numberDecimal"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/label_rate_cr" />
 
             <RadioGroup
-                android:id="@+id/rg_rate_tvg"
+                android:id="@+id/rg_rate_cr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -135,22 +171,32 @@
                 android:id="@+id/label_lessons_cr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Lessons Per Week "
                 android:textColor="#3658C7"
-                app:layout_constraintStart_toStartOf="@+id/rg_rate_tvg"
-                app:layout_constraintTop_toBottomOf="@+id/rg_rate_tvg" />
+                app:layout_constraintStart_toStartOf="@+id/rg_rate_cr"
+                app:layout_constraintTop_toBottomOf="@+id/rg_rate_cr" />
 
-            <Spinner
-                android:id="@+id/sp_lessons_cr"
+            <RelativeLayout
+                android:id="@+id/rl_lessons_cr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:spinnerMode="dropdown"
-                app:layout_constraintEnd_toStartOf="@+id/sp_hours_cr"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/lightGray"
+                android:padding="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/rl_hours_cr"
                 app:layout_constraintStart_toStartOf="@+id/label_lessons_cr"
-                app:layout_constraintTop_toBottomOf="@+id/label_lessons_cr" />
+                app:layout_constraintTop_toBottomOf="@+id/label_lessons_cr">
+
+                <Spinner
+                    android:id="@+id/sp_lessons_cr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/label_hours_cr"
@@ -163,35 +209,56 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/label_lessons_cr" />
 
-            <Spinner
-                android:id="@+id/sp_hours_cr"
+            <RelativeLayout
+                android:id="@+id/rl_hours_cr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:spinnerMode="dropdown"
+                android:layout_marginTop="4dp"
+                android:background="@color/lightGray"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/rl_lessons_cr"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/label_hours_cr"
-                app:layout_constraintTop_toBottomOf="@+id/label_hours_cr" />
+                app:layout_constraintTop_toBottomOf="@+id/label_hours_cr">
+
+                <Spinner
+                    android:id="@+id/sp_hours_cr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/label_contract_duration_cr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Contract Duration"
                 android:textColor="#3658C7"
-                app:layout_constraintStart_toStartOf="@+id/sp_lessons_cr"
-                app:layout_constraintTop_toBottomOf="@+id/sp_lessons_cr" />
+                app:layout_constraintStart_toStartOf="@+id/rl_lessons_cr"
+                app:layout_constraintTop_toBottomOf="@+id/rl_lessons_cr" />
 
-            <Spinner
-                android:id="@+id/sp_contract_duration_cr"
+            <RelativeLayout
+                android:id="@+id/rl_contract_duration_cr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:spinnerMode="dropdown"
+                android:layout_marginTop="4dp"
+                android:background="@color/lightGray"
+                android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/label_contract_duration_cr"
-                app:layout_constraintTop_toBottomOf="@+id/label_contract_duration_cr" />
+                app:layout_constraintTop_toBottomOf="@+id/label_contract_duration_cr">
+
+                <Spinner
+                    android:id="@+id/sp_contract_duration_cr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </RelativeLayout>
+
 
             <Button
                 android:id="@+id/button_renew_cr"
@@ -206,7 +273,7 @@
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sp_contract_duration_cr" />
+                app:layout_constraintTop_toBottomOf="@+id/rl_contract_duration_cr" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

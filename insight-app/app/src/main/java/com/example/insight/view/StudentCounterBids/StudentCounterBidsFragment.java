@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -74,7 +73,7 @@ public class StudentCounterBidsFragment extends Fragment {
                 JSONObject bidObj = (JSONObject) response;
                 BidModel bid = new BidModel(bidObj);
                 showTimer(bid.getAdditionalInfo().getExpiryDate());
-                CounterBidsAdapter adapter = new CounterBidsAdapter(getActivity(), navController, bid);
+                StudentCounterBidsAdapter adapter = new StudentCounterBidsAdapter(getActivity(), navController, bid);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

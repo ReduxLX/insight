@@ -2,7 +2,6 @@ package com.example.insight.view.TutorDiscover;
 
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +58,7 @@ public class TutorDiscoverAdapter extends RecyclerView.Adapter<TutorDiscoverAdap
     @Override
     public TutorDiscoverViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.card_layout_tutor_discover, parent,false);
+        View view = inflater.inflate(R.layout.card_tutor_discover, parent,false);
 
         return new TutorDiscoverViewHolder(view);
     }

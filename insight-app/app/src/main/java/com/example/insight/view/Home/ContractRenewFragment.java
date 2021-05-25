@@ -1,12 +1,10 @@
-package com.example.insight.view;
+package com.example.insight.view.Home;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavDirections;
-import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -22,8 +20,8 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.example.insight.R;
+import com.example.insight.model.Contract.ContractModel;
 import com.example.insight.model.JWTModel;
-import com.example.insight.model.SubjectModel;
 import com.example.insight.model.UserModel;
 import com.example.insight.service.VolleyResponseListener;
 import com.example.insight.service.VolleyUtils;
@@ -46,9 +44,13 @@ import java.util.Locale;
 public class ContractRenewFragment extends Fragment implements View.OnClickListener {
     private SharedPreferences prefs;
 
-    private EditText etSubject, etRate;
+    private EditText etRate;
     private Spinner spTutor, spHoursPerLesson, spLessonsPerWeek, spContractDuration;
     private RadioGroup radioGroupRate;
+
+    // Contract to be renewed
+    private String contractId;
+    private ContractModel contract;
 
     private ArrayList<UserModel> tutorArray = new ArrayList<>();
     private String[] hoursPerLesson = {"Hours", "1 hour", "2 hours", "3 hours", "4 hours", "5 hours"};
@@ -60,11 +62,6 @@ public class ContractRenewFragment extends Fragment implements View.OnClickListe
 
     // Default radio button settings
     private boolean isHourlyRate = true;
-
-    public ContractRenewFragment() {
-        // Required empty public constructor
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,23 +77,27 @@ public class ContractRenewFragment extends Fragment implements View.OnClickListe
         Button buttonRenewContract = root.findViewById(R.id.button_renew_cr);
         buttonRenewContract.setOnClickListener(this);
 
-        // Fetch tutors using GET HTTP call
+        // Get contractId from navigation params
+        // Get current bid id from navigation params
+        ContractRenewFragmentArgs navArgs = ContractRenewFragmentArgs.fromBundle(getArguments());
+        contractId = navArgs.getContractId();
+
+        // Fetch expired contract details & tutors
+        getContract();
         getTutors();
+
         // Populate the tutors dropdown menu with valid tutors
         String[] subjects = {"Loading Tutors..."};
         initializeSpinner(new ArrayList<>(Arrays.asList(subjects)), spTutor);
-
         // Populate hours per lesson dropdown menu
         initializeSpinner(new ArrayList<>(Arrays.asList(hoursPerLesson)), spHoursPerLesson);
-
         // Populate lessons per week dropdown menu
         initializeSpinner(new ArrayList<>(Arrays.asList(lessonsPerWeek)), spLessonsPerWeek);
-
         // Populate contract duration dropdown menu
-        initializeSpinner(new ArrayList<>(Arrays.asList(lessonsPerWeek)), spLessonsPerWeek);
+        initializeSpinner(new ArrayList<>(Arrays.asList(contractDuration)), spContractDuration);
 
         // Set click listeners for radio group rate
-        radioGroupRate = root.findViewById(R.id.rg_rate);
+        radioGroupRate = root.findViewById(R.id.rg_rate_cr);
         radioGroupRate.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch(checkedId) {
@@ -118,7 +119,7 @@ public class ContractRenewFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_renew_cr:
-                renewContract();
+//                renewContract();
                 break;
         }
     }
@@ -212,6 +213,7 @@ public class ContractRenewFragment extends Fragment implements View.OnClickListe
         }
     }
 
+    // Fetch tutors and filter based on subject competency
     private void getTutors(){
         VolleyResponseListener listener = new VolleyResponseListener() {
             @Override
@@ -226,16 +228,13 @@ public class ContractRenewFragment extends Fragment implements View.OnClickListe
                     for (int i=0; i < users.length(); i++) {
                         JSONObject userObj = users.getJSONObject(i);
                         UserModel user = new UserModel(userObj);
-                        if(user.isTutor()){
-                            tutorArray.add(user);
-                        }
+                        if(user.isTutor()){ tutorArray.add(user); }
                     }
                     // Re-initialize the tutor dropdown menu with their name & competency
                     initializeSpinner(tutorDetailsArray, spTutor);
                 } catch (JSONException e){
                     e.printStackTrace();
                 }
-
             }
             @Override
             public void onError(String message) {
@@ -247,6 +246,31 @@ public class ContractRenewFragment extends Fragment implements View.OnClickListe
         VolleyUtils.makeJSONArrayRequest(
                 getActivity(),
                 "user",
+                Request.Method.GET,
+                new JSONObject(),
+                listener
+        );
+    }
+
+    private void getContract(){
+        VolleyResponseListener listener = new VolleyResponseListener() {
+            @Override
+            public void onResponse(Object response) {
+                Log.i("print", "ContractRenewFragment: "+"Get Contract Success");
+                JSONObject contractObj = (JSONObject) response;
+                contract = new ContractModel(contractObj);
+                Log.i("print", "ContractRenewFragment: "+contractObj.toString());
+            }
+            @Override
+            public void onError(String message) {
+                Log.i("print", "ContractRenewFragment: "+"Get Contract "+contractId+" Failed "+message);
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        VolleyUtils.makeJSONArrayRequest(
+                getActivity(),
+                "contract/"+contractId,
                 Request.Method.GET,
                 new JSONObject(),
                 listener

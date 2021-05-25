@@ -3,22 +3,17 @@ package com.example.insight.view.Chat;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.insight.R;
-import com.example.insight.model.Contract.ContractModel;
-import com.example.insight.model.Contract.ContractTermsModel;
 import com.example.insight.model.JWTModel;
 import com.example.insight.model.MessageModel;
-import com.example.insight.model.UserModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,7 +64,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     @Override
     public ChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.card_layout_chat, parent,false);
+        View view = inflater.inflate(R.layout.card_chat, parent,false);
 
         return new ChatViewHolder(view);
     }

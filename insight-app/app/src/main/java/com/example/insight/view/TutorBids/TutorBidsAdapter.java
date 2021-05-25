@@ -1,7 +1,6 @@
 package com.example.insight.view.TutorBids;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +45,7 @@ public class TutorBidsAdapter extends RecyclerView.Adapter<TutorBidsAdapter.Tuto
     @Override
     public TutorBidsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.card_layout_tutor_bids, parent,false);
+        View view = inflater.inflate(R.layout.card_tutor_bids, parent,false);
 
         return new TutorBidsViewHolder(view);
     }

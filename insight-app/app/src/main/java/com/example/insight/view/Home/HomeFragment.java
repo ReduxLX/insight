@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
@@ -50,27 +52,29 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         ViewPager viewPager = root.findViewById(R.id.view_pager_home);
+        NavController navController = NavHostFragment.findNavController(this);
 
+        // Get the current user's name from jwt
         SharedPreferences prefs = getActivity().getSharedPreferences("com.example.insight", Context.MODE_PRIVATE);
-
         String jwt = prefs.getString("jwt", null);
         JWTModel jwtModel = new JWTModel(jwt);
         String userFullName = jwtModel.getFullName();
         TextView tvName = root.findViewById(R.id.tv_name_home);
         tvName.setText(userFullName);
 
-        HomeSectionsPagerAdapter pagerAdapter = new HomeSectionsPagerAdapter(getActivity().getSupportFragmentManager());
-        activeAdapter = new HomeContractAdapter(getActivity(), contractArray, 0);
+        // Initialize Recycler view adapters for the 3 tab fragments
+        HomeSectionsPagerAdapter pagerAdapter = new HomeSectionsPagerAdapter(getChildFragmentManager());
+        activeAdapter = new HomeContractAdapter(getActivity(), navController, contractArray, 0);
         pagerAdapter.addFragment(new HomeContractFragment(activeAdapter, 0), "Active");
 
-        pendingAdapter = new HomeContractAdapter(getActivity(), contractArray, 1);
+        pendingAdapter = new HomeContractAdapter(getActivity(), navController, contractArray, 1);
         pagerAdapter.addFragment(new HomeContractFragment(pendingAdapter, 1), "Pending");
 
-        expiredAdapter = new HomeContractAdapter(getActivity(), contractArray, 2);
+        expiredAdapter = new HomeContractAdapter(getActivity(), navController, contractArray, 2);
         pagerAdapter.addFragment(new HomeContractFragment(expiredAdapter, 2), "Expired");
 
-        viewPager.setAdapter(pagerAdapter);
 
+        viewPager.setAdapter(pagerAdapter);
         TabLayout tabs = root.findViewById(R.id.tabs_home);
         tabs.setupWithViewPager(viewPager);
 
@@ -94,6 +98,7 @@ public class HomeFragment extends Fragment {
                     }
                 } catch (JSONException e){ e.printStackTrace(); }
 
+                // Update the contractArray in each tab
                 activeAdapter.updateData(contractArray);
                 pendingAdapter.updateData(contractArray);
                 expiredAdapter.updateData(contractArray);

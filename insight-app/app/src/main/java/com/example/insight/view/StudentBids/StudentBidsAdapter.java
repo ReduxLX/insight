@@ -3,7 +3,6 @@ package com.example.insight.view.StudentBids;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,7 +63,7 @@ public class StudentBidsAdapter extends RecyclerView.Adapter<StudentBidsAdapter.
     @Override
     public StudentBidsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.card_layout_student_bids, parent,false);
+        View view = inflater.inflate(R.layout.card_student_bids, parent,false);
 
         return new StudentBidsViewHolder(view);
     }
