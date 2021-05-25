@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Insight</string>
+    <!--fragment_home-->
+    <string name="label_welcome_home">Welcome,</string>
+    <string name="label_contracts_home">Your Contracts</string>
+    <string name="tab_home_1">Active</string>
+    <string name="tab_home_2">Pending</string>
+    <string name="tab_home_3">Expired</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

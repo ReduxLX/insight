@@ -4,54 +4,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="20dp"
     tools:context=".MainActivity">
 
 
-    <TextView
-        android:id="@+id/tv_title_home"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ContraintLayoutHeaderHome"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:gravity="start"
-        android:text="Welcome,"
-        android:textColor="@color/gray"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="16dp"
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
-    <TextView
-        android:id="@+id/tv_name_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_bold"
-        android:textColor="#000000"
-        android:textSize="25sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_title_home"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title_home"
-        tools:text="Alfons Fernaldy" />
+        <TextView
+            android:id="@+id/tv_name_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_title_home"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_home"
+            tools:text="Alfons Fernaldy" />
 
-    <TextView
-        android:id="@+id/tv_subtitle_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="Active Contracts"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_name_home"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name_home" />
+        <TextView
+            android:id="@+id/tv_title_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="start"
+            android:text="@string/label_welcome_home"
+            android:textColor="@color/gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_home"
-        android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tv_subtitle_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/label_contracts_home"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_name_home"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name_home" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_subtitle_home" />
+        app:layout_constraintTop_toBottomOf="@+id/ContraintLayoutHeaderHome">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FAFAFA" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager_home"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
