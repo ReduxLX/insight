@@ -61,6 +61,7 @@ public class TutorBidsAdapter extends RecyclerView.Adapter<TutorBidsAdapter.Tuto
         holder.freeClasses.setText(tutorOffer.getFreeClassesStr());
         holder.hoursPerLesson.setText(tutorOffer.getHoursPerLessonStr());
         holder.lessonsPerWeek.setText(tutorOffer.getLessonsPerWeekStr());
+        holder.contractDuration.setText(tutorOffer.getContractDurationMonthsStr());
 
         holder.button_message.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -80,7 +81,7 @@ public class TutorBidsAdapter extends RecyclerView.Adapter<TutorBidsAdapter.Tuto
     }
 
     static class TutorBidsViewHolder extends RecyclerView.ViewHolder {
-        TextView subject, name, rate, hoursPerLesson, lessonsPerWeek, freeClasses;
+        TextView subject, name, rate, hoursPerLesson, lessonsPerWeek, freeClasses, contractDuration;
         Button button_message;
 
         TutorBidsViewHolder(@NonNull View itemView) {
@@ -91,6 +92,7 @@ public class TutorBidsAdapter extends RecyclerView.Adapter<TutorBidsAdapter.Tuto
             hoursPerLesson = itemView.findViewById(R.id.tv_duration_tb);
             lessonsPerWeek = itemView.findViewById(R.id.tv_schedule_tb);
             freeClasses = itemView.findViewById(R.id.tv_free_tb);
+            contractDuration = itemView.findViewById(R.id.tv_contract_duration_tb);
             button_message = itemView.findViewById(R.id.button_message_tb);
         }
     }

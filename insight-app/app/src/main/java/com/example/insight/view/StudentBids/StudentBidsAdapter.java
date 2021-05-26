@@ -78,6 +78,7 @@ public class StudentBidsAdapter extends RecyclerView.Adapter<StudentBidsAdapter.
         holder.rate.setText(studentOffer.getRateStr());
         holder.hoursPerLesson.setText(studentOffer.getHoursPerLessonStr());
         holder.lessonsPerWeek.setText(studentOffer.getLessonsPerWeekStr());
+        holder.contractDuration.setText(studentOffer.getContractDurationMonthsStr());
 
         holder.constraint_sb.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -97,7 +98,7 @@ public class StudentBidsAdapter extends RecyclerView.Adapter<StudentBidsAdapter.
 
     static class StudentBidsViewHolder extends RecyclerView.ViewHolder {
         ConstraintLayout constraint_sb;
-        TextView subject, rate, hoursPerLesson, lessonsPerWeek, totalTutorBids;
+        TextView subject, rate, hoursPerLesson, lessonsPerWeek, contractDuration, totalTutorBids;
 
         StudentBidsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -106,6 +107,7 @@ public class StudentBidsAdapter extends RecyclerView.Adapter<StudentBidsAdapter.
             rate = itemView.findViewById(R.id.tv_rate_sb);
             hoursPerLesson = itemView.findViewById(R.id.tv_duration_sb);
             lessonsPerWeek = itemView.findViewById(R.id.tv_schedule_sb);
+            contractDuration = itemView.findViewById(R.id.tv_contract_duration_sb);
             totalTutorBids = itemView.findViewById(R.id.tv_total_tutor_bids_sb);
 
         }

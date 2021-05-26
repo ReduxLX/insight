@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.CountDownTimer;
 import android.text.TextUtils;
@@ -50,10 +52,12 @@ import java.util.Locale;
 public class TutorViewBidFragment extends Fragment implements View.OnClickListener {
     private SharedPreferences prefs;
 
-    private TextView tvTimer, tvSubject, tvRate, tvDuration, tvSchedule;
+    private RecyclerView recyclerView;
+
+    private TextView tvTimer, tvSubject, tvRate, tvDuration, tvSchedule, tvContractDuration, tvTutorLabel;
     private Button buttonBuyoutBid, buttonSendCounterBid;
     private EditText etRate;
-    private Spinner spinnerHoursPerLesson, spinnerLessonsPerWeek, spinnerFreeClass;
+    private Spinner spinnerHoursPerLesson, spinnerLessonsPerWeek, spinnerFreeClass, spinnerContractDuration;
     private RadioGroup radioGroupRate;
 
     private String currentBidId;
@@ -69,6 +73,8 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
     private String[] freeClasses = {"0 free class", "1 free class", "2 free classes",
             "3 free classes", "4 free classes", "5 free classes"};
     private int[] freeClassesValue = {0,1,2,3,4,5};
+    private String[] contractDuration = {"3 months", "6 months", "12 months", "24 months"};
+    private int[] contractDurationValue = {3,6,12,24};
 
     private boolean isRateHourly = true;
 
@@ -91,6 +97,8 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
         tvRate = root.findViewById(R.id.tv_rate_tvb);
         tvDuration = root.findViewById(R.id.tv_duration_tvb);
         tvSchedule = root.findViewById(R.id.tv_schedule_tvb);
+        tvTutorLabel = root.findViewById(R.id.tv_other_bids_tvb);
+        tvContractDuration = root.findViewById(R.id.tv_contract_duration_tvb);
         buttonBuyoutBid = root.findViewById(R.id.button_accept_tvb);
         buttonSendCounterBid = root.findViewById(R.id.button_send_tvb);
         buttonBuyoutBid.setOnClickListener(this);
@@ -99,12 +107,15 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
         spinnerLessonsPerWeek = root.findViewById(R.id.sp_schedule_tvb);
         spinnerHoursPerLesson = root.findViewById(R.id.sp_duration_tvb);
         spinnerFreeClass = root.findViewById(R.id.sp_free_class_tvb);
+        spinnerContractDuration = root.findViewById(R.id.sp_contract_duration_tvb);
         radioGroupRate = root.findViewById(R.id.rg_rate_tvg);
+        recyclerView = root.findViewById(R.id.rv_tutor_view_bid);
 
         // Populate spinners
-        initializeSpinner(new ArrayList<>(Arrays.asList(hoursPerLesson)), spinnerHoursPerLesson);
-        initializeSpinner(new ArrayList<>(Arrays.asList(lessonsPerWeek)), spinnerLessonsPerWeek);
-        initializeSpinner(new ArrayList<>(Arrays.asList(freeClasses)), spinnerFreeClass);
+        initializeSpinner(new ArrayList<>(Arrays.asList(hoursPerLesson)), spinnerHoursPerLesson, 0);
+        initializeSpinner(new ArrayList<>(Arrays.asList(lessonsPerWeek)), spinnerLessonsPerWeek, 0);
+        initializeSpinner(new ArrayList<>(Arrays.asList(freeClasses)), spinnerFreeClass, 0);
+        initializeSpinner(new ArrayList<>(Arrays.asList(contractDuration)), spinnerContractDuration, 1);
 
         // Set click listeners for radio group rate
         radioGroupRate.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -129,11 +140,12 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
     /**
      * Helper method to initialize the contents of the dropdown menu
      */
-    private void initializeSpinner(ArrayList<String> arrayList, Spinner spinner){
+    private void initializeSpinner(ArrayList<String> arrayList, Spinner spinner, int startIndex){
         ArrayAdapter<String> arrayAdapter =  new ArrayAdapter<>(
                 getActivity(), android.R.layout.simple_spinner_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
+        spinner.setSelection(startIndex);
     }
 
     // Intercept and handles fragment click events
@@ -142,7 +154,6 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
         switch (v.getId()) {
             case R.id.button_accept_tvb:
                 createContract();
-//                createContract();
                 break;
             case R.id.button_send_tvb:
                 postTutorBid();
@@ -162,6 +173,7 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
         NavHostFragment.findNavController(this).navigate(navAction);
     }
 
+
     /**
      * Get current viewed bid's details
      */
@@ -170,6 +182,7 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
             @Override
             public void onResponse(Object response) {
                 Log.i("print", "TutorViewBidFragment: "+"Get Current Bid Success");
+
                 JSONObject bidObj = (JSONObject) response;
                 currentBid = new BidModel(bidObj);
                 BidOfferModel studentOffer = currentBid.getAdditionalInfo().getStudentOffer();
@@ -177,7 +190,21 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
                 tvRate.setText(studentOffer.getRateStr());
                 tvSchedule.setText(studentOffer.getLessonsPerWeekStr());
                 tvDuration.setText(studentOffer.getHoursPerLessonStr());
-                showTimer(currentBid.getAdditionalInfo().toString());
+                tvContractDuration.setText(studentOffer.getContractDurationMonthsStr());
+                showTimer(currentBid.getAdditionalInfo().getExpiryDate());
+
+                // Change title to "No tutors" if tutorBids empty
+                int totalTutorBids = currentBid.getAdditionalInfo().getTutorBids().length();
+                if(totalTutorBids <= 0){
+                    tvTutorLabel.setText("No Tutor bids");
+                }else{
+                    tvTutorLabel.setText("All Tutor Bids ("+totalTutorBids+")");
+                }
+
+                // Populate RecyclerView
+                TutorViewBidAdapter adapter = new TutorViewBidAdapter(getActivity(), currentBid);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             }
             @Override
             public void onError(String message) {
@@ -207,7 +234,8 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
         // Precondition: Validate inputs
         int lessonsPerWeekIndex = spinnerLessonsPerWeek.getSelectedItemPosition(),
             hoursPerLessonIndex = spinnerHoursPerLesson.getSelectedItemPosition(),
-            freeClassIndex = spinnerFreeClass.getSelectedItemPosition();
+            freeClassIndex = spinnerFreeClass.getSelectedItemPosition(),
+            contractDurationIndex = spinnerContractDuration.getSelectedItemPosition();
 
         String rateStr = etRate.getText().toString();
         if(TextUtils.isEmpty(rateStr)){
@@ -251,6 +279,7 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
             tutorOffer.put("lessonsPerWeek", lessonsPerWeekValue[lessonsPerWeekIndex]);
             tutorOffer.put("hoursPerLesson", hoursPerLessonValue[hoursPerLessonIndex]);
             tutorOffer.put("freeClasses", freeClassesValue[freeClassIndex]);
+            tutorOffer.put("contractDurationMonths", contractDurationValue[contractDurationIndex]);
             tutorBid.put("tutorOffer", tutorOffer);
 
             // Step 3: Add tutorBid object to tutorBids JSONArray and include this in additionalInfo
@@ -438,7 +467,6 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
                     timeLeftStr = String.format(Locale.getDefault(),
                             "Closes in %02d days and %02d hours", days, hours);
                 }
-                Log.i("consoleLog", "Time Difference: " + timeLeftStr);
                 tvTimer.setText(timeLeftStr);
             }
 

@@ -73,18 +73,15 @@
                 android:id="@+id/tv_duration_sb"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginStart="12dp"
                 android:text="Duration"
                 app:layout_constraintBottom_toBottomOf="@+id/icon_duration_sb"
-                app:layout_constraintStart_toEndOf="@+id/icon_duration_sb" />
+                app:layout_constraintStart_toStartOf="@+id/tv_rate_sb" />
 
             <ImageView
                 android:id="@+id/icon_schedule_sb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/icon_duration_sb"
                 app:layout_constraintTop_toBottomOf="@+id/icon_duration_sb"
                 app:srcCompat="@drawable/schedule" />
@@ -93,12 +90,31 @@
                 android:id="@+id/tv_schedule_sb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
                 android:layout_marginTop="16dp"
                 android:text="Schedule"
                 app:layout_constraintBottom_toBottomOf="@+id/icon_schedule_sb"
-                app:layout_constraintStart_toEndOf="@+id/icon_schedule_sb"
+                app:layout_constraintStart_toStartOf="@+id/tv_duration_sb"
                 app:layout_constraintTop_toBottomOf="@+id/tv_duration_sb" />
+
+            <ImageView
+                android:id="@+id/icon_contract_duration_sb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/icon_schedule_sb"
+                app:layout_constraintTop_toBottomOf="@+id/icon_schedule_sb"
+                app:srcCompat="@drawable/contract_duration" />
+
+            <TextView
+                android:id="@+id/tv_contract_duration_sb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contract Duration"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_contract_duration_sb"
+                app:layout_constraintStart_toStartOf="@+id/tv_schedule_sb" />
 
             <ImageView
                 android:id="@+id/icon_total_tutor_bids_sb"

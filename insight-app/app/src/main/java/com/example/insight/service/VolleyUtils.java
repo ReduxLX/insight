@@ -25,8 +25,8 @@ import java.util.Map;
  * Helper class for making HTTP API calls
  */
 public class VolleyUtils {
-    private static final String API_KEY = "CdmgdLhhGK7qbkhNbttJrdmpWtR7Pz";
-    private static final String BASE_URL = "https://fit3077.com/api/v1/";
+    private static final String API_KEY = "hdHJkzGjJhkDwn7Rpm6pmHMpL9PCzB";
+    private static final String BASE_URL = "https://fit3077.com/api/v2/";
 
     /**
      * Helper method to create and add a new JSONObjectRequest instance to the Volley Queue
@@ -48,12 +48,18 @@ public class VolleyUtils {
             new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    String body = "Unknown error";
+                    String errorMsg = "Unknown error";
                     // Get response body and encode in UTF-8
                     if(error.networkResponse != null && error.networkResponse.data!=null) {
-                        body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                        String response = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                        try {
+                            JSONObject responseJSON = new JSONObject(response);
+                            errorMsg = responseJSON.getString("message");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
-                    listener.onError(body);
+                    listener.onError(errorMsg);
                 }
             }
         ) {

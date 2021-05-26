@@ -54,9 +54,9 @@ public class TutorDiscoverFragment extends Fragment {
         VolleyResponseListener listener = new VolleyResponseListener() {
             @Override
             public void onResponse(Object response) {
-                Log.i("print", "TutorDiscoverFragment: "+"Get All Bids Success");
 
                 JSONArray bids = (JSONArray) response;
+                Log.i("print", "TutorDiscoverFragment: "+"Get All Bids Success");
                 TutorDiscoverAdapter adapter = new TutorDiscoverAdapter(getActivity(),
                         navController, bids);
                 recyclerView.setAdapter(adapter);

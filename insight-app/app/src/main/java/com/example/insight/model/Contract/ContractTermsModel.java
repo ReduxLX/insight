@@ -14,6 +14,7 @@ public class ContractTermsModel {
     private int hoursPerLesson;
     private int lessonsPerWeek;
     private int freeClasses;
+    private int contractDurationMonths;
     private boolean isRateHourly;
     private boolean isRateWeekly;
 
@@ -25,6 +26,7 @@ public class ContractTermsModel {
             isRateHourly = contractTerms.getBoolean("isRateHourly");
             isRateWeekly = contractTerms.getBoolean("isRateWeekly");
             freeClasses = contractTerms.getInt("freeClasses");
+            contractDurationMonths = contractTerms.getInt("contractDurationMonths");
             competency = contractTerms.getInt("competency");
         } catch (JSONException e){
             e.printStackTrace();
@@ -95,6 +97,14 @@ public class ContractTermsModel {
                 return R.drawable.level_one;
         }
     }
+    public int getContractDurationMonths() {
+        return contractDurationMonths;
+    }
+
+    public String getContractDurationMonthsStr(){
+        return String.valueOf(getContractDurationMonths()) + " months";
+    }
+
 
     public int getCompetency() {
         return competency;

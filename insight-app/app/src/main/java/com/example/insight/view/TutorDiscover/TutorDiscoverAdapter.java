@@ -2,6 +2,7 @@ package com.example.insight.view.TutorDiscover;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,11 +70,13 @@ public class TutorDiscoverAdapter extends RecyclerView.Adapter<TutorDiscoverAdap
         BidOfferModel studentOffer = bid.getAdditionalInfo().getStudentOffer();
 
         holder.subject.setText(bid.getSubject().getName());
+        holder.totalTutorBids.setText(bid.getAdditionalInfo().getTutorBidsStr());
         holder.competency.setText(String.valueOf(studentOffer.getCompetencyStr()));
         holder.name.setText(bid.getInitiator().getFullName());
         holder.rate.setText(studentOffer.getRateStr());
         holder.hoursPerLesson.setText(studentOffer.getHoursPerLessonStr());
         holder.lessonsPerWeek.setText(studentOffer.getLessonsPerWeekStr());
+        holder.contractDuration.setText(studentOffer.getContractDurationMonthsStr());
         holder.competencyCircle.setImageResource(studentOffer.getCompetencyResource());
 
         holder.constraint_td.setOnClickListener(new View.OnClickListener(){
@@ -93,17 +96,20 @@ public class TutorDiscoverAdapter extends RecyclerView.Adapter<TutorDiscoverAdap
 
     static class TutorDiscoverViewHolder extends RecyclerView.ViewHolder {
         ConstraintLayout constraint_td;
-        TextView subject, competency, name, rate, hoursPerLesson, lessonsPerWeek;
+        TextView subject, competency, name, rate, hoursPerLesson, lessonsPerWeek,
+                contractDuration, totalTutorBids;
         ImageView competencyCircle;
 
         TutorDiscoverViewHolder(@NonNull View itemView) {
             super(itemView);
             constraint_td = itemView.findViewById(R.id.constraint_tutor_discovery);
             subject = itemView.findViewById(R.id.tv_subject_td);
+            totalTutorBids = itemView.findViewById(R.id.tv_total_tutor_bids_td);
             name = itemView.findViewById(R.id.tv_user_td);
             competency = itemView.findViewById(R.id.tv_level_td);
             competencyCircle = itemView.findViewById(R.id.icon_level_td);
             rate = itemView.findViewById(R.id.tv_rate_td);
+            contractDuration = itemView.findViewById(R.id.tv_contract_duration_td);
             hoursPerLesson = itemView.findViewById(R.id.tv_duration_td);
             lessonsPerWeek = itemView.findViewById(R.id.tv_schedule_td);
 

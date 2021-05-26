@@ -1,6 +1,5 @@
 package com.example.insight.model.Bid;
 
-
 import com.example.insight.R;
 
 import org.json.JSONException;
@@ -17,6 +16,7 @@ public class BidOfferModel {
     private int rate;
     private int hoursPerLesson;
     private int lessonsPerWeek;
+    private int contractDurationMonths;
     private int freeClasses;
     private boolean isRateHourly;
     private boolean isRateWeekly;
@@ -30,6 +30,7 @@ public class BidOfferModel {
             rate = bidOffer.getInt("rate");
             hoursPerLesson = bidOffer.getInt("hoursPerLesson");
             lessonsPerWeek = bidOffer.getInt("lessonsPerWeek");
+            contractDurationMonths = bidOffer.getInt("contractDurationMonths");
             isRateHourly = bidOffer.getBoolean("isRateHourly");
             isRateWeekly = bidOffer.getBoolean("isRateWeekly");
             if(isTutorBid){
@@ -51,6 +52,7 @@ public class BidOfferModel {
             json.put("lessonsPerWeek", lessonsPerWeek);
             json.put("isRateHourly", isRateHourly);
             json.put("isRateWeekly", isRateWeekly);
+            json.put("contractDurationMonths", contractDurationMonths);
             if(isTutorBid()){
                 json.put("freeClasses", freeClasses);
             }
@@ -159,6 +161,14 @@ public class BidOfferModel {
 
     public JSONObject getBidOffer() {
         return bidOffer;
+    }
+
+    public int getContractDurationMonths() {
+        return contractDurationMonths;
+    }
+
+    public String getContractDurationMonthsStr(){
+        return String.valueOf(getContractDurationMonths()) + " months";
     }
 
     @Override

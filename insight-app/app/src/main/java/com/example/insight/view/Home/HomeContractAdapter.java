@@ -79,6 +79,7 @@ public class HomeContractAdapter extends RecyclerView.Adapter<HomeContractAdapte
         holder.rate.setText(contractTerms.getRateStr());
         holder.hoursPerLesson.setText(contractTerms.getHoursPerLessonStr());
         holder.lessonsPerWeek.setText(contractTerms.getLessonsPerWeekStr());
+        holder.contractDuration.setText(contractTerms.getContractDurationMonthsStr());
         holder.expiryDate.setText(contract.getExpiryDateStr());
         holder.competencyCircle.setImageResource(contractTerms.getCompetencyResource());
 
@@ -118,7 +119,8 @@ public class HomeContractAdapter extends RecyclerView.Adapter<HomeContractAdapte
     }
 
     static class HomeViewHolder extends RecyclerView.ViewHolder {
-        TextView subject, name, rate, hoursPerLesson, lessonsPerWeek, freeLessons, expiryDate;
+        TextView subject, name, rate, hoursPerLesson, lessonsPerWeek, freeLessons, contractDuration,
+                expiryDate;
         ImageView competencyCircle;
         Button buttonAction;
 
@@ -130,6 +132,7 @@ public class HomeContractAdapter extends RecyclerView.Adapter<HomeContractAdapte
             hoursPerLesson = itemView.findViewById(R.id.tv_duration_home);
             lessonsPerWeek = itemView.findViewById(R.id.tv_schedule_home);
             freeLessons = itemView.findViewById(R.id.tv_free_home);
+            contractDuration = itemView.findViewById(R.id.tv_contract_duration_home);
             expiryDate = itemView.findViewById(R.id.tv_expiry_home);
             competencyCircle = itemView.findViewById(R.id.icon_level_home);
             buttonAction = itemView.findViewById(R.id.button_action_home);

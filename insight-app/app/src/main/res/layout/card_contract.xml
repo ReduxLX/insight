@@ -84,11 +84,10 @@
                 android:id="@+id/tv_rate_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
                 android:text="Cost"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/icon_cost_home"
-                app:layout_constraintStart_toEndOf="@+id/icon_cost_home" />
+                app:layout_constraintStart_toStartOf="@+id/tv_user_home" />
 
             <ImageView
                 android:id="@+id/icon_free_home"
@@ -124,11 +123,10 @@
                 android:id="@+id/tv_duration_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
                 android:text="Duration"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/icon_duration_home"
-                app:layout_constraintStart_toEndOf="@+id/icon_duration_home" />
+                app:layout_constraintStart_toStartOf="@+id/tv_rate_home" />
 
             <ImageView
                 android:id="@+id/icon_schedule_home"
@@ -143,18 +141,36 @@
                 android:id="@+id/tv_schedule_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
                 android:text="Schedule"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/icon_schedule_home"
-                app:layout_constraintStart_toEndOf="@+id/icon_schedule_home" />
+                app:layout_constraintStart_toStartOf="@+id/tv_duration_home" />
+
+            <ImageView
+                android:id="@+id/icon_contract_duration_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="@+id/icon_schedule_home"
+                app:layout_constraintTop_toBottomOf="@+id/icon_schedule_home"
+                app:srcCompat="@drawable/contract_duration" />
+
+            <TextView
+                android:id="@+id/tv_contract_duration_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contract Duration"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_contract_duration_home"
+                app:layout_constraintStart_toStartOf="@+id/tv_schedule_home" />
 
             <Button
                 android:id="@+id/button_action_home"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:drawableStart="@drawable/sign"
                 android:drawablePadding="4dp"
                 android:fontFamily="@font/montserrat_bold"
@@ -166,27 +182,24 @@
                 android:textAppearance="@style/AppTheme.ActionBar.TitleText"
                 android:textColor="@color/textColorPrimary"
                 android:textSize="12sp"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHeight_min="wrap"
                 app:layout_constraintStart_toStartOf="@+id/icon_schedule_home"
-                app:layout_constraintTop_toTopOf="@+id/tv_schedule_home"
+                app:layout_constraintTop_toBottomOf="@+id/icon_contract_duration_home"
                 app:layout_constraintWidth_min="wrap" />
 
             <TextView
                 android:id="@+id/tv_expiry_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:layout_marginEnd="12dp"
-                android:layout_marginBottom="16dp"
                 android:text="Expires on + Date"
                 android:textAlignment="textEnd"
                 android:textColor="#AA0000"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_schedule_home" />
+                app:layout_constraintBottom_toBottomOf="@+id/button_action_home"
+                app:layout_constraintEnd_toEndOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

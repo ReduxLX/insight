@@ -49,7 +49,8 @@ public class StudentDiscoverFragment extends Fragment implements View.OnClickLis
     private SharedPreferences prefs;
 
     private EditText etRate;
-    private Spinner spinnerSubject, spinnerCompetency, spinnerHoursPerLesson, spinnerLessonsPerWeek;
+    private Spinner spinnerSubject, spinnerCompetency, spinnerHoursPerLesson,
+                    spinnerLessonsPerWeek, spinnerContractDuration;
     private RadioGroup radioGroupRate, radioGroupBidType;
 
     private ArrayList<SubjectModel> subjectArray = new ArrayList<>();
@@ -64,6 +65,9 @@ public class StudentDiscoverFragment extends Fragment implements View.OnClickLis
     private int[] hoursPerLessonValue = {0,1,2,3,4,5};
     private String[] lessonsPerWeek = {"Lessons", "1 lesson", "2 lessons", "3 lessons", "4 lessons", "5 lessons"};
     private int[] lessonsPerWeekValue = {0,1,2,3,4,5};
+
+    private String[] contractDuration = {"3 months", "6 months", "12 months", "24 months"};
+    private int[] contractDurationValue = {3,6,12,24};
 
     // Default radio button settings
     private boolean isHourlyRate = true;
@@ -84,23 +88,24 @@ public class StudentDiscoverFragment extends Fragment implements View.OnClickLis
         spinnerSubject = root.findViewById(R.id.sp_subject_sd);
         spinnerCompetency = root.findViewById(R.id.sp_competency_sd);
         spinnerHoursPerLesson = root.findViewById(R.id.sp_hoursPerLesson_sd);
-        spinnerLessonsPerWeek = root.findViewById(R.id.sp_lessonsPerWeek_sp);
+        spinnerLessonsPerWeek = root.findViewById(R.id.sp_lessonsPerWeek_sd);
+        spinnerContractDuration = root.findViewById(R.id.sp_contract_duration_sd);
         Button buttonPostBid = root.findViewById(R.id.buttonPostBid);
         buttonPostBid.setOnClickListener(this);
         // Fetch subjects using GET HTTP call
         getSubjects();
+
         // Populate subject dropdown menu
         String[] subjects = {"Loading..."};
-        initializeSpinner(new ArrayList<>(Arrays.asList(subjects)), spinnerSubject);
-
+        initializeSpinner(new ArrayList<>(Arrays.asList(subjects)), spinnerSubject, 0);
         // Populate competency dropdown menu
-        initializeSpinner(new ArrayList<>(Arrays.asList(competencies)), spinnerCompetency);
-
+        initializeSpinner(new ArrayList<>(Arrays.asList(competencies)), spinnerCompetency, 0);
         // Populate hours per lesson dropdown menu
-        initializeSpinner(new ArrayList<>(Arrays.asList(hoursPerLesson)), spinnerHoursPerLesson);
-
+        initializeSpinner(new ArrayList<>(Arrays.asList(hoursPerLesson)), spinnerHoursPerLesson, 0);
         // Populate lessons per week dropdown menu
-        initializeSpinner(new ArrayList<>(Arrays.asList(lessonsPerWeek)), spinnerLessonsPerWeek);
+        initializeSpinner(new ArrayList<>(Arrays.asList(lessonsPerWeek)), spinnerLessonsPerWeek, 0);
+        // Populate contract duration dropdown menu
+        initializeSpinner(new ArrayList<>(Arrays.asList(contractDuration)), spinnerContractDuration, 1);
 
         // Set click listeners for radio group rate
         radioGroupRate = root.findViewById(R.id.rg_rate);
@@ -145,17 +150,28 @@ public class StudentDiscoverFragment extends Fragment implements View.OnClickLis
         }
     }
 
-    private void initializeSpinner(ArrayList<String> arrayList, Spinner spinner){
+    private void initializeSpinner(ArrayList<String> arrayList, Spinner spinner, int startIndex){
         ArrayAdapter<String> arrayAdapter =  new ArrayAdapter<>(
                 getActivity(), android.R.layout.simple_spinner_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
+        spinner.setSelection(startIndex);
     }
 
     // Navigate to StudentDiscover fragment after student posts a bid
     private void navigate(){
         NavDirections navAction = DiscoverFragmentDirections.actionDiscoverFragmentToBidsFragment();
         NavHostFragment.findNavController(this).navigate(navAction);
+    }
+
+    // Gets expiry date in ISO8601 format given the contract duration in months
+    private String getExpiryDate(int months){
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, months);
+        Date expiryTime = cal.getTime();
+        SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
+        String expiryDate = ISO8601.format(expiryTime);
+        return expiryDate;
     }
 
     // TODO: Replace placeholders with form input
@@ -168,7 +184,8 @@ public class StudentDiscoverFragment extends Fragment implements View.OnClickLis
         int subjectIndex = spinnerSubject.getSelectedItemPosition(),
             competencyIndex = spinnerCompetency.getSelectedItemPosition(),
             lessonsPerWeekIndex = spinnerLessonsPerWeek.getSelectedItemPosition(),
-            hoursPerLessonIndex = spinnerHoursPerLesson.getSelectedItemPosition();
+            hoursPerLessonIndex = spinnerHoursPerLesson.getSelectedItemPosition(),
+            contractDurationIndex = spinnerContractDuration.getSelectedItemPosition();
         if(subjectIndex == 0){
             Toast.makeText(getActivity(), "Please select a subject", Toast.LENGTH_SHORT).show();
             return;
@@ -208,6 +225,7 @@ public class StudentDiscoverFragment extends Fragment implements View.OnClickLis
             studentOffer.put("isRateWeekly", !isHourlyRate);
             studentOffer.put("lessonsPerWeek", lessonsPerWeekValue[lessonsPerWeekIndex]);
             studentOffer.put("hoursPerLesson", hoursPerLessonValue[hoursPerLessonIndex]);
+            studentOffer.put("contractDurationMonths", contractDurationValue[contractDurationIndex]);
             additionalInfo.put("studentOffer", studentOffer);
 
             additionalInfo.put("tutorBids", new JSONArray());
@@ -270,7 +288,7 @@ public class StudentDiscoverFragment extends Fragment implements View.OnClickLis
                         subjectNameArray.add(subject.getName());
                     }
                     // Re-initialize subject dropdown menu with fetched subjects
-                    initializeSpinner(subjectNameArray, spinnerSubject);
+                    initializeSpinner(subjectNameArray, spinnerSubject, 0);
                 } catch (JSONException e){
                     e.printStackTrace();
                 }

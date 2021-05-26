@@ -115,12 +115,31 @@
                 app:layout_constraintBottom_toBottomOf="@+id/icon_schedule_scb"
                 app:layout_constraintStart_toStartOf="@+id/tv_duration_scb" />
 
+            <ImageView
+                android:id="@+id/icon_contract_duration_scb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="@+id/icon_schedule_scb"
+                app:layout_constraintTop_toBottomOf="@+id/icon_schedule_scb"
+                app:srcCompat="@drawable/contract_duration" />
+
+            <TextView
+                android:id="@+id/tv_contract_duration_scb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contract Duration"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_contract_duration_scb"
+                app:layout_constraintStart_toStartOf="@+id/tv_schedule_scb" />
+
             <Button
                 android:id="@+id/button_message"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="130dp"
                 android:layout_height="29dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
                 android:drawableLeft="@drawable/message"
                 android:drawablePadding="2dp"
                 android:fontFamily="@font/montserrat_bold"
@@ -134,8 +153,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHeight_min="wrap"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/icon_schedule_scb"
-                app:layout_constraintVertical_bias="1.0"
+                app:layout_constraintTop_toBottomOf="@+id/icon_contract_duration_scb"
+                app:layout_constraintVertical_bias="0.0"
                 app:layout_constraintWidth_min="wrap"
                 app:rippleColor="@color/colorPrimary" />
 
@@ -155,10 +174,9 @@
                 android:textAppearance="@style/AppTheme.ActionBar.TitleText"
                 android:textColor="@color/textColorPrimary"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/button_message"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_min="wrap"
-                app:layout_constraintStart_toEndOf="@+id/button_message"
                 app:layout_constraintTop_toTopOf="@+id/button_message"
                 app:layout_constraintWidth_min="wrap" />
 

@@ -12,21 +12,6 @@
         android:paddingStart="25dp"
         android:paddingEnd="25dp">
 
-        <Button
-            android:id="@+id/buttonPostBid"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="46dp"
-            android:background="@color/colorPrimary"
-            android:fontFamily="@font/montserrat_bold"
-            android:text="Post Bid"
-            android:textColor="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView14"
-            app:layout_constraintVertical_bias="0.0" />
-
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
@@ -62,17 +47,25 @@
             app:layout_constraintStart_toStartOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-        <Spinner
-            android:id="@+id/sp_subject_sd"
+
+        <RelativeLayout
+            android:id="@+id/rl_subject_sd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:dropDownWidth="wrap_content"
-            android:popupBackground="@color/colorPrimaryDark"
-            android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            android:layout_marginTop="4dp"
+            android:background="@color/lightGray"
+            android:padding="8dp"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+            <Spinner
+                android:id="@+id/sp_subject_sd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </RelativeLayout>
+
 
         <TextView
             android:id="@+id/textView6"
@@ -84,17 +77,27 @@
             android:textColor="#3658C7"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/sp_subject_sd" />
+            app:layout_constraintTop_toBottomOf="@+id/rl_subject_sd" />
 
-        <Spinner
-            android:id="@+id/sp_competency_sd"
+
+        <RelativeLayout
+            android:id="@+id/rl_competency_sd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:spinnerMode="dropdown"
+            android:layout_marginTop="4dp"
+            android:background="@color/lightGray"
+            android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+            <Spinner
+                android:id="@+id/sp_competency_sd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/textView7"
@@ -105,13 +108,13 @@
             android:text="Rate (Hourly/Weekly)"
             android:textColor="#3658C7"
             app:layout_constraintStart_toStartOf="@+id/textView6"
-            app:layout_constraintTop_toBottomOf="@+id/sp_competency_sd" />
+            app:layout_constraintTop_toBottomOf="@+id/rl_competency_sd" />
 
         <EditText
             android:id="@+id/pt_rate_sd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:ems="10"
             android:hint="Rate ($)"
             android:inputType="numberDecimal"
@@ -149,18 +152,38 @@
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="Lessons Per Week "
             android:textColor="#3658C7"
             app:layout_constraintStart_toStartOf="@+id/rg_rate"
             app:layout_constraintTop_toBottomOf="@+id/rg_rate" />
 
+        <RelativeLayout
+            android:id="@+id/rl_lessonsPerWeek_sd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/lightGray"
+            android:padding="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/rl_hoursPerLesson_sd"
+            app:layout_constraintStart_toStartOf="@+id/textView9"
+            app:layout_constraintTop_toBottomOf="@+id/textView9">
+
+            <Spinner
+                android:id="@+id/sp_lessonsPerWeek_sd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/textView10"
             android:layout_width="130dp"
-            android:layout_height="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="Hours Per Lesson"
             android:textColor="#3658C7"
@@ -168,28 +191,53 @@
             app:layout_constraintStart_toEndOf="@+id/textView9"
             app:layout_constraintTop_toBottomOf="@+id/rg_rate" />
 
-        <Spinner
-            android:id="@+id/sp_lessonsPerWeek_sp"
+        <RelativeLayout
+            android:id="@+id/rl_hoursPerLesson_sd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toStartOf="@+id/sp_hoursPerLesson_sd"
-            app:layout_constraintStart_toStartOf="@+id/textView9"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-        <Spinner
-            android:id="@+id/sp_hoursPerLesson_sd"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:spinnerMode="dropdown"
-            app:layout_constraintBottom_toBottomOf="@+id/sp_lessonsPerWeek_sp"
+            android:layout_marginTop="4dp"
+            android:background="@color/lightGray"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/rl_lessonsPerWeek_sd"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/textView10"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+            app:layout_constraintTop_toBottomOf="@+id/textView10">
+
+            <Spinner
+                android:id="@+id/sp_hoursPerLesson_sd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/label_contract_duration_sd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Contract Duration"
+            android:textColor="#3658C7"
+            app:layout_constraintStart_toStartOf="@+id/rl_lessonsPerWeek_sd"
+            app:layout_constraintTop_toBottomOf="@+id/rl_lessonsPerWeek_sd" />
+
+        <RelativeLayout
+            android:id="@+id/rl_contract_duration_sd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/lightGray"
+            android:padding="8dp"
+            app:layout_constraintStart_toStartOf="@+id/label_contract_duration_sd"
+            app:layout_constraintTop_toBottomOf="@+id/label_contract_duration_sd">
+
+            <Spinner
+                android:id="@+id/sp_contract_duration_sd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/textView12"
@@ -199,16 +247,15 @@
             android:fontFamily="@font/montserrat_bold"
             android:text="Select Bidding Type"
             android:textColor="#3658C7"
-            app:layout_constraintStart_toStartOf="@+id/sp_lessonsPerWeek_sp"
-            app:layout_constraintTop_toBottomOf="@+id/sp_lessonsPerWeek_sp" />
+            app:layout_constraintStart_toStartOf="@+id/rl_contract_duration_sd"
+            app:layout_constraintTop_toBottomOf="@+id/rl_contract_duration_sd" />
 
         <RadioGroup
             android:id="@+id/rg_bid_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="@+id/sp_lessonsPerWeek_sp"
+            app:layout_constraintStart_toStartOf="@+id/textView12"
             app:layout_constraintTop_toBottomOf="@+id/textView12">
 
             <RadioButton
@@ -242,6 +289,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rg_bid_type" />
 
+
         <TextView
             android:id="@+id/textView14"
             android:layout_width="0dp"
@@ -255,6 +303,21 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+        <Button
+            android:id="@+id/buttonPostBid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="46dp"
+            android:background="@color/colorPrimary"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Post Bid"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView14"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
