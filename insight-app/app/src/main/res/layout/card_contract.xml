@@ -26,14 +26,15 @@
             android:id="@+id/card_constraint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="@android:color/transparent">
+            android:divider="@android:color/transparent"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
 
             <TextView
                 android:id="@+id/tv_subject_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Subject"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -170,7 +171,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
                 android:drawableStart="@drawable/sign"
                 android:drawablePadding="4dp"
                 android:fontFamily="@font/montserrat_bold"
@@ -192,13 +192,14 @@
             <TextView
                 android:id="@+id/tv_expiry_home"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginEnd="12dp"
-                android:text="Expires on + Date"
+                android:text="Expires + Date"
                 android:textAlignment="textEnd"
                 android:textColor="#AA0000"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/button_action_home"
+                android:textSize="14sp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
 

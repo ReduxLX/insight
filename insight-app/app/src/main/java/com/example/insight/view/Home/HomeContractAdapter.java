@@ -23,7 +23,12 @@ import com.example.insight.model.Contract.ContractTermsModel;
 import com.example.insight.model.JWTModel;
 import com.example.insight.model.User.UserModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Adapter class used to populate the contracts recycler view in the home screen
@@ -33,8 +38,8 @@ public class HomeContractAdapter extends RecyclerView.Adapter<HomeContractAdapte
 
     private Context context;
     private SharedPreferences prefs;
-    private int contractType;
     private NavController navController;
+    private int contractType;
 
     private ArrayList<ContractModel> contractArray = new ArrayList<>();
 
@@ -139,18 +144,44 @@ public class HomeContractAdapter extends RecyclerView.Adapter<HomeContractAdapte
     }
 
     public void updateData(ArrayList<ContractModel> contracts){
-        for (ContractModel contract: contracts){
+        contractArray = new ArrayList<>();
+        for(int i=0; i < contracts.size(); i++){
+            ContractModel contract = contracts.get(i);
+
             String jwt = prefs.getString("jwt", null);
             JWTModel jwtModel = new JWTModel(jwt);
             String userId = jwtModel.getId();
-
             String firstPartyId = contract.getFirstParty().getId();
             String secondPartyId = contract.getSecondParty().getId();
-            // Add contracts that involve the current user
+
+            Date currentDate = Calendar.getInstance().getTime();
+            Date expiryDate = null;
+            Date signDate = null;
+            SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
+            try{
+                expiryDate = ISO8601.parse(contract.getExpiryDate().replace("Z", "+0700"));
+                signDate = ISO8601.parse(contract.getDateSigned().replace("Z", "+0700"));
+            }catch(ParseException e){
+                e.printStackTrace();
+            }
+
+//            Log.i("print", "Expiry Date "+expiryDate.toString()+" | Sign Date "+signDate.toString());
+            // Filter all contracts that don't involve current user then
+            // Categorize based on contractType
             if(userId.equals(firstPartyId) || userId.equals(secondPartyId)){
-                contractArray.add(contract);
+                if(contractType == 2 && currentDate.after(expiryDate)){
+                    contractArray.add(contract);
+//                    Log.i("print", "Expired "+contract.toString());
+                }else if(contractType == 1 && currentDate.before(expiryDate) && signDate == null){
+                    contractArray.add(contract);
+//                    Log.i("print", "Pending "+contract.toString());
+                }else if(contractType == 0 && signDate != null){
+//                    Log.i("print", "Active "+contract.toString());
+                    contractArray.add(contract);
+                }
             }
         }
+
         notifyDataSetChanged();
     }
 

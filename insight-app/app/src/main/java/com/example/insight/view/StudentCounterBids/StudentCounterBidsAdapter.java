@@ -1,7 +1,9 @@
 package com.example.insight.view.StudentCounterBids;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -100,7 +102,25 @@ public class StudentCounterBidsAdapter extends RecyclerView.Adapter<StudentCount
        holder.button_sign_contract.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                createContract(tutorBid);
+                // Make a confirmation pop-up window
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+                alertDialog.setTitle("Confirmation");
+                alertDialog.setMessage("Are you sure you want to sign this contract?");
+                alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        createContract(tutorBid);
+                    }
+                });
+                alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                AlertDialog dialog = alertDialog.create();
+                dialog.show();
             }
         });
     }
@@ -127,16 +147,23 @@ public class StudentCounterBidsAdapter extends RecyclerView.Adapter<StudentCount
         }
     }
 
+    // Gets expiry date in ISO8601 format given the contract duration in months
+    private String getExpiryDate(int months){
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, months);
+        Date expiryTime = cal.getTime();
+        SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
+        String expiryDate = ISO8601.format(expiryTime);
+        return expiryDate;
+    }
+
     private void createContract(TutorBidModel tutorBid){
         JSONObject jsonBody = new JSONObject();
         // Get current and expiry dates
         Calendar cal = Calendar.getInstance();
         Date currentTime = cal.getTime();
-        cal.add(Calendar.YEAR, 1);
-        Date nextYearTime = cal.getTime();
         SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
         String currentDate = ISO8601.format(currentTime);
-        String expiryDate = ISO8601.format(nextYearTime);
         // Constructing the contract JSON Object
         try{
             BidOfferModel tutorOffer = tutorBid.getTutorOffer();
@@ -147,7 +174,7 @@ public class StudentCounterBidsAdapter extends RecyclerView.Adapter<StudentCount
             jsonBody.put("secondPartyId", tutorBid.getTutor().getId());
             jsonBody.put("subjectId", bid.getSubject().getId());
             jsonBody.put("dateCreated", currentDate);
-            jsonBody.put("expiryDate", expiryDate);
+            jsonBody.put("expiryDate", getExpiryDate(tutorBid.getTutorOffer().getContractDurationMonths()));
             jsonBody.put("paymentInfo", new JSONObject());
             jsonBody.put("lessonInfo", new JSONObject());
 
@@ -160,6 +187,7 @@ public class StudentCounterBidsAdapter extends RecyclerView.Adapter<StudentCount
             contractTerms.put("hoursPerLesson", tutorOffer.getHoursPerLesson());
             contractTerms.put("freeClasses", tutorOffer.getFreeClasses());
             contractTerms.put("competency", bid.getAdditionalInfo().getStudentOffer().getCompetency());
+            contractTerms.put("contractDurationMonths", tutorOffer.getContractDurationMonths());
 
             additionalInfo.put("contractTerms", contractTerms);
 

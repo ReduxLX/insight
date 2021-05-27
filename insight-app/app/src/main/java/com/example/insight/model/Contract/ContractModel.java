@@ -26,6 +26,8 @@ public class ContractModel {
     private UserModel secondParty;
     private SubjectModel subject;
 
+    private JSONObject contractJSON;
+
 
     public ContractModel(JSONObject contract){
         try{
@@ -41,6 +43,9 @@ public class ContractModel {
             firstParty = new UserModel(contract.getJSONObject("firstParty"));
             secondParty = new UserModel(contract.getJSONObject("secondParty"));
             subject = new SubjectModel(contract.getJSONObject("subject"));
+
+            // Store original json
+            contractJSON = contract;
 
         } catch (JSONException e){
             e.printStackTrace();
@@ -63,7 +68,7 @@ public class ContractModel {
             Date expiryDateObj = ISO8601.parse(getExpiryDate().replace("Z", "+0700"));
             assert expiryDateObj != null;
             expiryDateStr = String.format(Locale.getDefault(),
-                    "Expires on %s", DD_MM_YYYY.format(expiryDateObj));
+                    "Expires %s", DD_MM_YYYY.format(expiryDateObj));
         }catch (ParseException e){
             e.printStackTrace();
         }
@@ -109,6 +114,10 @@ public class ContractModel {
 
     public SubjectModel getSubject() {
         return subject;
+    }
+
+    public JSONObject getContractJSON() {
+        return contractJSON;
     }
 
     @Override

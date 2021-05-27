@@ -1,6 +1,8 @@
 package com.example.insight.view.TutorViewBid;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -195,7 +197,7 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_accept_tvb:
-//                createContract();
+                createContract();
                 break;
             case R.id.button_send_tvb:
                 postTutorBid();
@@ -454,19 +456,27 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
         }
     }
 
+    // Gets expiry date in ISO8601 format given the contract duration in months
+    private String getExpiryDate(int months){
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, months);
+        Date expiryTime = cal.getTime();
+        SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
+        String expiryDate = ISO8601.format(expiryTime);
+        return expiryDate;
+    }
+
     /**
      * Forms a new contract between tutor and student after tutor buys out the bid
      */
     private void createContract(){
         JSONObject jsonBody = new JSONObject();
 
+        // Get current time in ISO8601 format
         Calendar cal = Calendar.getInstance();
         Date currentTime = cal.getTime();
-        cal.add(Calendar.YEAR, 1);
-        Date nextYearTime = cal.getTime();
         SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
         String currentDate = ISO8601.format(currentTime);
-        String expiryDate = ISO8601.format(nextYearTime);
 
         try{
             String jwt = prefs.getString("jwt", null);
@@ -477,7 +487,7 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
             jsonBody.put("secondPartyId", jwtModel.getId());
             jsonBody.put("subjectId", currentBid.getSubject().getId());
             jsonBody.put("dateCreated", currentDate);
-            jsonBody.put("expiryDate", expiryDate);
+            jsonBody.put("expiryDate", getExpiryDate(studentOffer.getContractDurationMonths()));
             jsonBody.put("paymentInfo", new JSONObject());
             jsonBody.put("lessonInfo", new JSONObject());
             jsonBody.put("additionalInfo", new JSONObject());
@@ -491,6 +501,7 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
             contractTerms.put("hoursPerLesson", studentOffer.getHoursPerLesson());
             contractTerms.put("freeClasses", 0);
             contractTerms.put("competency", studentOffer.getCompetency());
+            contractTerms.put("contractDurationMonths", studentOffer.getContractDurationMonths());
 
             additionalInfo.put("contractTerms", contractTerms);
 
