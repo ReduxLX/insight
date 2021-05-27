@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
@@ -14,6 +16,9 @@ import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -25,10 +30,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.example.insight.MainActivity;
 import com.example.insight.R;
 import com.example.insight.model.Bid.BidModel;
 import com.example.insight.model.Bid.BidOfferModel;
+import com.example.insight.model.Bid.TutorBidModel;
 import com.example.insight.model.JWTModel;
+import com.example.insight.model.User.UserModel;
 import com.example.insight.service.VolleyResponseListener;
 import com.example.insight.service.VolleyUtils;
 
@@ -51,8 +59,8 @@ import java.util.Locale;
  */
 public class TutorViewBidFragment extends Fragment implements View.OnClickListener {
     private SharedPreferences prefs;
-
     private RecyclerView recyclerView;
+    private Menu mOptionsMenu;
 
     private TextView tvTimer, tvSubject, tvRate, tvDuration, tvSchedule, tvContractDuration, tvTutorLabel;
     private Button buttonBuyoutBid, buttonSendCounterBid;
@@ -62,8 +70,10 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
 
     private String currentBidId;
     private BidModel currentBid;
+    private Boolean isBookmarked = false;  // By default false (will be updated in getUser)
 
-    private int[] competenciesValue = {0,1,2,3,4,5,6,7,8,9,10};
+    private UserModel currentTutor;
+
     private String[] hoursPerLesson = {"Hours", "1 hour", "2 hours", "3 hours", "4 hours",
             "5 hours"};
     private int[] hoursPerLessonValue = {0,1,2,3,4,5};
@@ -78,14 +88,13 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
 
     private boolean isRateHourly = true;
 
-    public TutorViewBidFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_tutor_view_bid, container, false);
+        // Change title text
+        setHasOptionsMenu(true);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Student Bid");
         prefs = getActivity().getSharedPreferences("com.example.insight", Context.MODE_PRIVATE);
         // Get viewed bid id from navigation params
         TutorViewBidFragmentArgs navArgs = TutorViewBidFragmentArgs.fromBundle(getArguments());
@@ -131,10 +140,45 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
             }
         });
 
+        // Get user's bookmarked bids array from the user object
+        getUserBidBookmarks();
         // Get current bid's JSON Object and store in viewedBid
         getCurrentBid();
 
         return root;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        mOptionsMenu = menu;
+        inflater.inflate(R.menu.action_bar_actions, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_favorite:
+                if(currentTutor == null){
+                    Toast.makeText(getActivity(), "Still fetching bookmarked bids...", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+
+                if(isBookmarked){
+                    updateTutorWatchList(false);
+                    Toast.makeText(getActivity(), "Unfollowing bid", Toast.LENGTH_SHORT).show();
+                    item.setIcon(ContextCompat.getDrawable(getActivity(), R.drawable.bookmark_outline));
+                }else{
+                    updateTutorWatchList(true);
+                    Toast.makeText(getActivity(), "Following bid", Toast.LENGTH_SHORT).show();
+                    item.setIcon(ContextCompat.getDrawable(getActivity(), R.drawable.bookmark_filled));
+                }
+                isBookmarked = !isBookmarked;
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     /**
@@ -153,7 +197,7 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_accept_tvb:
-                createContract();
+//                createContract();
                 break;
             case R.id.button_send_tvb:
                 postTutorBid();
@@ -182,29 +226,9 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
             @Override
             public void onResponse(Object response) {
                 Log.i("print", "TutorViewBidFragment: "+"Get Current Bid Success");
-
                 JSONObject bidObj = (JSONObject) response;
                 currentBid = new BidModel(bidObj);
-                BidOfferModel studentOffer = currentBid.getAdditionalInfo().getStudentOffer();
-                tvSubject.setText(currentBid.getSubject().getName());
-                tvRate.setText(studentOffer.getRateStr());
-                tvSchedule.setText(studentOffer.getLessonsPerWeekStr());
-                tvDuration.setText(studentOffer.getHoursPerLessonStr());
-                tvContractDuration.setText(studentOffer.getContractDurationMonthsStr());
-                showTimer(currentBid.getAdditionalInfo().getExpiryDate());
-
-                // Change title to "No tutors" if tutorBids empty
-                int totalTutorBids = currentBid.getAdditionalInfo().getTutorBids().length();
-                if(totalTutorBids <= 0){
-                    tvTutorLabel.setText("No Tutor bids");
-                }else{
-                    tvTutorLabel.setText("All Tutor Bids ("+totalTutorBids+")");
-                }
-
-                // Populate RecyclerView
-                TutorViewBidAdapter adapter = new TutorViewBidAdapter(getActivity(), currentBid);
-                recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                updateLayout();
             }
             @Override
             public void onError(String message) {
@@ -220,6 +244,65 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
             new JSONObject(),
             listener
         );
+    }
+
+    // Update the layout after bid fetched successfully
+    private void updateLayout(){
+        // Step 1: Set bid details & timer at the top
+        BidOfferModel studentOffer = currentBid.getAdditionalInfo().getStudentOffer();
+        tvSubject.setText(currentBid.getSubject().getName());
+        tvRate.setText(studentOffer.getRateStr());
+        tvSchedule.setText(studentOffer.getLessonsPerWeekStr());
+        tvDuration.setText(studentOffer.getHoursPerLessonStr());
+        tvContractDuration.setText(studentOffer.getContractDurationMonthsStr());
+        showTimer(currentBid.getAdditionalInfo().getExpiryDate());
+
+        // Step 2: Change the tutor list title based on number of tutor bids
+        int totalTutorBids = currentBid.getAdditionalInfo().getTutorBids().length();
+        if(totalTutorBids <= 0){
+            tvTutorLabel.setText("No Tutor bids");
+        }else{
+            tvTutorLabel.setText("All Tutor Bids ("+totalTutorBids+")");
+        }
+
+        // Step 3: Check if the current user (tutor) has posted a counter bid
+        // If yes, pre-fill the form with their posted bid and change button to updateBid
+        JSONArray tutorBids = currentBid.getAdditionalInfo().getTutorBids();
+        try {
+            for (int i=0; i < tutorBids.length(); i++){
+                // Get tutor bid's tutor id
+                JSONObject tutorBidObj = tutorBids.getJSONObject(i);
+                TutorBidModel tutorBid = new TutorBidModel(tutorBidObj);
+                String userBidId = tutorBid.getTutor().getId();
+                // Get current user's id
+                String jwt = prefs.getString("jwt", null);
+                JWTModel jwtModel = new JWTModel(jwt);
+                String userId = jwtModel.getId();
+                // If they match, use this bid to pre-fill the form
+                if(userId.equals(userBidId)){
+                    BidOfferModel tutorOffer = tutorBid.getTutorOffer();
+                    spinnerHoursPerLesson.setSelection(tutorOffer.getHoursPerLessonDropdownIndex());
+                    spinnerLessonsPerWeek.setSelection(tutorOffer.getLessonsPerWeekDropdownIndex());
+                    spinnerFreeClass.setSelection(tutorOffer.getFreeClassesDropdownIndex());
+                    spinnerContractDuration.setSelection(tutorOffer.getContractDurationDropdownIndex());
+                    etRate.setText(String.valueOf(tutorOffer.getRate()));
+                    buttonSendCounterBid.setText("Update Bid");
+                    if(tutorOffer.isRateHourly()){
+                        radioGroupRate.check(R.id.rb_hourly_tvb);
+                    }else if(tutorOffer.isRateWeekly()){
+                        radioGroupRate.check(R.id.rb_weekly_tvb);
+                    }
+                    break;
+                }
+            }
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        // Step 4: Populate the tutor list recyclerview
+        TutorViewBidAdapter adapter = new TutorViewBidAdapter(getActivity(), currentBid);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     /**
@@ -253,6 +336,19 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
         try{
             // Clone tutorBids JSONArray to prevent duplicates being appended
             JSONArray tutorBids = new JSONArray(currentBid.getAdditionalInfo().getTutorBids().toString());
+            String jwt = prefs.getString("jwt", null);
+            JWTModel jwtModel = new JWTModel(jwt);
+
+            Log.i("print", "Tutor Bids Before Update: "+ tutorBids.toString());
+
+            // Step 0: Check if tutor has existing bid, if yes delete it so we can replace
+            String userId = jwtModel.getId();
+            final int searchIndex = currentBid.getAdditionalInfo().searchTutorBids(userId);
+            if(searchIndex != -1){
+                tutorBids.remove(searchIndex);
+            }
+
+            Log.i("print", "Tutor Bids After Update: "+ tutorBids.toString());
 
             // Step 1: Use the additionalInfo from current bid as a starting template
             JSONObject additionalInfo = currentBid.getAdditionalInfo().parseIntoJSON();
@@ -261,8 +357,6 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
             JSONObject tutorBid = new JSONObject();
             tutorBid.put("dateCreated", currentDate);
 
-            String jwt = prefs.getString("jwt", null);
-            JWTModel jwtModel = new JWTModel(jwt);
             JSONObject tutor = new JSONObject();
             tutor.put("id", jwtModel.getId());
             tutor.put("givenName", jwtModel.getGivenName());
@@ -296,7 +390,11 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
                 @Override
                 public void onResponse(Object response) {
                     Log.i("print", "TutorViewBidFragment: "+"Post Tutor Bid Success");
-                    Toast.makeText(getActivity(), "Tutor Bid Posted", Toast.LENGTH_SHORT).show();
+                    if(searchIndex != -1){
+                        Toast.makeText(getActivity(), "Tutor Bid Updated", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getActivity(), "Tutor Bid Posted", Toast.LENGTH_SHORT).show();
+                    }
                     navigateTutorBids();
                 }
                 @Override
@@ -424,6 +522,78 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void getUserBidBookmarks(){
+        String jwt = prefs.getString("jwt", null);
+        JWTModel jwtModel = new JWTModel(jwt);
+
+        VolleyResponseListener listener = new VolleyResponseListener() {
+            @Override
+            public void onResponse(Object response) {
+                JSONObject userObj = (JSONObject) response;
+                currentTutor = new UserModel(userObj);
+                Log.i("print", "TutorViewBidFragment: User Bookmarks"+currentTutor.getAdditionalInfo().toString());
+                // Update bookmarked status
+                Boolean tutorHasBookmarkedBid = currentTutor.getAdditionalInfo().searchBid(currentBidId);
+                if(tutorHasBookmarkedBid){
+                    isBookmarked = true;
+                    mOptionsMenu.findItem(R.id.action_favorite).setIcon(R.drawable.bookmark_filled);
+                }
+            }
+            @Override
+            public void onError(String message) {
+                Log.i("print", "TutorViewBidFragment: " +"Get User Failed "+message);
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        VolleyUtils.makeJsonObjectRequest(
+                getActivity(),
+                "user/"+jwtModel.getId(),
+                Request.Method.GET,
+                new JSONObject(),
+                listener
+        );
+    }
+
+    // Adds or removed the current bid from tutor's watchlist
+    private void updateTutorWatchList(final Boolean addBookmark){
+        if(currentTutor == null){
+            Toast.makeText(getActivity(), "Still fetching bookmarked bids...", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String jwt = prefs.getString("jwt", null);
+        JWTModel jwtModel = new JWTModel(jwt);
+
+        // Add/Remove bookmarked ID from model's arraylist
+        if(addBookmark) currentTutor.getAdditionalInfo().addBidId(currentBidId);
+        else currentTutor.getAdditionalInfo().removeBidId(currentBidId);
+
+        VolleyResponseListener listener = new VolleyResponseListener() {
+            @Override
+            public void onResponse(Object response) {
+                if(addBookmark){
+                    Toast.makeText(getActivity(), "Bid added to watchlist", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getActivity(), "Bid removed from watchlist", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onError(String message) {
+                Log.i("print", "TutorViewBidFragment: " +"Failed to update watchlist "+message);
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            }
+        };
+        Log.i("print", "Update User: "+currentTutor.parseIntoJSON().toString());
+        VolleyUtils.makeJsonObjectRequest(
+                getActivity(),
+                "user/"+jwtModel.getId(),
+                Request.Method.PUT,
+                currentTutor.parseIntoJSON(),
+                listener
+        );
     }
 
     private void showTimer(String expiryDateStr) {

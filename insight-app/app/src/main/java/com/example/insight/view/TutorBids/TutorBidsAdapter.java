@@ -56,6 +56,7 @@ public class TutorBidsAdapter extends RecyclerView.Adapter<TutorBidsAdapter.Tuto
         final TutorBidModel tutorBid = tutorBidArray.get(position);
         BidOfferModel tutorOffer = tutorBid.getTutorOffer();
         holder.name.setText(studentBid.getInitiator().getFullName());
+        holder.totalTutorBids.setText(studentBid.getAdditionalInfo().getTutorBidsStr());
         holder.subject.setText(studentBid.getSubjectAndCompetencyStr());
         holder.rate.setText(tutorOffer.getRateStr());
         holder.freeClasses.setText(tutorOffer.getFreeClassesStr());
@@ -81,12 +82,13 @@ public class TutorBidsAdapter extends RecyclerView.Adapter<TutorBidsAdapter.Tuto
     }
 
     static class TutorBidsViewHolder extends RecyclerView.ViewHolder {
-        TextView subject, name, rate, hoursPerLesson, lessonsPerWeek, freeClasses, contractDuration;
+        TextView subject, name, rate, hoursPerLesson, lessonsPerWeek, freeClasses, contractDuration, totalTutorBids;
         Button button_message;
 
         TutorBidsViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.tv_name_tb);
+            totalTutorBids = itemView.findViewById(R.id.tv_total_tutor_bids_tb);
             subject = itemView.findViewById(R.id.tv_subject_tb);
             rate = itemView.findViewById(R.id.tv_rate_tb);
             hoursPerLesson = itemView.findViewById(R.id.tv_duration_tb);

@@ -21,8 +21,7 @@ import com.example.insight.R;
 import com.example.insight.model.Contract.ContractModel;
 import com.example.insight.model.Contract.ContractTermsModel;
 import com.example.insight.model.JWTModel;
-import com.example.insight.model.UserModel;
-import com.example.insight.view.DiscoverFragmentDirections;
+import com.example.insight.model.User.UserModel;
 
 import java.util.ArrayList;
 

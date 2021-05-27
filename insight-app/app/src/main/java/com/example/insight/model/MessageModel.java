@@ -1,5 +1,7 @@
 package com.example.insight.model;
 
+import com.example.insight.model.User.UserModel;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 

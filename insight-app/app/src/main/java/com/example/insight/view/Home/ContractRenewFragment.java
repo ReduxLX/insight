@@ -22,7 +22,7 @@ import com.android.volley.Request;
 import com.example.insight.R;
 import com.example.insight.model.Contract.ContractModel;
 import com.example.insight.model.JWTModel;
-import com.example.insight.model.UserModel;
+import com.example.insight.model.User.UserModel;
 import com.example.insight.service.VolleyResponseListener;
 import com.example.insight.service.VolleyUtils;
 

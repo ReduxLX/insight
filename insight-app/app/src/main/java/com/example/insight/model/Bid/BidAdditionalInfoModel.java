@@ -36,6 +36,25 @@ public class BidAdditionalInfoModel {
         return json;
     };
 
+    // Search and return index of tutor if found, else null
+    public int searchTutorBids(String tutorId){
+        try {
+            for (int i=0; i < getTutorBids().length(); i++){
+                // Get tutor bid's tutor id
+                JSONObject tutorBidObj = getTutorBids().getJSONObject(i);
+                TutorBidModel tutorBid = new TutorBidModel(tutorBidObj);
+                String currentTutorId = tutorBid.getTutor().getId();
+                // If they match, remove the bid
+                if(tutorId.equals(currentTutorId)){
+                    return i;
+                }
+            }
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
     public BidOfferModel getStudentOffer() {
         return studentOffer;
     }

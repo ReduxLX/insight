@@ -1,6 +1,6 @@
 package com.example.insight.model.Bid;
 
-import com.example.insight.model.UserModel;
+import com.example.insight.model.User.UserModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;

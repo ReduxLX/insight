@@ -1,4 +1,4 @@
-package com.example.insight.model;
+package com.example.insight.model.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,6 +14,8 @@ public class UserModel {
     private String userName;
     private boolean isStudent;
     private boolean isTutor;
+    private boolean isAdmin;
+    private UserAdditionalInfoModel additionalInfo;
 
     public UserModel(JSONObject user){
         try{
@@ -23,6 +25,8 @@ public class UserModel {
             userName = user.getString("userName");
             isStudent = user.getBoolean("isStudent");
             isTutor = user.getBoolean("isTutor");
+            isAdmin = user.getBoolean("isAdmin");
+            additionalInfo = new UserAdditionalInfoModel(user.getJSONObject("additionalInfo"));
 
         } catch (JSONException e){
             e.printStackTrace();
@@ -57,6 +61,29 @@ public class UserModel {
         return isTutor;
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public UserAdditionalInfoModel getAdditionalInfo() {
+        return additionalInfo;
+    }
+
+    public JSONObject parseIntoJSON(){
+        JSONObject json = new JSONObject();
+        try{
+            json.put("givenName", getGivenName());
+            json.put("familyName", getFamilyName());
+            json.put("isStudent", isStudent());
+            json.put("isTutor", isTutor());
+            json.put("isAdmin", isAdmin());
+            json.put("additionalInfo", getAdditionalInfo().parseIntoJSON());
+        } catch(JSONException e){
+            e.printStackTrace();
+        }
+        return json;
+    };
+
     @Override
     public String toString() {
         return "UserModel{" +
@@ -66,6 +93,8 @@ public class UserModel {
                 ", userName='" + userName + '\'' +
                 ", isStudent=" + isStudent +
                 ", isTutor=" + isTutor +
+                ", isAdmin=" + isAdmin +
+                ", additionalInfo=" + additionalInfo +
                 '}';
     }
 }

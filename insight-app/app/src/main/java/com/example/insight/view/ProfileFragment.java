@@ -14,9 +14,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.insight.LoginActivity;
-import com.example.insight.MainActivity;
 import com.example.insight.R;
-import com.example.insight.model.JWTModel;
 
 
 /**

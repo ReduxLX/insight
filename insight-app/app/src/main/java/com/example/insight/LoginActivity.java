@@ -17,20 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
-import com.auth0.android.jwt.Claim;
-import com.auth0.android.jwt.JWT;
 import com.example.insight.model.JWTModel;
 import com.example.insight.service.VolleyResponseListener;
 import com.example.insight.service.VolleyUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Map;
 
 /**
  * The first Activity the user encounters primarily used to login

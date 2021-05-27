@@ -1,16 +1,13 @@
 package com.example.insight.model.Contract;
 
-import android.util.Log;
-
 import com.example.insight.model.SubjectModel;
-import com.example.insight.model.UserModel;
+import com.example.insight.model.User.UserModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
