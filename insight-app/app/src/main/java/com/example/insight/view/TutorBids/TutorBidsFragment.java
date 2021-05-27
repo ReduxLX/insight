@@ -21,6 +21,7 @@ import com.example.insight.R;
 import com.example.insight.model.Bid.BidModel;
 import com.example.insight.model.Bid.TutorBidModel;
 import com.example.insight.model.JWTModel;
+import com.example.insight.model.User.UserModel;
 import com.example.insight.service.VolleyResponseListener;
 import com.example.insight.service.VolleyUtils;
 
@@ -39,6 +40,8 @@ public class TutorBidsFragment extends Fragment {
     private NavController navController;
     private SharedPreferences prefs;
 
+    private UserModel currentTutor;
+
     public TutorBidsFragment() {
         // Required empty public constructor
     }
@@ -53,9 +56,36 @@ public class TutorBidsFragment extends Fragment {
         navController = NavHostFragment.findNavController(this);
         prefs = getActivity().getSharedPreferences("com.example.insight", Context.MODE_PRIVATE);
 
-        getTutorBids();
+        getUserBidBookmarks();
 
         return root;
+    }
+
+    private void getUserBidBookmarks(){
+        String jwt = prefs.getString("jwt", null);
+        JWTModel jwtModel = new JWTModel(jwt);
+
+        VolleyResponseListener listener = new VolleyResponseListener() {
+            @Override
+            public void onResponse(Object response) {
+                JSONObject userObj = (JSONObject) response;
+                currentTutor = new UserModel(userObj);
+                // Get Tutor's Involved bids after knowing their bookmarked bids
+                getTutorBids();
+            }
+            @Override
+            public void onError(String message) {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        VolleyUtils.makeJsonObjectRequest(
+                getActivity(),
+                "user/"+jwtModel.getId(),
+                Request.Method.GET,
+                new JSONObject(),
+                listener
+        );
     }
 
     private void getTutorBids(){
@@ -63,40 +93,10 @@ public class TutorBidsFragment extends Fragment {
             @Override
             public void onResponse(Object response) {
                 Log.i("print", "TutorBidsFragment: " +"Get Tutor Bids Success");
-                ArrayList<BidModel> bidArray = new ArrayList<>();
-                ArrayList<TutorBidModel> tutorBidArray = new ArrayList<>();
                 JSONArray bids = (JSONArray) response;
-                try{
-                    // Loop through all student bids
-                    for (int i=0; i < bids.length(); i++) {
-                        JSONObject bidObj = bids.getJSONObject(i);
-                        BidModel bid = new BidModel(bidObj);
-                        JSONArray tutorBids = bid.getAdditionalInfo().getTutorBids();
-                        // For each student bids, loop through each tutor bids
-                        for (int j=0; j < tutorBids.length(); j++){
-                            JSONObject tutorBidObj = tutorBids.getJSONObject(j);
-                            TutorBidModel tutorBid = new TutorBidModel(tutorBidObj);
-                            // Check if tutor has posted a bid (involved in this student's bid)
-                            // If yes then add the current bid model object to the array list
-                            String jwt = prefs.getString("jwt", null);
-                            JWTModel jwtModel = new JWTModel(jwt);
-                            String userId = jwtModel.getId();
-
-                            // Filter for non-closed bids with tutor
-                            if(userId.equals(tutorBid.getTutor().getId()) && bid.getDateClosedDown().equals("null")){
-                                // TODO: Use bidModel getters to create cards
-                                bidArray.add(bid);
-                                tutorBidArray.add(tutorBid);
-                            }
-                        }
-                    }
-
-                    TutorBidsAdapter adapter = new TutorBidsAdapter(getActivity(), navController, bidArray, tutorBidArray);
-                    recyclerView.setAdapter(adapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                } catch (JSONException e){
-                    e.printStackTrace();
-                }
+                TutorBidsAdapter adapter = new TutorBidsAdapter(getActivity(), navController, bids, currentTutor);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             }
             @Override
             public void onError(String message) {

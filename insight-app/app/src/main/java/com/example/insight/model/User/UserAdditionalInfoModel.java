@@ -21,7 +21,7 @@ public class UserAdditionalInfoModel {
                 bookmarkedBidIds.add(bidId);
             }
         } catch (JSONException e){
-            Log.i("print", "No Bookmarked bids");
+//            Log.i("print", "No Bookmarked bids "+additionalInfo.toString());
         }
     }
 

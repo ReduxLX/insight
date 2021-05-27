@@ -166,11 +166,9 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
 
                 if(isBookmarked){
                     updateTutorWatchList(false);
-                    Toast.makeText(getActivity(), "Unfollowing bid", Toast.LENGTH_SHORT).show();
                     item.setIcon(ContextCompat.getDrawable(getActivity(), R.drawable.bookmark_outline));
                 }else{
                     updateTutorWatchList(true);
-                    Toast.makeText(getActivity(), "Following bid", Toast.LENGTH_SHORT).show();
                     item.setIcon(ContextCompat.getDrawable(getActivity(), R.drawable.bookmark_filled));
                 }
                 isBookmarked = !isBookmarked;
@@ -575,9 +573,9 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
             @Override
             public void onResponse(Object response) {
                 if(addBookmark){
-                    Toast.makeText(getActivity(), "Bid added to watchlist", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Following Bid", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(getActivity(), "Bid removed from watchlist", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Unfollowing Bid", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override

@@ -180,7 +180,7 @@
                 android:includeFontPadding="false"
                 android:minWidth="0dp"
                 android:minHeight="0dp"
-                android:text="View Bid"
+                android:text="Update Bid"
                 android:textAllCaps="false"
                 android:textColor="@color/textColorPrimary"
                 android:textSize="12sp"
