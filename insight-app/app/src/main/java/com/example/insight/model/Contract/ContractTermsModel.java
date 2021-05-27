@@ -1,6 +1,8 @@
 package com.example.insight.model.Contract;
 
 
+import android.util.Log;
+
 import com.example.insight.R;
 
 import org.json.JSONException;
@@ -71,6 +73,10 @@ public class ContractTermsModel {
         }
     }
 
+    public String getCompetencyDetails(){
+        return "Level "+String.valueOf(getCompetency())+" ("+getCompetencyStr()+")";
+    }
+
     public int getCompetencyResource(){
         switch(getCompetency()){
             case 1:
@@ -95,6 +101,51 @@ public class ContractTermsModel {
                 return R.drawable.level_ten;
             default:
                 return R.drawable.level_one;
+        }
+    }
+
+    // Helper functions to convert values to their dropdown item index
+    // Note that a change in dropdown ordering will require updating these functions
+    public int getHoursPerLessonDropdownIndex(){
+        switch(getHoursPerLesson()){
+            case 1: return 1;
+            case 2: return 2;
+            case 3: return 3;
+            case 4: return 4;
+            case 5: return 5;
+            default: return 0;
+        }
+    }
+
+    public int getLessonsPerWeekDropdownIndex(){
+        switch(getLessonsPerWeek()){
+            case 1: return 1;
+            case 2: return 2;
+            case 3: return 3;
+            case 4: return 4;
+            case 5: return 5;
+            default: return 0;
+        }
+    }
+
+    public int getFreeClassesDropdownIndex(){
+        switch(getFreeClasses()){
+            case 1: return 1;
+            case 2: return 2;
+            case 3: return 3;
+            case 4: return 4;
+            case 5: return 5;
+            default: return 0;
+        }
+    }
+
+    public int getContractDurationDropdownIndex(){
+        switch(getContractDurationMonths()){
+            case 3: return 0;
+            case 6: return 1;
+            case 12: return 2;
+            case 24: return 3;
+            default: return 1;
         }
     }
     public int getContractDurationMonths() {

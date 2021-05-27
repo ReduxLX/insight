@@ -160,7 +160,7 @@ public class ChatFragment extends Fragment {
             };
 
             Log.i("print", "ChatFragment: "+jsonBody.toString());
-            VolleyUtils.makeJsonObjectRequest(
+            VolleyUtils.makeJSONObjectRequest(
                 getActivity(),
                 "message",
                 Request.Method.POST,

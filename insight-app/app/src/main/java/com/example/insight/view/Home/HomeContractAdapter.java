@@ -1,7 +1,9 @@
 package com.example.insight.view.Home;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,15 +15,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
 import com.example.insight.R;
 import com.example.insight.model.Contract.ContractModel;
 import com.example.insight.model.Contract.ContractTermsModel;
 import com.example.insight.model.JWTModel;
 import com.example.insight.model.User.UserModel;
+import com.example.insight.service.VolleyResponseListener;
+import com.example.insight.service.VolleyUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,14 +50,20 @@ public class HomeContractAdapter extends RecyclerView.Adapter<HomeContractAdapte
     private SharedPreferences prefs;
     private NavController navController;
     private int contractType;
+    private HomeFragment homeFragment;
 
     private ArrayList<ContractModel> contractArray = new ArrayList<>();
 
-    public HomeContractAdapter(Context ctx, NavController navController, ArrayList<ContractModel> contracts, int contractType){
+    public HomeContractAdapter(Context ctx,
+                               NavController navController,
+                               ArrayList<ContractModel> contracts,
+                               int contractType,
+                               HomeFragment fragment){
         context = ctx;
         prefs = ctx.getSharedPreferences("com.example.insight", Context.MODE_PRIVATE);
         this.navController = navController;
         this.contractType = contractType;
+        homeFragment = fragment;
 
         updateData(contracts);
     }
@@ -87,19 +103,35 @@ public class HomeContractAdapter extends RecyclerView.Adapter<HomeContractAdapte
         holder.expiryDate.setText(contract.getExpiryDateStr());
         holder.competencyCircle.setImageResource(contractTerms.getCompetencyResource());
 
-        // Pending Contract button -> Signs contract
-        if(contractType == 1){
+        // Enable Pending Sign contract only to tutors, Expired Renew button only to students
+        if(contractType == 1 && jwtModel.isTutor()){
             holder.buttonAction.setVisibility(View.VISIBLE);
             holder.buttonAction.setText(R.string.sign_contract);
             holder.buttonAction.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-//                    createContract(tutorBid);
-                    Toast.makeText(context, "Pending Action", Toast.LENGTH_SHORT).show();
+                    // Make a confirmation pop-up window
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+                    alertDialog.setTitle("Confirmation");
+                    alertDialog.setMessage("Are you sure you want to sign this contract?");
+                    alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            signContract(contract.getId());
+                        }
+                    });
+                    alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog dialog = alertDialog.create();
+                    dialog.show();
                 }
             });
 
-        }else if(contractType == 2){
+        }else if(contractType == 2 && jwtModel.isStudent()){
             holder.buttonAction.setVisibility(View.VISIBLE);
             holder.buttonAction.setText(R.string.renew_contract);
             holder.buttonAction.setOnClickListener(new View.OnClickListener(){
@@ -110,7 +142,6 @@ public class HomeContractAdapter extends RecyclerView.Adapter<HomeContractAdapte
                             contract.getId()
                     );
                     navController.navigate(navAction);
-                    Toast.makeText(context, "Expired Action", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -165,24 +196,52 @@ public class HomeContractAdapter extends RecyclerView.Adapter<HomeContractAdapte
                 e.printStackTrace();
             }
 
-//            Log.i("print", "Expiry Date "+expiryDate.toString()+" | Sign Date "+signDate.toString());
-            // Filter all contracts that don't involve current user then
-            // Categorize based on contractType
+            // Categorize contracts that involve user into 3 tabs
             if(userId.equals(firstPartyId) || userId.equals(secondPartyId)){
                 if(contractType == 2 && currentDate.after(expiryDate)){
                     contractArray.add(contract);
-//                    Log.i("print", "Expired "+contract.toString());
                 }else if(contractType == 1 && currentDate.before(expiryDate) && signDate == null){
                     contractArray.add(contract);
-//                    Log.i("print", "Pending "+contract.toString());
                 }else if(contractType == 0 && signDate != null){
-//                    Log.i("print", "Active "+contract.toString());
                     contractArray.add(contract);
                 }
             }
         }
 
         notifyDataSetChanged();
+    }
+
+    private void signContract(String contractId){
+        VolleyResponseListener listener = new VolleyResponseListener() {
+            @Override
+            public void onResponse(Object response) {
+                Log.i("print", "HomeContractAdapter: "+"Sign Contract Success");
+                homeFragment.getContracts();
+                Toast.makeText(context, "Contract Signed", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onError(String message) {
+                Log.i("print", "ContractRenewFragment: "+"Sign Contract Failed ");
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+            }
+        };
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
+        String currentDate = ISO8601.format(currentTime);
+        JSONObject jsonBody = new JSONObject();
+        try{
+            jsonBody.put("dateSigned", currentDate);
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        VolleyUtils.makeJSONObjectRequest(
+                context,
+                "contract/"+contractId+"/sign",
+                Request.Method.POST,
+                jsonBody,
+                listener
+        );
     }
 
 }

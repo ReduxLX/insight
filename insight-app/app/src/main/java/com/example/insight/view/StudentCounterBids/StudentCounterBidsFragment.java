@@ -85,7 +85,7 @@ public class StudentCounterBidsFragment extends Fragment {
             }
         };
 
-        VolleyUtils.makeJsonObjectRequest(
+        VolleyUtils.makeJSONObjectRequest(
                 getActivity(),
                 "bid/"+currentBidId,
                 Request.Method.GET,

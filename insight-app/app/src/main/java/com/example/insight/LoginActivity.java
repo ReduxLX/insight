@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             };
 
-            VolleyUtils.makeJsonObjectRequest(
+            VolleyUtils.makeJSONObjectRequest(
                 this,
                 "user/login?jwt=true",
                 Request.Method.POST,

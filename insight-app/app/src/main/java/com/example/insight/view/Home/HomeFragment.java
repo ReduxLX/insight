@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
@@ -22,6 +23,7 @@ import com.example.insight.model.Contract.ContractModel;
 import com.example.insight.model.JWTModel;
 import com.example.insight.service.VolleyResponseListener;
 import com.example.insight.service.VolleyUtils;
+import com.example.insight.view.Chat.ChatFragmentArgs;
 import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
@@ -35,6 +37,8 @@ import java.util.ArrayList;
  * Fragment class for the Home screen
  */
 public class HomeFragment extends Fragment {
+    private NavController navController;
+    private ViewPager viewPager;
 
     private HomeContractAdapter activeAdapter;
     private HomeContractAdapter pendingAdapter;
@@ -51,8 +55,8 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        ViewPager viewPager = root.findViewById(R.id.view_pager_home);
-        NavController navController = NavHostFragment.findNavController(this);
+        viewPager = root.findViewById(R.id.view_pager_home);
+        navController = NavHostFragment.findNavController(this);
 
         // Get the current user's name from jwt
         SharedPreferences prefs = getActivity().getSharedPreferences("com.example.insight", Context.MODE_PRIVATE);
@@ -64,13 +68,14 @@ public class HomeFragment extends Fragment {
 
         // Initialize Recycler view adapters for the 3 tab fragments
         HomeSectionsPagerAdapter pagerAdapter = new HomeSectionsPagerAdapter(getChildFragmentManager());
-        activeAdapter = new HomeContractAdapter(getActivity(), navController, contractArray, 0);
+
+        activeAdapter = new HomeContractAdapter(getActivity(), navController, contractArray, 0, HomeFragment.this);
         pagerAdapter.addFragment(new HomeContractFragment(activeAdapter, 0), "Active");
 
-        pendingAdapter = new HomeContractAdapter(getActivity(), navController, contractArray, 1);
+        pendingAdapter = new HomeContractAdapter(getActivity(), navController, contractArray, 1, HomeFragment.this);
         pagerAdapter.addFragment(new HomeContractFragment(pendingAdapter, 1), "Pending");
 
-        expiredAdapter = new HomeContractAdapter(getActivity(), navController, contractArray, 2);
+        expiredAdapter = new HomeContractAdapter(getActivity(), navController, contractArray, 2, HomeFragment.this);
         pagerAdapter.addFragment(new HomeContractFragment(expiredAdapter, 2), "Expired");
 
 
@@ -78,18 +83,18 @@ public class HomeFragment extends Fragment {
         TabLayout tabs = root.findViewById(R.id.tabs_home);
         tabs.setupWithViewPager(viewPager);
 
+        // Get contracts
         getContracts();
 
         return root;
     }
 
-    private void getContracts(){
+    public void getContracts(){
         VolleyResponseListener listener = new VolleyResponseListener() {
             @Override
             public void onResponse(Object response) {
-                Log.i("print", "HomeFragment: "+"Get Contracts Success");
                 JSONArray contracts = (JSONArray) response;
-
+                contractArray.clear();
                 try {
                     for (int j=0; j < contracts.length(); j++){
                         JSONObject contractObj = contracts.getJSONObject(j);

@@ -32,7 +32,7 @@ public class VolleyUtils {
      * Helper method to create and add a new JSONObjectRequest instance to the Volley Queue
      * Use this method if the expected HTTP response is a JSON Object
      */
-    public static void makeJsonObjectRequest(Context context, String urlEndpoint,  int requestType,
+    public static void makeJSONObjectRequest(Context context, String urlEndpoint,  int requestType,
                                              JSONObject body, final VolleyResponseListener listener) {
         final String requestBody = body.toString();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -49,6 +49,7 @@ public class VolleyUtils {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     String errorMsg = "Unknown error";
+                    Log.i("print", "Volley Error: "+error.toString());
                     // Get response body and encode in UTF-8
                     if(error.networkResponse != null && error.networkResponse.data!=null) {
                         String response = new String(error.networkResponse.data, StandardCharsets.UTF_8);
@@ -78,9 +79,15 @@ public class VolleyUtils {
             @Override
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
                 try {
+                    Log.i("print", "Response Data: "+response.toString());
                     String jsonString = new String(response.data,
                             HttpHeaderParser.parseCharset(response.headers, PROTOCOL_CHARSET));
-                    return Response.success(new JSONObject(jsonString),
+                    JSONObject result = null;
+
+                    if (jsonString != null && jsonString.length() > 0)
+                        result = new JSONObject(jsonString);
+
+                    return Response.success(result,
                             HttpHeaderParser.parseCacheHeaders(response));
                 } catch (UnsupportedEncodingException | JSONException e) {
                     return Response.error(new ParseError(e));
@@ -112,12 +119,19 @@ public class VolleyUtils {
             new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    String body = "Unknown error";
+                    String errorMsg = "Unknown error";
+                    Log.i("print", "Volley Error: "+error.toString());
                     // Get response body and encode in UTF-8
                     if(error.networkResponse != null && error.networkResponse.data!=null) {
-                        body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                        String response = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                        try {
+                            JSONObject responseJSON = new JSONObject(response);
+                            errorMsg = responseJSON.getString("message");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
-                    listener.onError(body);
+                    listener.onError(errorMsg);
                 }
             }
         ) {

@@ -8,6 +8,8 @@
     <string name="tab_home_3">Expired</string>
     <string name="sign_contract">Sign Contract</string>
     <string name="renew_contract">Renew Contract</string>
+    <string name="renewal_info_1">The terms above are based on your previous contract. You are allowed to modify the tutor and terms manually except for Subject and Competency.</string>
+    <string name="renewal_info_2">Renewal requests need to be signed by the tutor you have selected. In the meantime, any active renewal requests can be found under the pending tab.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -11,4 +11,6 @@
     <color name="background">#FAFAFA</color>
     <color name="white">#FFFFFF</color>
     <color name="textColorPrimary">#000000</color>
+    <color name="enabledColor">#000000</color>
+    <color name="disabledColor">#000000</color>
 </resources>

@@ -244,7 +244,7 @@ public class StudentDiscoverFragment extends Fragment implements View.OnClickLis
             };
             Log.i("print", "Post Bid JSON"+ jsonBody.toString());
 
-            VolleyUtils.makeJsonObjectRequest(
+            VolleyUtils.makeJSONObjectRequest(
                 getActivity(),
                 "bid",
                 Request.Method.POST,

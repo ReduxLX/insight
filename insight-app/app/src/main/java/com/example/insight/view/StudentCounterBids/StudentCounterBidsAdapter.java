@@ -210,7 +210,7 @@ public class StudentCounterBidsAdapter extends RecyclerView.Adapter<StudentCount
 
             Log.i("print", "Form Contract: "+jsonBody.toString());
 
-            VolleyUtils.makeJsonObjectRequest(
+            VolleyUtils.makeJSONObjectRequest(
                     context,
                     "contract",
                     Request.Method.POST,
@@ -243,7 +243,7 @@ public class StudentCounterBidsAdapter extends RecyclerView.Adapter<StudentCount
                 }
             };
 
-            VolleyUtils.makeJsonObjectRequest(
+            VolleyUtils.makeJSONObjectRequest(
                     context,
                     "bid/"+bid.getId()+"/close-down",
                     Request.Method.POST,

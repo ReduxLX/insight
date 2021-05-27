@@ -1,8 +1,6 @@
 package com.example.insight.view.TutorViewBid;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -237,7 +235,7 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
             }
         };
 
-        VolleyUtils.makeJsonObjectRequest(
+        VolleyUtils.makeJSONObjectRequest(
             getActivity(),
             "bid/"+currentBidId,
             Request.Method.GET,
@@ -405,7 +403,7 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
             };
 
             Log.i("print", "TutorViewBidFragment: "+"Post Tutor Bid JSON "+jsonBody);
-            VolleyUtils.makeJsonObjectRequest(
+            VolleyUtils.makeJSONObjectRequest(
                 getActivity(),
                 "bid/"+currentBidId,
                 Request.Method.PATCH,
@@ -444,7 +442,7 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
                 }
             };
             Log.i("print", "Buy out bid " + jsonBody.toString());
-            VolleyUtils.makeJsonObjectRequest(
+            VolleyUtils.makeJSONObjectRequest(
                 getActivity(),
                 "bid/"+currentBidId+"/close-down",
                 Request.Method.POST,
@@ -521,7 +519,7 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
                 }
             };
             Log.i("print", "Form Contract: "+jsonBody.toString());
-            VolleyUtils.makeJsonObjectRequest(
+            VolleyUtils.makeJSONObjectRequest(
                 getActivity(),
                 "contract",
                 Request.Method.POST,
@@ -557,7 +555,7 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
             }
         };
 
-        VolleyUtils.makeJsonObjectRequest(
+        VolleyUtils.makeJSONObjectRequest(
                 getActivity(),
                 "user/"+jwtModel.getId(),
                 Request.Method.GET,
@@ -596,7 +594,7 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
             }
         };
         Log.i("print", "Update User: "+currentTutor.parseIntoJSON().toString());
-        VolleyUtils.makeJsonObjectRequest(
+        VolleyUtils.makeJSONObjectRequest(
                 getActivity(),
                 "user/"+jwtModel.getId(),
                 Request.Method.PUT,

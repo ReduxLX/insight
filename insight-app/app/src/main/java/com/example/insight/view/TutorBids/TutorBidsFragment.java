@@ -79,7 +79,7 @@ public class TutorBidsFragment extends Fragment {
             }
         };
 
-        VolleyUtils.makeJsonObjectRequest(
+        VolleyUtils.makeJSONObjectRequest(
                 getActivity(),
                 "user/"+jwtModel.getId(),
                 Request.Method.GET,
