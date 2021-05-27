@@ -76,6 +76,18 @@ public class ContractModel {
         return expiryDateStr;
     }
 
+    public Date getExpiryDateObj(){
+        Date expiryDateObj = null;
+        SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
+        try{
+            expiryDateObj = ISO8601.parse(getExpiryDate().replace("Z", "+0700"));
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        return expiryDateObj;
+    }
+
     public String getId() {
         return id;
     }

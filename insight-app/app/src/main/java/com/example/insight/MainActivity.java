@@ -24,6 +24,7 @@ import java.util.Set;
  */
 public class MainActivity extends AppCompatActivity {
     private NavController navController;
+    private boolean showedLoginWarning = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,12 @@ public class MainActivity extends AppCompatActivity {
         return super.onSupportNavigateUp();
     }
 
+    public void setShowedLoginWarning(boolean showedLoginWarning){
+        this.showedLoginWarning = showedLoginWarning;
+    }
 
+    public boolean hasShowedLoginWarning(){
+        return this.showedLoginWarning;
+    }
 
 }
