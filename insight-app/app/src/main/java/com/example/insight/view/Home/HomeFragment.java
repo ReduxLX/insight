@@ -110,7 +110,6 @@ public class HomeFragment extends Fragment {
                 String userId = jwtModel.getId();
 
                 Date dateAfterOneMonth = cal.getTime();
-                Log.i("print", "Date After One Month: "+ dateAfterOneMonth.toString());
                 try {
                     for (int j=0; j < contracts.length(); j++){
                         JSONObject contractObj = contracts.getJSONObject(j);

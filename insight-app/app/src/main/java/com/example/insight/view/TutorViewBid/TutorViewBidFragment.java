@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -61,6 +62,8 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
     private SharedPreferences prefs;
     private RecyclerView recyclerView;
     private Menu mOptionsMenu;
+    Handler handler = new Handler();
+    Runnable runnable;
 
     private TextView tvTimer, tvSubject, tvRate, tvDuration, tvSchedule, tvContractDuration, tvTutorLabel;
     private Button buttonBuyoutBid, buttonSendCounterBid;
@@ -143,7 +146,10 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
         // Get user's bookmarked bids array from the user object
         getUserBidBookmarks();
         // Get current bid's JSON Object and store in viewedBid
-        getCurrentBid();
+        getCurrentBid(false);
+
+        // Get tutor bids every 10 seconds
+        refreshTutorBids(10000);
 
         return root;
     }
@@ -177,6 +183,13 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.i("print", "onStop");
+        handler.removeCallbacks(runnable);
     }
 
     /**
@@ -217,16 +230,21 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
 
 
     /**
-     * Get current viewed bid's details
+     * Get current viewed bid's details and update everything (first time run)
+     * or only the tutor bids (so that tutor form wouldn't refresh when they are filling it)
      */
-    private void getCurrentBid(){
+    private void getCurrentBid(final boolean updateOnlyTutorBids){
         VolleyResponseListener listener = new VolleyResponseListener() {
             @Override
             public void onResponse(Object response) {
-                Log.i("print", "TutorViewBidFragment: "+"Get Current Bid Success");
                 JSONObject bidObj = (JSONObject) response;
+                Log.i("print", "TutorViewBidFragment: "+"Get Current Bid Success "+bidObj.toString());
                 currentBid = new BidModel(bidObj);
-                updateLayout();
+                // Only update bid details and form one time
+                if(!updateOnlyTutorBids){
+                    updateBidDetails();
+                }
+                updateTutorList();
             }
             @Override
             public void onError(String message) {
@@ -244,8 +262,8 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
         );
     }
 
-    // Update the layout after bid fetched successfully
-    private void updateLayout(){
+    // Updates the student bid terms and prefills form (if tutor is involved)
+    private void updateBidDetails(){
         // Step 1: Set bid details & timer at the top
         BidOfferModel studentOffer = currentBid.getAdditionalInfo().getStudentOffer();
         tvSubject.setText(currentBid.getSubject().getName());
@@ -254,14 +272,6 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
         tvDuration.setText(studentOffer.getHoursPerLessonStr());
         tvContractDuration.setText(studentOffer.getContractDurationMonthsStr());
         showTimer(currentBid.getAdditionalInfo().getExpiryDate());
-
-        // Step 2: Change the tutor list title based on number of tutor bids
-        int totalTutorBids = currentBid.getAdditionalInfo().getTutorBids().length();
-        if(totalTutorBids <= 0){
-            tvTutorLabel.setText("No Tutor bids");
-        }else{
-            tvTutorLabel.setText("All Tutor Bids ("+totalTutorBids+")");
-        }
 
         // Step 3: Check if the current user (tutor) has posted a counter bid
         // If yes, pre-fill the form with their posted bid and change button to updateBid
@@ -297,7 +307,21 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
             e.printStackTrace();
         }
 
-        // Step 4: Populate the tutor list recyclerview
+    }
+
+    // Updates the tutor list
+    private void updateTutorList(){
+        Log.i("print", "TutorViewBidFragment: Updating Tutor Bid List");
+        // Change the tutor list title based on number of tutor bids
+        int totalTutorBids = currentBid.getAdditionalInfo().getTutorBids().length();
+        if(totalTutorBids <= 0){
+            tvTutorLabel.setText("No Tutor bids");
+        }else{
+            tvTutorLabel.setText("All Tutor Bids ("+totalTutorBids+")");
+        }
+
+
+        // Populate the tutor list recyclerview
         TutorViewBidAdapter adapter = new TutorViewBidAdapter(getActivity(), currentBid);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -362,6 +386,7 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
             tutor.put("userName", jwtModel.getUsername());
             tutor.put("isStudent", jwtModel.isStudent());
             tutor.put("isTutor", jwtModel.isTutor());
+            tutor.put("isAdmin", false);
             tutorBid.put("tutor", tutor);
 
             JSONObject tutorOffer = new JSONObject();
@@ -604,7 +629,6 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
     }
 
     private void showTimer(String expiryDateStr) {
-        Log.i("print", "Expiry time now : " + expiryDateStr);
         Calendar expiryDate = Calendar.getInstance();
         SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
 
@@ -617,8 +641,6 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
         }
 
         Calendar currentTime = Calendar.getInstance();
-        Log.i("print", "Current time now : " + currentTime.getTime());
-        Log.i("print", "Expiry time now : " + expiryDate.getTime());
         long difference = expiryDate.getTimeInMillis() - currentTime.getTimeInMillis();
 
         new CountDownTimer(difference, 1000) {
@@ -653,6 +675,18 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
                 tvTimer.setText("Count down completed");
             }
         }.start();
+    }
+
+    private void refreshTutorBids(final int milliseconds){
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                Log.i("print", "Re-fetching tutor bids");
+                getCurrentBid(true);
+                handler.postDelayed(this, milliseconds);
+            }
+        };
+        handler.postDelayed(runnable, milliseconds);
     }
 
 }
