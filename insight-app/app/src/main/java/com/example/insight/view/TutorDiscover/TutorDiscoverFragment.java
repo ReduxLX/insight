@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.example.insight.MainActivity;
 import com.example.insight.R;
 import com.example.insight.service.VolleyResponseListener;
 import com.example.insight.service.VolleyUtils;
@@ -41,6 +42,7 @@ public class TutorDiscoverFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_tutor_discover, container, false);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Bid Marketplace");
 
         recyclerView = root.findViewById(R.id.rv_tutor_discover);
         navController = NavHostFragment.findNavController(this);

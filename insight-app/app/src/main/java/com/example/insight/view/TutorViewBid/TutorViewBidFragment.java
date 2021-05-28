@@ -143,6 +143,10 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
             }
         });
 
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
+        String currentDate = ISO8601.format(currentTime);
+        Log.i("print", "Current Date: "+ currentDate);
         // Get user's bookmarked bids array from the user object
         getUserBidBookmarks();
         // Get current bid's JSON Object and store in viewedBid
@@ -336,6 +340,7 @@ public class TutorViewBidFragment extends Fragment implements View.OnClickListen
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
         String currentDate = ISO8601.format(currentTime);
+
         // Precondition: Validate inputs
         int lessonsPerWeekIndex = spinnerLessonsPerWeek.getSelectedItemPosition(),
             hoursPerLessonIndex = spinnerHoursPerLesson.getSelectedItemPosition(),

@@ -61,6 +61,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Home Page");
         prefs = getActivity().getSharedPreferences("com.example.insight", Context.MODE_PRIVATE);
         navController = NavHostFragment.findNavController(this);
         viewPager = root.findViewById(R.id.view_pager_home);
@@ -101,6 +102,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Object response) {
                 JSONArray contracts = (JSONArray) response;
+                Log.i("print", "HomeFragment: Get Contracts Success "+contracts.toString());
                 int closeToExpiryContracts = 0;
                 contractArray.clear();
                 Calendar cal = Calendar.getInstance();

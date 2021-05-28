@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.example.insight.MainActivity;
 import com.example.insight.R;
 import com.example.insight.model.JWTModel;
 import com.example.insight.model.SubjectModel;
@@ -79,6 +80,7 @@ public class StudentDiscoverFragment extends Fragment implements View.OnClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_student_discover, container, false);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Post Bid Page");
         prefs = getActivity().getSharedPreferences("com.example.insight", Context.MODE_PRIVATE);
 
         etRate = root.findViewById(R.id.pt_rate_sd);

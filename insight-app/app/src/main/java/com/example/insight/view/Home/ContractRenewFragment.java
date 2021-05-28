@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.example.insight.MainActivity;
 import com.example.insight.R;
 import com.example.insight.model.Bid.BidOfferModel;
 import com.example.insight.model.Competency.CompetencyModel;
@@ -75,6 +76,7 @@ public class ContractRenewFragment extends Fragment implements View.OnClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_contract_renew, container, false);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Contract Renewal Page");
         prefs = getActivity().getSharedPreferences("com.example.insight", Context.MODE_PRIVATE);
 
         etSubject = root.findViewById(R.id.et_subject_cr);

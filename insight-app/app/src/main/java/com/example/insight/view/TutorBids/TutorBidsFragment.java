@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.example.insight.MainActivity;
 import com.example.insight.R;
 import com.example.insight.model.Bid.BidModel;
 import com.example.insight.model.Bid.TutorBidModel;
@@ -51,6 +52,7 @@ public class TutorBidsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_tutor_bids, container, false);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Tutor Monitoring Dashboard");
 
         recyclerView = root.findViewById(R.id.rv_tutor_bids);
         navController = NavHostFragment.findNavController(this);
