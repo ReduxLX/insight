@@ -79,7 +79,6 @@ public class VolleyUtils {
             @Override
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
                 try {
-                    Log.i("print", "Response Data: "+response.toString());
                     String jsonString = new String(response.data,
                             HttpHeaderParser.parseCharset(response.headers, PROTOCOL_CHARSET));
                     JSONObject result = null;

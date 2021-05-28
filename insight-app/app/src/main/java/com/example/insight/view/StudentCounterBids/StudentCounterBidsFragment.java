@@ -95,7 +95,6 @@ public class StudentCounterBidsFragment extends Fragment {
     }
 
     private void showTimer(String expiryDateStr) {
-        Log.i("print", "Expiry time now : " + expiryDateStr);
         Calendar expiryDate = Calendar.getInstance();
         SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
 
@@ -108,8 +107,6 @@ public class StudentCounterBidsFragment extends Fragment {
         }
 
         Calendar currentTime = Calendar.getInstance();
-        Log.i("print", "Current time now : " + currentTime.getTime());
-        Log.i("print", "Expiry time now : " + expiryDate.getTime());
         long difference = expiryDate.getTimeInMillis() - currentTime.getTimeInMillis();
 
         new CountDownTimer(difference, 1000) {

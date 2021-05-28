@@ -1,5 +1,7 @@
 package com.example.insight.model.User;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,8 +27,11 @@ public class UserModel {
             userName = user.getString("userName");
             isStudent = user.getBoolean("isStudent");
             isTutor = user.getBoolean("isTutor");
-            isAdmin = user.getBoolean("isAdmin");
             additionalInfo = new UserAdditionalInfoModel(user.getJSONObject("additionalInfo"));
+            try{
+                isAdmin = user.getBoolean("isAdmin");
+            } catch(JSONException ignored){
+            }
 
         } catch (JSONException e){
             e.printStackTrace();
